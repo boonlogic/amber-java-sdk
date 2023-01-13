@@ -53,7 +53,7 @@ import org.openapitools.client.JSON;
 /**
  * ConfigResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T13:40:02.482575-06:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:06:47.098836-06:00[America/Chicago]")
 public class ConfigResponse {
   public static final String SERIALIZED_NAME_STREAMING_WINDOW = "streamingWindow";
   @SerializedName(SERIALIZED_NAME_STREAMING_WINDOW)

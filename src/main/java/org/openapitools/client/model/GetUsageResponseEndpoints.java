@@ -49,7 +49,7 @@ import org.openapitools.client.JSON;
 /**
  * GetUsageResponseEndpoints
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T13:40:02.482575-06:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:06:47.098836-06:00[America/Chicago]")
 public class GetUsageResponseEndpoints {
   public static final String SERIALIZED_NAME_GET_MODEL = "getModel";
   @SerializedName(SERIALIZED_NAME_GET_MODEL)

@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * PretrainStatus
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T13:40:02.482575-06:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:06:47.098836-06:00[America/Chicago]")
 public class PretrainStatus {
   /**
    * Pretraining status of the model. One of: &#x60;None&#x60;, &#x60;Chunking&#x60;, &#x60;Pretraining&#x60;, &#x60;Pretrained&#x60;.

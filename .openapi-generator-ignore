@@ -23,5 +23,5 @@
 #!docs/README.md
 
 # src/test/java/org/openapitools/client/api/*.java # changing DefaultApiTests
-git_push.sh # dont need this file
+*git_push.sh
 .gitignore
