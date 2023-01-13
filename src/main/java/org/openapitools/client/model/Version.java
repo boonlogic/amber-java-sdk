@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * Version
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:06:47.098836-06:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:13:44.158456-06:00[America/Chicago]")
 public class Version {
   public static final String SERIALIZED_NAME_API_VERSION = "api-version";
   @SerializedName(SERIALIZED_NAME_API_VERSION)

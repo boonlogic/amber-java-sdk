@@ -52,7 +52,7 @@ import org.openapitools.client.JSON;
 /**
  * Config
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:06:47.098836-06:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T15:13:44.158456-06:00[America/Chicago]")
 public class Config {
   public static final String SERIALIZED_NAME_STREAMING_WINDOW = "streamingWindow";
   @SerializedName(SERIALIZED_NAME_STREAMING_WINDOW)

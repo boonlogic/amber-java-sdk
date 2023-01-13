@@ -39,13 +39,11 @@ docs/PutDataResponse.md
 docs/PutModelRequest.md
 docs/TrainingConfig.md
 docs/Version.md
-git_push.sh
 gradle.properties
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
-pom.xml
 settings.gradle
 src/main/AndroidManifest.xml
 src/main/java/org/openapitools/client/ApiCallback.java

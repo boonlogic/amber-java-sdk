@@ -25,3 +25,4 @@
 # src/test/java/org/openapitools/client/api/*.java # changing DefaultApiTests
 *git_push.sh
 .gitignore
+pom.xml
