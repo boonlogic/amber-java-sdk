@@ -2,7 +2,7 @@ export SHELL := /bin/bash
 export PYTHONPATH := $(shell pwd)
 
 generate:
-	openapi-generator generate -i amber-api.json -g java
+	openapi-generator generate -i amber-api.yml -g java
 
 init:
 	[ -f ./target/junit-platform-console-standalone-1.9.2.jar ] && true || \
