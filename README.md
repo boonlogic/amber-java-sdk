@@ -2,7 +2,7 @@
 
 Amber API Server
 - API version: 2.0.0
-  - Build date: 2023-01-13T15:13:44.158456-06:00[America/Chicago]
+  - Build date: 2023-01-13T16:08:34.904323-06:00[America/Chicago]
 
 Boon Logic Amber API server
 
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>org.openapitools</groupId>
+  <groupId>org.boonamber</groupId>
   <artifactId>openapi-java-client</artifactId>
   <version>2.0.0</version>
   <scope>compile</scope>
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:2.0.0"
+     implementation "org.boonamber:openapi-java-client:2.0.0"
   }
 ```
 
@@ -80,12 +80,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
