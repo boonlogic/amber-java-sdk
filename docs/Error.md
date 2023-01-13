@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**code** | **Integer** |  |  [optional] |
-|**message** | **String** |  |  [optional] |
+|**code** | **Integer** | HTTP status code. |  [optional] |
+|**message** | **String** | Error description. |  [optional] |
 
 
 

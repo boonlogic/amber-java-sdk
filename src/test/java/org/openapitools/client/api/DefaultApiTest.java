@@ -57,7 +57,7 @@ public class DefaultApiTest {
     
     public DefaultApiTest() {
     	try {
-    		this.api = new DefaultApi();
+    		this.api = new DefaultApi("default", "/Users/elise/.Amber.license");
     	} catch(Exception e) {
     		System.out.println(e);
     	}
@@ -205,6 +205,7 @@ public class DefaultApiTest {
     public void getVersionTest() throws ApiException {
         Version response = api.getVersion();
         // TODO: test validations
+        Assertions.assertNotNull(response.getNanoSecure());
     }
 
     /**

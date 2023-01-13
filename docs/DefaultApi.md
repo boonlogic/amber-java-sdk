@@ -1,36 +1,38 @@
 # DefaultApi
 
-All URIs are relative to *http://amber.boonlogic.com/v1*
+All URIs are relative to *http://amber.boonlogic.com/v2*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteSensor**](DefaultApi.md#deleteSensor) | **DELETE** /sensor | Delete a sensor instance |
-| [**getAmberSummary**](DefaultApi.md#getAmberSummary) | **GET** /__summary | Get the JSON block of the amber image |
-| [**getConfig**](DefaultApi.md#getConfig) | **GET** /config | Get the current configuration of a sensor instance |
-| [**getPretrain**](DefaultApi.md#getPretrain) | **GET** /pretrain | Get status of pretrain operation |
-| [**getRootCause**](DefaultApi.md#getRootCause) | **GET** /rootCause | Get root cause analysis information from a sensor |
-| [**getSensor**](DefaultApi.md#getSensor) | **GET** /sensor | Get basic information about a sensor instance |
-| [**getSensors**](DefaultApi.md#getSensors) | **GET** /sensors | List all sensors for this user |
-| [**getStatus**](DefaultApi.md#getStatus) | **GET** /status | Get analytic information from a sensor |
-| [**getVersion**](DefaultApi.md#getVersion) | **GET** /version | Retrieves API version information |
-| [**postConfig**](DefaultApi.md#postConfig) | **POST** /config | Apply configuration to a sensor instance |
-| [**postOauth2**](DefaultApi.md#postOauth2) | **POST** /oauth2 | Request a bearer token using Amber account credentials |
-| [**postOutage**](DefaultApi.md#postOutage) | **POST** /outage | Informs the server of an outage |
-| [**postPretrain**](DefaultApi.md#postPretrain) | **POST** /pretrain | Pretrain a sensor using historical data |
-| [**postSensor**](DefaultApi.md#postSensor) | **POST** /sensor | Create a new a sensor instance |
-| [**postStream**](DefaultApi.md#postStream) | **POST** /stream | Stream data to a sensor |
-| [**putConfig**](DefaultApi.md#putConfig) | **PUT** /config | Update configuration for a sensor instance |
-| [**putSensor**](DefaultApi.md#putSensor) | **PUT** /sensor | Update label for a sensor instance |
-| [**putStream**](DefaultApi.md#putStream) | **PUT** /stream | Stream data to a sensor fusion vector |
+| [**deleteModel**](DefaultApi.md#deleteModel) | **DELETE** /models/{modelId} | delete a model |
+| [**getBlame**](DefaultApi.md#getBlame) | **GET** /models/{modelId}/blame | perform root cause analysis |
+| [**getConfig**](DefaultApi.md#getConfig) | **GET** /models/{modelId}/config | get model configuration |
+| [**getData**](DefaultApi.md#getData) | **GET** /models/{modelId}/data | get the current fusion vector |
+| [**getModel**](DefaultApi.md#getModel) | **GET** /models/{modelId} | get model metadata |
+| [**getModels**](DefaultApi.md#getModels) | **GET** /models | list all models |
+| [**getPretrain**](DefaultApi.md#getPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress |
+| [**getStatus**](DefaultApi.md#getStatus) | **GET** /models/{modelId}/status | get current status of the model |
+| [**getUsage**](DefaultApi.md#getUsage) | **GET** /models/{modelId}/usage | get model usage metrics |
+| [**getVersion**](DefaultApi.md#getVersion) | **GET** /version | get version information |
+| [**postConfig**](DefaultApi.md#postConfig) | **POST** /models/{modelId}/config | configure a model |
+| [**postData**](DefaultApi.md#postData) | **POST** /models/{modelId}/data | send data to model and get back results |
+| [**postModel**](DefaultApi.md#postModel) | **POST** /models | create a model |
+| [**postOauth2Access**](DefaultApi.md#postOauth2Access) | **POST** /oauth2/access | request an API token given license and secret key |
+| [**postOauth2Refresh**](DefaultApi.md#postOauth2Refresh) | **POST** /oauth2/refresh | request an API token given a refresh token |
+| [**postOutage**](DefaultApi.md#postOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming |
+| [**postPretrain**](DefaultApi.md#postPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset |
+| [**putConfig**](DefaultApi.md#putConfig) | **PUT** /models/{modelId}/config | update model configuration |
+| [**putData**](DefaultApi.md#putData) | **PUT** /models/{modelId}/data | update fusion vector and get back results |
+| [**putModel**](DefaultApi.md#putModel) | **PUT** /models/{modelId} | update model metadata |
 
 
-<a name="deleteSensor"></a>
-# **deleteSensor**
-> Error deleteSensor(sensorId)
+<a name="deleteModel"></a>
+# **deleteModel**
+> deleteModel(modelId)
 
-Delete a sensor instance
+delete a model
 
-Deletes the sensor instance with the specified sensorId.
+Permanently delete the specified model.
 
 ### Example
 ```java
@@ -45,21 +47,20 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
+    String modelId = "modelId_example"; // String | 
     try {
-      Error result = apiInstance.deleteSensor(sensorId);
-      System.out.println(result);
+      apiInstance.deleteModel(modelId);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#deleteSensor");
+      System.err.println("Exception when calling DefaultApi#deleteModel");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -73,37 +74,36 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
+| **modelId** | **String**|  | |
 
 ### Return type
 
-[**Error**](Error.md)
+null (empty response body)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
+| **200** | OK |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getAmberSummary"></a>
-# **getAmberSummary**
-> GetSummaryResponse getAmberSummary(sensorId)
+<a name="getBlame"></a>
+# **getBlame**
+> List&lt;FeatureBlame&gt; getBlame(modelId, clusters, vectors)
 
-Get the JSON block of the amber image
+perform root cause analysis
 
-Returns the json block of the amber sensor
+Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
 
 ### Example
 ```java
@@ -118,21 +118,23 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
+    String modelId = "modelId_example"; // String | 
+    String clusters = "clusters_example"; // String | Clusters to analyze (list of comma-separated integers).
+    String vectors = "vectors_example"; // String | Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
     try {
-      GetSummaryResponse result = apiInstance.getAmberSummary(sensorId);
+      List<FeatureBlame> result = apiInstance.getBlame(modelId, clusters, vectors);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getAmberSummary");
+      System.err.println("Exception when calling DefaultApi#getBlame");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -146,37 +148,39 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
+| **modelId** | **String**|  | |
+| **clusters** | **String**| Clusters to analyze (list of comma-separated integers). | [optional] |
+| **vectors** | **String**| Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. | [optional] |
 
 ### Return type
 
-[**GetSummaryResponse**](GetSummaryResponse.md)
+[**List&lt;FeatureBlame&gt;**](FeatureBlame.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
+| **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="getConfig"></a>
 # **getConfig**
-> GetConfigResponse getConfig(sensorId)
+> ConfigResponse getConfig(modelId)
 
-Get the current configuration of a sensor instance
+get model configuration
 
-Returns the current configuration of the sensor instance specified.
+Get the configuration of the specified model.
 
 ### Example
 ```java
@@ -191,18 +195,18 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
+    String modelId = "modelId_example"; // String | 
     try {
-      GetConfigResponse result = apiInstance.getConfig(sensorId);
+      ConfigResponse result = apiInstance.getConfig(modelId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getConfig");
@@ -219,37 +223,34 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
+| **modelId** | **String**|  | |
 
 ### Return type
 
-[**GetConfigResponse**](GetConfigResponse.md)
+[**ConfigResponse**](ConfigResponse.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
+| **200** | OK |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getPretrain"></a>
-# **getPretrain**
-> GetPretrainResponse getPretrain(sensorId)
+<a name="getData"></a>
+# **getData**
+> GetDataResponse getData(modelId)
 
-Get status of pretrain operation
-
-Get status of a sensor which is currently pretraining.
+get the current fusion vector
 
 ### Example
 ```java
@@ -264,18 +265,233 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
+    String modelId = "modelId_example"; // String | 
     try {
-      GetPretrainResponse result = apiInstance.getPretrain(sensorId);
+      GetDataResponse result = apiInstance.getData(modelId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getData");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+
+### Return type
+
+[**GetDataResponse**](GetDataResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getModel"></a>
+# **getModel**
+> Model getModel(modelId)
+
+get model metadata
+
+Return metadata for the specified model.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      Model result = apiInstance.getModel(modelId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getModel");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+
+### Return type
+
+[**Model**](Model.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getModels"></a>
+# **getModels**
+> List&lt;Model&gt; getModels(verbose)
+
+list all models
+
+Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String verbose = "verbose_example"; // String | If `true`, include full model metadata.
+    try {
+      List<Model> result = apiInstance.getModels(verbose);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getModels");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **verbose** | **String**| If &#x60;true&#x60;, include full model metadata. | [optional] |
+
+### Return type
+
+[**List&lt;Model&gt;**](Model.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getPretrain"></a>
+# **getPretrain**
+> PretrainStatus getPretrain(modelId)
+
+get pretraining progress
+
+Get the pretraining status of the specified model.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      PretrainStatus result = apiInstance.getPretrain(modelId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getPretrain");
@@ -292,257 +508,36 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
+| **modelId** | **String**|  | |
 
 ### Return type
 
-[**GetPretrainResponse**](GetPretrainResponse.md)
+[**PretrainStatus**](PretrainStatus.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Sensor is not pretraining |  -  |
-| **202** | Sensor is currently pretraining |  -  |
-| **400** | Bad request |  -  |
-| **500** | Internal server error |  -  |
+| **200** | OK |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
-
-<a name="getRootCause"></a>
-# **getRootCause**
-> List&lt;List&lt;Float&gt;&gt; getRootCause(sensorId, clusterID, pattern)
-
-Get root cause analysis information from a sensor
-
-Returns analytic information on the root cause for the clusters provided.
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
-    
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    String clusterID = "clusterID_example"; // String | An array of cluster IDs
-    String pattern = "pattern_example"; // String | Patterns to compare to the nano model for the root cause analysis
-    try {
-      List<List<Float>> result = apiInstance.getRootCause(sensorId, clusterID, pattern);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getRootCause");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **clusterID** | **String**| An array of cluster IDs | [optional] |
-| **pattern** | **String**| Patterns to compare to the nano model for the root cause analysis | [optional] |
-
-### Return type
-
-[**List&lt;List&lt;Float&gt;&gt;**](List.md)
-
-### Authorization
-
-[authorize-amber-pool](../README.md#authorize-amber-pool)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
-| **500** | Internal server error |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
-
-<a name="getSensor"></a>
-# **getSensor**
-> GetSensorResponse getSensor(sensorId)
-
-Get basic information about a sensor instance
-
-Returns basic information about an existing sensor instance.
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
-    
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    try {
-      GetSensorResponse result = apiInstance.getSensor(sensorId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getSensor");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-
-### Return type
-
-[**GetSensorResponse**](GetSensorResponse.md)
-
-### Authorization
-
-[authorize-amber-pool](../README.md#authorize-amber-pool)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="getSensors"></a>
-# **getSensors**
-> List&lt;SensorInstance&gt; getSensors()
-
-List all sensors for this user
-
-Returns a list of all current sensor instances for this user.
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
-    
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    try {
-      List<SensorInstance> result = apiInstance.getSensors();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getSensors");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**List&lt;SensorInstance&gt;**](SensorInstance.md)
-
-### Authorization
-
-[authorize-amber-pool](../README.md#authorize-amber-pool)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="getStatus"></a>
 # **getStatus**
-> GetStatusResponse getStatus(sensorId)
+> ModelStatus getStatus(modelId)
 
-Get analytic information from a sensor
+get current status of the model
 
-Returns analytic information derived from data processed by a sensor thus far.
+Get the current state and learning progress of the specified model.
 
 ### Example
 ```java
@@ -557,18 +552,18 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
+    String modelId = "modelId_example"; // String | 
     try {
-      GetStatusResponse result = apiInstance.getStatus(sensorId);
+      ModelStatus result = apiInstance.getStatus(modelId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getStatus");
@@ -585,35 +580,36 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
+| **modelId** | **String**|  | |
 
 ### Return type
 
-[**GetStatusResponse**](GetStatusResponse.md)
+[**ModelStatus**](ModelStatus.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
+| **200** | OK |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getVersion"></a>
-# **getVersion**
-> Version getVersion()
+<a name="getUsage"></a>
+# **getUsage**
+> GetUsageResponse getUsage(modelId)
 
-Retrieves API version information
+get model usage metrics
+
+Return usage metrics for the specified model.
 
 ### Example
 ```java
@@ -628,13 +624,85 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      GetUsageResponse result = apiInstance.getUsage(modelId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getUsage");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+
+### Return type
+
+[**GetUsageResponse**](GetUsageResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getVersion"></a>
+# **getVersion**
+> Version getVersion()
+
+get version information
+
+Return version information for the API.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     try {
@@ -660,26 +728,27 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success, version information returned |  -  |
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="postConfig"></a>
 # **postConfig**
-> PostConfigResponse postConfig(sensorId, postConfigRequest)
+> ConfigResponse postConfig(modelId, postConfigRequest)
 
-Apply configuration to a sensor instance
+configure a model
 
-Applies the provided configuration to the sensor instance specified.
+Configure the specified model. Wipes all progress and puts the model in the &#x60;Buffering&#x60; state.
 
 ### Example
 ```java
@@ -694,19 +763,19 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    PostConfigRequest postConfigRequest = new PostConfigRequest(); // PostConfigRequest | Sensor configuration to be applied
+    String modelId = "modelId_example"; // String | 
+    Config postConfigRequest = new Config(); // Config | configuration to apply
     try {
-      PostConfigResponse result = apiInstance.postConfig(sensorId, postConfigRequest);
+      ConfigResponse result = apiInstance.postConfig(modelId, postConfigRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#postConfig");
@@ -723,103 +792,38 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **postConfigRequest** | [**PostConfigRequest**](PostConfigRequest.md)| Sensor configuration to be applied | |
+| **modelId** | **String**|  | |
+| **postConfigRequest** | **Config**| configuration to apply | [optional] |
 
 ### Return type
 
-[**PostConfigResponse**](PostConfigResponse.md)
+[**ConfigResponse**](ConfigResponse.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
+| **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
-| **500** | Internal server error |  -  |
-| **503** | Server busy |  -  |
-
-<a name="postOauth2"></a>
-# **postOauth2**
-> PostAuth2Response postOauth2(postAuth2Request)
-
-Request a bearer token using Amber account credentials
-
-Requests a bearer token using Amber account credentials. The requested bearer token is returned as the \&quot;id-token\&quot; response attribute. This token is to be used for authenticating API requests throughout a usage session and expires after 60 minutes.
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    PostAuth2Request postAuth2Request = new PostAuth2Request(); // PostAuth2Request | Account credentials to be used for authentication
-    try {
-      PostAuth2Response result = apiInstance.postOauth2(postAuth2Request);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postOauth2");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **postAuth2Request** | [**PostAuth2Request**](PostAuth2Request.md)| Account credentials to be used for authentication | |
-
-### Return type
-
-[**PostAuth2Response**](PostAuth2Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="postOutage"></a>
-# **postOutage**
-> PostOutageResponse postOutage(sensorId)
+<a name="postData"></a>
+# **postData**
+> PostDataResponse postData(modelId, postDataRequest)
 
-Informs the server of an outage
+send data to model and get back results
 
-Clears the load buffer of streaming window and resets statistics. Returns stream status
+Send data to the specified model, and get back the resulting analytics and model status.
 
 ### Example
 ```java
@@ -834,19 +838,295 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
+    String modelId = "modelId_example"; // String | 
+    PostDataRequest postDataRequest = new PostDataRequest(); // PostDataRequest | data vector or vectors as a flattened list of comma-separated values
     try {
-      PostOutageResponse result = apiInstance.postOutage(sensorId);
+      PostDataResponse result = apiInstance.postData(modelId, postDataRequest);
       System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postData");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+| **postDataRequest** | [**PostDataRequest**](PostDataRequest.md)| data vector or vectors as a flattened list of comma-separated values | |
+
+### Return type
+
+[**PostDataResponse**](PostDataResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postModel"></a>
+# **postModel**
+> Model postModel(postModelRequest)
+
+create a model
+
+Create a new model and return its unique identifier.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    PostModelRequest postModelRequest = new PostModelRequest(); // PostModelRequest | initial metadata for new model
+    try {
+      Model result = apiInstance.postModel(postModelRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postModel");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **postModelRequest** | [**PostModelRequest**](PostModelRequest.md)| initial metadata for new model | |
+
+### Return type
+
+[**Model**](Model.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postOauth2Access"></a>
+# **postOauth2Access**
+> PostOauth2AccessResponse postOauth2Access(postOauth2AccessRequest)
+
+request an API token given license and secret key
+
+Request an Oauth2 Bearer token.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    PostOauth2AccessRequest postOauth2AccessRequest = new PostOauth2AccessRequest(); // PostOauth2AccessRequest | Amber account credentials
+    try {
+      PostOauth2AccessResponse result = apiInstance.postOauth2Access(postOauth2AccessRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postOauth2Access");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **postOauth2AccessRequest** | [**PostOauth2AccessRequest**](PostOauth2AccessRequest.md)| Amber account credentials | |
+
+### Return type
+
+[**PostOauth2AccessResponse**](PostOauth2AccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postOauth2Refresh"></a>
+# **postOauth2Refresh**
+> PostOauth2RefreshResponse postOauth2Refresh(postOauth2RefreshRequest)
+
+request an API token given a refresh token
+
+Request an Oauth2 Bearer token.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    PostOauth2RefreshRequest postOauth2RefreshRequest = new PostOauth2RefreshRequest(); // PostOauth2RefreshRequest | Amber account credentials
+    try {
+      PostOauth2RefreshResponse result = apiInstance.postOauth2Refresh(postOauth2RefreshRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postOauth2Refresh");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **postOauth2RefreshRequest** | [**PostOauth2RefreshRequest**](PostOauth2RefreshRequest.md)| Amber account credentials | |
+
+### Return type
+
+[**PostOauth2RefreshResponse**](PostOauth2RefreshResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postOutage"></a>
+# **postOutage**
+> postOutage(modelId)
+
+call this after a data outage before resuming streaming
+
+Resets the streaming window generated by &#x60;streamingWindow&#x60;. This endpoint should be called after a data outage before resuming streaming.
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      apiInstance.postOutage(modelId);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#postOutage");
       System.err.println("Status code: " + e.getCode());
@@ -862,37 +1142,34 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
+| **modelId** | **String**|  | |
 
 ### Return type
 
-[**PostOutageResponse**](PostOutageResponse.md)
+null (empty response body)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
+| **200** | OK |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="postPretrain"></a>
 # **postPretrain**
-> PostPretrainResponse postPretrain(sensorId, postPretrainRequest, amberChunk, amberTransaction, pretrainAsync)
+> PostPretrainResponse postPretrain(modelId, postPretrainRequest, chunkspec, token)
 
-Pretrain a sensor using historical data
-
-Pretrains a sensor. Ingoing data should be formatted as a simple string of comma-separated numbers with no spaces.
+pretrain model with an existing dataset
 
 ### Example
 ```java
@@ -907,22 +1184,21 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    PostPretrainRequest postPretrainRequest = new PostPretrainRequest(); // PostPretrainRequest | Data to be streamed to sensor. Should be formatted as a simple string of comma-separated numbers with no spaces (e.g. \"0,0.5,1,1.5,2\").
-    String amberChunk = "amberChunk_example"; // String | Specification of chunk, 1:3 2:3 3:3 for example
-    String amberTransaction = "amberTransaction_example"; // String | Unique identifier for chunk transactions
-    String pretrainAsync = "pretrainAsync_example"; // String | Internal header for async lambda processing
+    String modelId = "modelId_example"; // String | 
+    PostPretrainRequest postPretrainRequest = new PostPretrainRequest(); // PostPretrainRequest | Data to use for pretraining.
+    String chunkspec = "chunkspec_example"; // String | Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a `chunkspec` of the form `1:3`, `2:10`, `7:7`, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received.
+    String token = "token_example"; // String | Transaction token for chunked uploads. The response body for the first request in a chunked upload will contain a `token` which uniquely identifies the chunking transaction across multiple requests. That `token` must be included in the header of all remaining chunks uploaded in the transaction.
     try {
-      PostPretrainResponse result = apiInstance.postPretrain(sensorId, postPretrainRequest, amberChunk, amberTransaction, pretrainAsync);
+      PostPretrainResponse result = apiInstance.postPretrain(modelId, postPretrainRequest, chunkspec, token);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#postPretrain");
@@ -939,11 +1215,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **postPretrainRequest** | [**PostPretrainRequest**](PostPretrainRequest.md)| Data to be streamed to sensor. Should be formatted as a simple string of comma-separated numbers with no spaces (e.g. \&quot;0,0.5,1,1.5,2\&quot;). | |
-| **amberChunk** | **String**| Specification of chunk, 1:3 2:3 3:3 for example | [optional] |
-| **amberTransaction** | **String**| Unique identifier for chunk transactions | [optional] |
-| **pretrainAsync** | **String**| Internal header for async lambda processing | [optional] |
+| **modelId** | **String**|  | |
+| **postPretrainRequest** | [**PostPretrainRequest**](PostPretrainRequest.md)| Data to use for pretraining. | |
+| **chunkspec** | **String**| Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a &#x60;chunkspec&#x60; of the form &#x60;1:3&#x60;, &#x60;2:10&#x60;, &#x60;7:7&#x60;, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received. | [optional] |
+| **token** | **String**| Transaction token for chunked uploads. The response body for the first request in a chunked upload will contain a &#x60;token&#x60; which uniquely identifies the chunking transaction across multiple requests. That &#x60;token&#x60; must be included in the header of all remaining chunks uploaded in the transaction. | [optional] |
 
 ### Return type
 
@@ -951,180 +1226,29 @@ public class Example {
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **202** | Operation was accepted |  * amberTransaction -  <br>  * pretrain-async -  <br>  |
-| **400** | Bad request |  -  |
-| **500** | Internal server error |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
-| **503** | Server is busy |  -  |
-
-<a name="postSensor"></a>
-# **postSensor**
-> PostSensorResponse postSensor(postSensorRequest)
-
-Create a new a sensor instance
-
-Spawns a new sensor instance, returning its unique sensorId.
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
-    
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    PostSensorRequest postSensorRequest = new PostSensorRequest(); // PostSensorRequest | Label for new sensor instance to be created
-    try {
-      PostSensorResponse result = apiInstance.postSensor(postSensorRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postSensor");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **postSensorRequest** | [**PostSensorRequest**](PostSensorRequest.md)| Label for new sensor instance to be created | |
-
-### Return type
-
-[**PostSensorResponse**](PostSensorResponse.md)
-
-### Authorization
-
-[authorize-amber-pool](../README.md#authorize-amber-pool)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
+| **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
-
-<a name="postStream"></a>
-# **postStream**
-> PostStreamResponse postStream(sensorId, postStreamRequest)
-
-Stream data to a sensor
-
-Sends data to a sensor. Ingoing data should be formatted as a simple string of comma-separated numbers with no spaces.  The following analytic results are returned: - state : sensor state as of this call (one of: \&quot;Buffering\&quot;, \&quot;Autotuning\&quot;, \&quot;Learning\&quot;, \&quot;Monitoring\&quot;, \&quot;Error\&quot;) - ID : array of cluster IDs. These correspond one-to-one with input samples, indicating the cluster to which each input pattern was assigned. - RI : array of values ranging from 0 to 1000 that give a gauge as to how uncommon the sample&#39;s cluster is. - SI : array of smoothed anomaly index values. These values correspond one-to-one with the input samples and range between 0 and 1000. Values closer to 0 represent input patterns which are ordinary given the data seen so far on this sensor. Values closer to 1000 represent novel patterns which are anomalous with respect to data seen before. - AD : array of 0&#39;s and 1&#39;s as anomaly detection indicators. These correspond one-to-one with input samples and are produced by thresholding the smoothed anomaly index (SI). The threshold is determined automatically from the SI values. A value of 0 indicates that the SI has not exceeded the anomaly detection threshold. A value of 1 indicates it has, signaling an anomaly at the corresponding input sample. - AH : array of anomaly history values. These values are a moving-window sum of the AD, giving the number of anomaly detections (1&#39;s) present in the AD signal over a \&quot;recent history\&quot; window whose length is the buffer size. - AM : array of Amber Metric values. These are floating-point values between 0.0 and 1.0 indicating the extent to which the AH contains an unusually high number of anomalies in recent history. The values are derived statistically from a Poisson model, with values close to 0.0 signaling a lower, and values close to 1.0 signaling a higher, frequency of anomalies than usual. - AW : array of Amber Warning Level values. This index is produced by thresholding the Amber Metric (AM) and takes on the values 0, 1 or 2 representing a discrete \&quot;warning level\&quot; for an asset based on the frequency of anomalies within recent history. 0 &#x3D; normal, 1 &#x3D; asset changing, 2 &#x3D; asset critical. The default thresholds for the two warning levels are the standard statistical values of 0.95 (outlier, asset chaing) and 0.997 (extreme outlier, asset critical). - NI : array of values ranging from 0 to 1000 to give a rating for unseen clusters on how new the data points are compared the the rest of the model&#39;s clusters. - NS : array of values ranging from 0 to 1000 that is a weighted average of the time series of NI. - NW : an array of NS values that are normalized to range from 0 to 2. - OM : an array of floats signifying roughly the operational mode that the state is in based on a sliding window average cluster ID.
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
-    
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    PostStreamRequest postStreamRequest = new PostStreamRequest(); // PostStreamRequest | Data to be streamed to sensor. Should be formatted as a simple string of comma-separated numbers with no spaces (e.g. \"0,0.5,1,1.5,2\").
-    try {
-      PostStreamResponse result = apiInstance.postStream(sensorId, postStreamRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postStream");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **postStreamRequest** | [**PostStreamRequest**](PostStreamRequest.md)| Data to be streamed to sensor. Should be formatted as a simple string of comma-separated numbers with no spaces (e.g. \&quot;0,0.5,1,1.5,2\&quot;). | |
-
-### Return type
-
-[**PostStreamResponse**](PostStreamResponse.md)
-
-### Authorization
-
-[authorize-amber-pool](../README.md#authorize-amber-pool)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
-| **500** | Internal server error |  -  |
-| **503** | Server busy |  -  |
 
 <a name="putConfig"></a>
 # **putConfig**
-> PutConfigResponse putConfig(sensorId, putConfigRequest)
+> ConfigResponse putConfig(modelId, putConfigRequest)
 
-Update configuration for a sensor instance
+update model configuration
 
-Updates the configuration for the sensor instance specified.
+Update configuration for the specified model.
 
 ### Example
 ```java
@@ -1139,19 +1263,19 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    PutConfigRequest putConfigRequest = new PutConfigRequest(); // PutConfigRequest | Updates to sensor configuration
+    String modelId = "modelId_example"; // String | 
+    PutConfigRequest putConfigRequest = new PutConfigRequest(); // PutConfigRequest | updates to apply
     try {
-      PutConfigResponse result = apiInstance.putConfig(sensorId, putConfigRequest);
+      ConfigResponse result = apiInstance.putConfig(modelId, putConfigRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#putConfig");
@@ -1168,39 +1292,36 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **putConfigRequest** | [**PutConfigRequest**](PutConfigRequest.md)| Updates to sensor configuration | |
+| **modelId** | **String**|  | |
+| **putConfigRequest** | [**PutConfigRequest**](PutConfigRequest.md)| updates to apply | |
 
 ### Return type
 
-[**PutConfigResponse**](PutConfigResponse.md)
+[**ConfigResponse**](ConfigResponse.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
+| **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
-| **503** | Server busy |  -  |
 
-<a name="putSensor"></a>
-# **putSensor**
-> PutSensorResponse putSensor(sensorId, putSensorRequest)
+<a name="putData"></a>
+# **putData**
+> PutDataResponse putData(modelId, putDataRequest)
 
-Update label for a sensor instance
-
-Changes the label of an existing sensor instance to the new label specified.
+update fusion vector and get back results
 
 ### Example
 ```java
@@ -1215,22 +1336,22 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    PutSensorRequest putSensorRequest = new PutSensorRequest(); // PutSensorRequest | New label to apply to sensor instance
+    String modelId = "modelId_example"; // String | 
+    PutDataRequest putDataRequest = new PutDataRequest(); // PutDataRequest | updates to the fusion vector
     try {
-      PutSensorResponse result = apiInstance.putSensor(sensorId, putSensorRequest);
+      PutDataResponse result = apiInstance.putData(modelId, putDataRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#putSensor");
+      System.err.println("Exception when calling DefaultApi#putData");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1244,38 +1365,38 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **putSensorRequest** | [**PutSensorRequest**](PutSensorRequest.md)| New label to apply to sensor instance | |
+| **modelId** | **String**|  | |
+| **putDataRequest** | [**PutDataRequest**](PutDataRequest.md)| updates to the fusion vector | |
 
 ### Return type
 
-[**PutSensorResponse**](PutSensorResponse.md)
+[**PutDataResponse**](PutDataResponse.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Operation was successful |  -  |
+| **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="putStream"></a>
-# **putStream**
-> PutStreamResponse putStream(sensorId, putStreamRequest)
+<a name="putModel"></a>
+# **putModel**
+> Model putModel(modelId, putModelRequest)
 
-Stream data to a sensor fusion vector
+update model metadata
 
-Update fusion vector with new values for the given features, and optionally submit to Amber. Analytic results returned are the same as POST /stream.
+Update metadata for the specified model.
 
 ### Example
 ```java
@@ -1290,22 +1411,22 @@ import org.openapitools.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v1");
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
     
-    // Configure API key authorization: authorize-amber-pool
-    ApiKeyAuth authorize-amber-pool = (ApiKeyAuth) defaultClient.getAuthentication("authorize-amber-pool");
-    authorize-amber-pool.setApiKey("YOUR API KEY");
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
     // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //authorize-amber-pool.setApiKeyPrefix("Token");
+    //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String sensorId = "sensorId_example"; // String | Unique identifier for sensor
-    PutStreamRequest putStreamRequest = new PutStreamRequest(); // PutStreamRequest | New values for sensor fusion vector.
+    String modelId = "modelId_example"; // String | 
+    PutModelRequest putModelRequest = new PutModelRequest(); // PutModelRequest | updates to apply
     try {
-      PutStreamResponse result = apiInstance.putStream(sensorId, putStreamRequest);
+      Model result = apiInstance.putModel(modelId, putModelRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#putStream");
+      System.err.println("Exception when calling DefaultApi#putModel");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1319,30 +1440,28 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **sensorId** | **String**| Unique identifier for sensor | |
-| **putStreamRequest** | [**PutStreamRequest**](PutStreamRequest.md)| New values for sensor fusion vector. | |
+| **modelId** | **String**|  | |
+| **putModelRequest** | [**PutModelRequest**](PutModelRequest.md)| updates to apply | |
 
 ### Return type
 
-[**PutStreamResponse**](PutStreamResponse.md)
+[**Model**](Model.md)
 
 ### Authorization
 
-[authorize-amber-pool](../README.md#authorize-amber-pool)
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Vector has been updated and analytics were run. |  -  |
-| **202** | Vector has been updated but no analytics were run. |  -  |
+| **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | The specified resource was not found |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
-| **503** | Server busy |  -  |
 

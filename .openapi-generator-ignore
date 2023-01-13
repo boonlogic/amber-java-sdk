@@ -22,8 +22,6 @@
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
 
-src/test/java/org/openapitools/client/api/*.java # changing DefaultApiTests
-src/main/java/org/openapitools/client/api/DefaultApi.java # adding to default API
-.gitignore
-src/main/java/org/openapitools/client/ApiClient.java # added oauthBasePath get/set
+# src/test/java/org/openapitools/client/api/*.java # changing DefaultApiTests
 git_push.sh # dont need this file
+.gitignore

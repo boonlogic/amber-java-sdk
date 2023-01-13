@@ -1,0 +1,1745 @@
+openapi: 3.0.1
+info:
+  description: Boon Logic Amber API server
+  title: Amber API Server
+  version: 2.0.0
+servers:
+- url: http://amber.boonlogic.com/v2
+- url: https://amber.boonlogic.com/v2
+security:
+- Bearer: []
+paths:
+  /version:
+    get:
+      description: Return version information for the API.
+      operationId: getVersion
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getVersionResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get version information
+      x-accepts: '*/*'
+  /oauth2/access:
+    post:
+      description: Request an Oauth2 Bearer token.
+      operationId: postOauth2Access
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/postOauth2AccessRequest'
+        description: Amber account credentials
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postOauth2AccessResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      security: []
+      summary: request an API token given license and secret key
+      x-codegen-request-body-name: postOauth2AccessRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /oauth2/refresh:
+    post:
+      description: Request an Oauth2 Bearer token.
+      operationId: postOauth2Refresh
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/postOauth2RefreshRequest'
+        description: Amber account credentials
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postOauth2RefreshResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      security: []
+      summary: request an API token given a refresh token
+      x-codegen-request-body-name: postOauth2RefreshRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /models:
+    get:
+      description: Return `id` and `label` for all models belonging to the user.
+      operationId: getModels
+      parameters:
+      - description: "If `true`, include full model metadata."
+        in: header
+        name: verbose
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getModelsResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: list all models
+      x-accepts: '*/*'
+    post:
+      description: Create a new model and return its unique identifier.
+      operationId: postModel
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/postModelRequest'
+        description: initial metadata for new model
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postModelResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: create a model
+      x-codegen-request-body-name: postModelRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /models/{modelId}:
+    delete:
+      description: Permanently delete the specified model.
+      operationId: deleteModel
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: delete a model
+      x-accepts: '*/*'
+    get:
+      description: Return metadata for the specified model.
+      operationId: getModel
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postModelResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get model metadata
+      x-accepts: '*/*'
+    put:
+      description: Update metadata for the specified model.
+      operationId: putModel
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/putModelRequest'
+        description: updates to apply
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postModelResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: update model metadata
+      x-codegen-request-body-name: putModelRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /models/{modelId}/config:
+    get:
+      description: Get the configuration of the specified model.
+      operationId: getConfig
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postConfigResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get model configuration
+      x-accepts: '*/*'
+    post:
+      description: Configure the specified model. Wipes all progress and puts the
+        model in the `Buffering` state.
+      operationId: postConfig
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/postConfigRequest'
+        description: configuration to apply
+        required: false
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postConfigResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: configure a model
+      x-codegen-request-body-name: postConfigRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+    put:
+      description: Update configuration for the specified model.
+      operationId: putConfig
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/putConfigRequest'
+        description: updates to apply
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postConfigResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: update model configuration
+      x-codegen-request-body-name: putConfigRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /models/{modelId}/data:
+    get:
+      operationId: getData
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getDataResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get the current fusion vector
+      x-accepts: '*/*'
+    post:
+      description: "Send data to the specified model, and get back the resulting analytics\
+        \ and model status."
+      operationId: postData
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/postDataRequest'
+        description: data vector or vectors as a flattened list of comma-separated
+          values
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postDataResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: send data to model and get back results
+      x-codegen-request-body-name: postDataRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+    put:
+      operationId: putData
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/putDataRequest'
+        description: updates to the fusion vector
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/putDataResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: update fusion vector and get back results
+      x-codegen-request-body-name: putDataRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /models/{modelId}/status:
+    get:
+      description: Get the current state and learning progress of the specified model.
+      operationId: getStatus
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getStatusResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get current status of the model
+      x-accepts: '*/*'
+  /models/{modelId}/pretrain:
+    get:
+      description: Get the pretraining status of the specified model.
+      operationId: getPretrain
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getPretrainResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get pretraining progress
+      x-accepts: '*/*'
+    post:
+      operationId: postPretrain
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      - description: "Chunk specifier for chunked uploads. In a chunked upload, each\
+          \ request is sent with a `chunkspec` of the form `1:3`, `2:10`, `7:7`, etc.\
+          \ where the first number is the index for the chunk being uploaded (1-based)\
+          \ and the second number is the total number of chunks in the transaction.\
+          \ The chunks may be uploaded in any order. Pretraining starts once all chunks\
+          \ have been received."
+        in: header
+        name: chunkspec
+        schema:
+          type: string
+      - description: Transaction token for chunked uploads. The response body for
+          the first request in a chunked upload will contain a `token` which uniquely
+          identifies the chunking transaction across multiple requests. That `token`
+          must be included in the header of all remaining chunks uploaded in the transaction.
+        in: header
+        name: token
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/postPretrainRequest'
+        description: Data to use for pretraining.
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/postPretrainResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: pretrain model with an existing dataset
+      x-codegen-request-body-name: postPretrainRequest
+      x-content-type: '*/*'
+      x-accepts: '*/*'
+  /models/{modelId}/blame:
+    get:
+      description: Return a measure of the significance of each feature in the creation
+        of a cluster. The values range from 0 to 1 where a relatively high value represents
+        a feature that was influential in creating the new cluster. No conclusions
+        can be drawn from values close to zero. This measure can be computed for existing
+        clusters or for individual vectors directly.
+      operationId: getBlame
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      - description: Clusters to analyze (list of comma-separated integers).
+        in: query
+        name: clusters
+        schema:
+          type: string
+      - description: "Vectors to analyze, as a flat list of comma-separated floats.\
+          \ Number of values must be a multiple of the configured number of features."
+        in: query
+        name: vectors
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getBlameResponse'
+          description: OK
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: perform root cause analysis
+      x-accepts: '*/*'
+  /models/{modelId}/usage:
+    get:
+      description: Return usage metrics for the specified model.
+      operationId: getUsage
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/getUsageResponse'
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: get model usage metrics
+      x-accepts: '*/*'
+  /models/{modelId}/outage:
+    post:
+      description: Resets the streaming window generated by `streamingWindow`. This
+        endpoint should be called after a data outage before resuming streaming.
+      operationId: postOutage
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: call this after a data outage before resuming streaming
+      x-accepts: '*/*'
+components:
+  schemas:
+    getVersionResponse:
+      $ref: '#/components/schemas/version'
+    postOauth2AccessRequest:
+      properties:
+        licenseId:
+          description: Amber account license.
+          format: string
+          type: string
+        secretKey:
+          description: Amber account secret key.
+          format: string
+          type: object
+      required:
+      - licenseId
+      - secretKey
+      type: object
+    postOauth2AccessResponse:
+      example:
+        expiresIn: expiresIn
+        idToken: idToken
+        tokenType: tokenType
+        refreshToken: refreshToken
+      properties:
+        idToken:
+          description: "Authorization token. Requests to all API endpoints except\
+            \ `POST /oauth2` must include a valid token in a header field called `Authorization`\
+            \ with value `Bearer ${idToken}`."
+          type: string
+        tokenType:
+          description: Always `Bearer`.
+          type: string
+        expiresIn:
+          description: Number of seconds before `idToken` becomes invalid.
+          type: string
+        refreshToken:
+          description: Can be used to refresh the `idToken` when it is nearing expiration.
+          type: string
+      type: object
+    postOauth2RefreshRequest:
+      properties:
+        refreshToken:
+          description: Refresh token used to acquire new access token
+          type: string
+      required:
+      - refreshToken
+      type: object
+    postOauth2RefreshResponse:
+      example:
+        expiresIn: expiresIn
+        idToken: idToken
+        tokenType: tokenType
+        refreshToken: refreshToken
+      properties:
+        idToken:
+          description: "Authorization token. Requests to all API endpoints except\
+            \ `POST /oauth2` must include a valid token in a header field called `Authorization`\
+            \ with value `Bearer ${idToken}`."
+          type: string
+        tokenType:
+          description: Always `Bearer`.
+          type: string
+        expiresIn:
+          description: Number of seconds before `idToken` becomes invalid.
+          type: string
+        refreshToken:
+          description: Can be used to refresh the `idToken` when it is nearing expiration.
+          type: string
+      type: object
+    postModelRequest:
+      properties:
+        label:
+          description: "Label for this model. Does not need to be unique. Allowed\
+            \ characters: `+.:_-` and any alphanumeric."
+          type: string
+      type: object
+    postModelResponse:
+      $ref: '#/components/schemas/model'
+    getModelsResponse:
+      items:
+        $ref: '#/components/schemas/model'
+      type: array
+    putModelRequest:
+      properties:
+        label:
+          description: New label for this model.
+          type: string
+      required:
+      - label
+      type: object
+    postConfigRequest:
+      $ref: '#/components/schemas/config'
+    putConfigRequest:
+      properties:
+        training:
+          $ref: '#/components/schemas/trainingConfig'
+      required:
+      - training
+      type: object
+    postConfigResponse:
+      $ref: '#/components/schemas/configResponse'
+    postDataRequest:
+      properties:
+        data:
+          description: Data as a flat list of comma-separated values. The number of
+            values sent must be a multiple of the number of features in the configuration.
+          type: string
+        saveImage:
+          default: true
+          description: "If false, saved model image will not be updated on this request.\
+            \ Applies only to on-premises deployments."
+          type: boolean
+      required:
+      - data
+      type: object
+    postDataResponse:
+      example:
+        analytics:
+          recentAnomalies:
+          - 6
+          - 6
+          warningLevel:
+          - 0
+          - 0
+          anomalyIndex:
+          - 5
+          - 5
+          clusterId:
+          - 5
+          - 5
+          anomalyDetection:
+          - 1
+          - 1
+        status:
+          sampleCount: 7
+          clusterCount: 9
+          progress: 36
+          warningLevel: 2
+          state: null
+          message: message
+      properties:
+        analytics:
+          $ref: '#/components/schemas/analyticResults'
+        status:
+          $ref: '#/components/schemas/modelStatus'
+      type: object
+    putDataRequest:
+      properties:
+        vector:
+          description: Updates to apply to the current fusion vector.
+          items:
+            $ref: '#/components/schemas/fusionFeature'
+          type: array
+        fusionRule:
+          default: submit
+          description: "If `submit`, the fusion vector will be submitted for inference\
+            \ on this request. If `nosubmit`, this request will not trigger an inference."
+          enum:
+          - submit
+          - nosubmit
+          type: string
+      required:
+      - vector
+      type: object
+    getDataResponse:
+      example:
+        vector:
+        - name: name
+          value: 0.8008282
+        - name: name
+          value: 0.8008282
+      properties:
+        vector:
+          description: The current fusion vector.
+          items:
+            $ref: '#/components/schemas/fusionFeature'
+          type: array
+      type: object
+    putDataResponse:
+      example:
+        analytics:
+          recentAnomalies:
+          - 6
+          - 6
+          warningLevel:
+          - 0
+          - 0
+          anomalyIndex:
+          - 5
+          - 5
+          clusterId:
+          - 5
+          - 5
+          anomalyDetection:
+          - 1
+          - 1
+        vector:
+        - name: name
+          value: 0.8008282
+        - name: name
+          value: 0.8008282
+        status:
+          sampleCount: 7
+          clusterCount: 9
+          progress: 36
+          warningLevel: 2
+          state: null
+          message: message
+      properties:
+        vector:
+          description: The current fusion vector.
+          items:
+            $ref: '#/components/schemas/fusionFeature'
+          type: array
+        analytics:
+          $ref: '#/components/schemas/analyticResults'
+        status:
+          $ref: '#/components/schemas/modelStatus'
+      type: object
+    getStatusResponse:
+      $ref: '#/components/schemas/modelStatus'
+    postPretrainRequest:
+      properties:
+        data:
+          description: |-
+            Data in one of two formats:
+            1) A flat list of comma-separated values.
+            2) The string that results from flattening the dataset, packing the values into a byte buffer as float32s (little-endian), and base-64 encoding the buffer.
+
+            Datasets which are too large to send in one request may be sent in multiple chunks using the header parameters for chunked uploads (`token` and `chunkspec`).
+
+            The total number of data values sent for pretraining must be a multiple of the number of features in the configuration.
+          type: string
+        format:
+          default: csv
+          description: Format specifier for `data`.
+          enum:
+          - csv
+          - b64float
+          type: string
+        targetState:
+          description: "One of: `Autotuning`, `Learning`, `Monitoring`. If set, the\
+            \ `training` configuration parameters will be ignored and set automatically\
+            \ based on the dataset length such that the model emerges from pretraining\
+            \ at the start of the specified state."
+          enum:
+          - Autotuning
+          - Learning
+          - Monitoring
+          type: string
+      required:
+      - data
+      type: object
+    postPretrainResponse:
+      allOf:
+      - $ref: '#/components/schemas/pretrainStatus'
+      - $ref: '#/components/schemas/postPretrainResponse_allOf'
+    getPretrainResponse:
+      $ref: '#/components/schemas/pretrainStatus'
+    getBlameResponse:
+      items:
+        $ref: '#/components/schemas/featureBlame'
+      type: array
+    getUsageResponse:
+      example:
+        endpoints:
+          putConfig:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getModel:
+            totalCalls: 6
+            lastCalled: lastCalled
+          putModel:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getStatus:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getBlame:
+            totalCalls: 6
+            lastCalled: lastCalled
+          postOutage:
+            totalCalls: 6
+            lastCalled: lastCalled
+          postConfig:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getConfig:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getPretrain:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getUsage:
+            totalCalls: 6
+            lastCalled: lastCalled
+          postPretrain:
+            totalCalls: 6
+            lastCalled: lastCalled
+          putData:
+            totalCalls: 6
+            lastCalled: lastCalled
+          postData:
+            totalCalls: 6
+            lastCalled: lastCalled
+          getData:
+            totalCalls: 6
+            lastCalled: lastCalled
+        totalSamples: 0
+      properties:
+        totalSamples:
+          description: All-time total number of model inferences.
+          format: uint64
+          type: integer
+        endpoints:
+          $ref: '#/components/schemas/getUsageResponse_endpoints'
+      type: object
+    configResponse:
+      example:
+        features:
+        - null
+        - null
+        streamingWindow: 1
+        training:
+          learningRateDenominator: 9
+          learningMaxClusters: 2
+          bufferingSamples: 5
+          historyWindow: 1
+          learningMaxSamples: 5
+          learningRateNumerator: 7
+        percentVariation:
+          isDefined: true
+          value: 0.124521665
+      properties:
+        streamingWindow:
+          description: |-
+            Number of recent input _vectors_ concatenated together to make up a full input _pattern_ presented to the model for inference.
+
+            Let `featureCount` be the configured number of features. The model consumes data sequentially in steps of size `featureCount`. Each time it receives `featureCount` data values, `featureCount` input values are consumed and concatenated together to form an input _vector_. This input vector is then concatenated with zero or more past input vectors to form an input _pattern_. The input _pattern_ is the true data vector inferenced by the model at each step. Configuring the `streamingWindow` greater than 1 allows a model to identify patterns in vectors that change over time.
+
+            If monitoring a single timeseries signal, the model should be configured with just one feature. In that case the input vector has length 1, and `streamingWindow` determines the length of a moving window over past samples which is the input pattern to the model for each new sample. For example, a model configured with one feature and a `streamingWindow` of 25 will concatenate together and inference the 25 most recent data values for each new value consumed.
+
+            If monitoring instantaneous readings from several sensors jointly, each sensor should be associated with one feature in the configuration. In this case `streamingWindow` is usually set to 1 so that the input pattern is just the current vector of readings. For example, a model configured with 5 features and a `streamingWindow` of 1 will consume 5 values at a time and inference those 5 values as a pattern of length 5. If the `streamingWindow` were 2, the model would still consume 5 values at a time, but its input pattern would contain the last 10 samples.
+          format: uint
+          minimum: 1
+          type: integer
+        percentVariation:
+          $ref: '#/components/schemas/percentVariationResponse'
+        features:
+          items:
+            $ref: '#/components/schemas/featureConfigResponse'
+          type: array
+        training:
+          $ref: '#/components/schemas/trainingConfig'
+      type: object
+    percentVariationResponse:
+      example:
+        isDefined: true
+        value: 0.124521665
+      properties:
+        value:
+          description: |-
+            Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.
+
+            `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.
+          format: float
+          maximum: 0.2
+          minimum: 0.01
+          type: number
+        isDefined:
+          description: Whether the `percentVariation` has been set (through either
+            configuration or autotuning). `value` is undefined when this field is
+            false.
+          type: boolean
+      type: object
+    featureConfigResponse:
+      allOf:
+      - $ref: '#/components/schemas/featureConfig'
+      - $ref: '#/components/schemas/featureConfigResponse_allOf'
+    version:
+      example:
+        expert-api: expert-api
+        api-version: api-version
+        release: release
+        expert-common: expert-common
+        nano-secure: nano-secure
+        amber-store: amber-store
+        builder: builder
+        mongolia: mongolia
+        swagger-ui: swagger-ui
+      properties:
+        api-version:
+          description: API version.
+          type: string
+        release:
+          description: Software release of server.
+          type: string
+        swagger-ui:
+          description: SHA-1 of Swagger UI.
+          type: string
+        builder:
+          description: SHA-1 of `builder`.
+          type: string
+        expert-api:
+          description: SHA-1 of `expert-api`.
+          type: string
+        expert-common:
+          description: SHA-1 of `expert-common`.
+          type: string
+        nano-secure:
+          description: SHA-1 of `nano-secure`.
+          type: string
+        amber-store:
+          description: SHA-1 of `amber-store`.
+          type: string
+        mongolia:
+          description: SHA-1 of `mongolia`.
+          type: string
+      type: object
+    error:
+      properties:
+        code:
+          description: HTTP status code.
+          format: uint16
+          type: integer
+        message:
+          description: Error description.
+          type: string
+      type: object
+    model:
+      example:
+        created: created
+        modified: modified
+        id: id
+        label: label
+      properties:
+        id:
+          description: Unique identifier for model.
+          type: string
+        label:
+          description: Free-form label for this model.
+          type: string
+        created:
+          description: Model creation time in ISO format.
+          type: string
+        modified:
+          description: "Last time model was updated, in ISO format."
+          type: string
+      type: object
+    config:
+      properties:
+        streamingWindow:
+          description: |-
+            Number of recent input _vectors_ concatenated together to make up a full input _pattern_ presented to the model for inference.
+
+            Let `featureCount` be the configured number of features. The model consumes data sequentially in steps of size `featureCount`. Each time it receives `featureCount` data values, `featureCount` input values are consumed and concatenated together to form an input _vector_. This input vector is then concatenated with zero or more past input vectors to form an input _pattern_. The input _pattern_ is the true data vector inferenced by the model at each step. Configuring the `streamingWindow` greater than 1 allows a model to identify patterns in vectors that change over time.
+
+            If monitoring a single timeseries signal, the model should be configured with just one feature. In that case the input vector has length 1, and `streamingWindow` determines the length of a moving window over past samples which is the input pattern to the model for each new sample. For example, a model configured with one feature and a `streamingWindow` of 25 will concatenate together and inference the 25 most recent data values for each new value consumed.
+
+            If monitoring instantaneous readings from several sensors jointly, each sensor should be associated with one feature in the configuration. In this case `streamingWindow` is usually set to 1 so that the input pattern is just the current vector of readings. For example, a model configured with 5 features and a `streamingWindow` of 1 will consume 5 values at a time and inference those 5 values as a pattern of length 5. If the `streamingWindow` were 2, the model would still consume 5 values at a time, but its input pattern would contain the last 10 samples.
+          format: uint
+          minimum: 1
+          type: integer
+        percentVariation:
+          description: |-
+            Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.
+
+            `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.
+          format: float
+          maximum: 0.2
+          minimum: 0.01
+          type: number
+        features:
+          items:
+            $ref: '#/components/schemas/featureConfig'
+          type: array
+        training:
+          $ref: '#/components/schemas/trainingConfig'
+      required:
+      - features
+      - streamingWindow
+      type: object
+    streamingWindow:
+      description: |-
+        Number of recent input _vectors_ concatenated together to make up a full input _pattern_ presented to the model for inference.
+
+        Let `featureCount` be the configured number of features. The model consumes data sequentially in steps of size `featureCount`. Each time it receives `featureCount` data values, `featureCount` input values are consumed and concatenated together to form an input _vector_. This input vector is then concatenated with zero or more past input vectors to form an input _pattern_. The input _pattern_ is the true data vector inferenced by the model at each step. Configuring the `streamingWindow` greater than 1 allows a model to identify patterns in vectors that change over time.
+
+        If monitoring a single timeseries signal, the model should be configured with just one feature. In that case the input vector has length 1, and `streamingWindow` determines the length of a moving window over past samples which is the input pattern to the model for each new sample. For example, a model configured with one feature and a `streamingWindow` of 25 will concatenate together and inference the 25 most recent data values for each new value consumed.
+
+        If monitoring instantaneous readings from several sensors jointly, each sensor should be associated with one feature in the configuration. In this case `streamingWindow` is usually set to 1 so that the input pattern is just the current vector of readings. For example, a model configured with 5 features and a `streamingWindow` of 1 will consume 5 values at a time and inference those 5 values as a pattern of length 5. If the `streamingWindow` were 2, the model would still consume 5 values at a time, but its input pattern would contain the last 10 samples.
+      format: uint
+      minimum: 1
+      type: integer
+    featureConfig:
+      properties:
+        id:
+          description: "Identifier for this feature. Must be unique with respect to\
+            \ other features in the configuration. Regex: `^[A-Za-z0-9.:_-]{1,1024}$`."
+          type: string
+        minValue:
+          description: "Minimum expected value for this feature. `minValue` can be\
+            \ left unset if it is not known at configuration time. In that case, data\
+            \ collected during the `Buffering` stage will be used to infer an optimal\
+            \ `minValue` during the `Autotuning` stage and it will be set to the autotuned\
+            \ value at the start of `Learning`."
+          format: float
+          type: number
+        maxValue:
+          description: "Maximum expected value for this feature. `maxValue` can be\
+            \ left unset if it is not known at configuration time. In that case, data\
+            \ collected during the `Buffering` stage will be used to infer an optimal\
+            \ value during the `Autotuning` stage and it will be set to the autotuned\
+            \ value at the start of `Learning`."
+          format: float
+          type: number
+        weight:
+          description: "Weight of this feature relative to others, as an integer between\
+            \ 1 and 1000."
+          format: uint16
+          maximum: 1000
+          minimum: 1
+          type: integer
+        fusionRule:
+          default: submit
+          description: "Inference policy for the fusion vector when using `PUT /data`.\
+            \ If `submit`, any `PUT /data` request that updates this feature will\
+            \ cause the fusion vector to be submitted for inference. If `nosubmit`,\
+            \ updates to this feature will not trigger a fusion vector inference."
+          enum:
+          - submit
+          - nosubmit
+          type: string
+        fusionTTL:
+          description: Number of seconds without an update before this feature's value
+            is considered invalid.
+          format: uint
+          type: integer
+      type: object
+    trainingConfig:
+      example:
+        learningRateDenominator: 9
+        learningMaxClusters: 2
+        bufferingSamples: 5
+        historyWindow: 1
+        learningMaxSamples: 5
+        learningRateNumerator: 7
+      properties:
+        historyWindow:
+          description: Number of past inferences to take into account when computing
+            `warningLevel` at a given moment.
+          format: uint
+          type: integer
+        bufferingSamples:
+          description: Number of data vectors to collect during `Buffering`. These
+            samples are used as data for `Autotuning`.
+          format: uint
+          type: integer
+        learningMaxSamples:
+          description: Maximum number of vectors to process during `Learning` before
+            transitioning to `Monitoring`.
+          format: uint64
+          type: integer
+        learningMaxClusters:
+          description: Maximum number of clusters before model transitions from `Learning`
+            to `Monitoring`.
+          format: uint
+          type: integer
+        learningRateNumerator:
+          description: Switch to `Monitoring` if there were fewer than `learningRateNumerator`
+            new clusters in the last `learningRateDenominator` inferences.
+          format: uint
+          type: integer
+        learningRateDenominator:
+          description: See `learningRateNumerator`.
+          format: uint
+          type: integer
+      type: object
+    percentVariation:
+      description: |-
+        Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.
+
+        `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.
+      format: float
+      maximum: 0.2
+      minimum: 0.01
+      type: number
+    fusionFeature:
+      example:
+        name: name
+        value: 0.8008282
+      properties:
+        name:
+          description: Name of this feature.
+          type: string
+        value:
+          description: Current value.
+          format: float
+          type: number
+      required:
+      - name
+      - value
+      type: object
+    featureBlame:
+      example:
+        name: name
+        value: 0.08008282
+      properties:
+        name:
+          description: Name of this feature.
+          type: string
+        value:
+          description: "Blame of this feature relative to others, as a number between\
+            \ 0.0 and 1.0. 0.0 indicates no contribution to the anomaly index, while\
+            \ a value close to 1.0 means the present anomaly implicates this feature\
+            \ strongly."
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
+      type: object
+    analyticResults:
+      example:
+        recentAnomalies:
+        - 6
+        - 6
+        warningLevel:
+        - 0
+        - 0
+        anomalyIndex:
+        - 5
+        - 5
+        clusterId:
+        - 5
+        - 5
+        anomalyDetection:
+        - 1
+        - 1
+      properties:
+        warningLevel:
+          description: |-
+            Amber warning level at each sample, a measure of the compliance of recent behavior compared to behavior observed during `Learning`. This value is derived from `recentAnomalies` and a statistical model of expectations about the usual frequency of anomalies.
+            - `0`: OK
+            - `1`: asset changing
+            - `2`: asset critical
+          items:
+            type: integer
+          type: array
+        recentAnomalies:
+          description: "The number of anomalous patterns in the last `historyWindow`\
+            \ samples. Specifically, this is a moving-window sum of the `anomalyDetection`\
+            \ array with window length `historyWindow`."
+          items:
+            format: uint
+            type: integer
+          type: array
+        anomalyDetection:
+          description: A binary array where 1 means a pattern was anomalous and 0
+            means normal. This value is derived by thresholding the `anomalyIndex`.
+          items:
+            format: uint8
+            type: integer
+          type: array
+        anomalyIndex:
+          description: "An integer between 0 and 1000 giving a measure of how anomalous\
+            \ this pattern is compared to patterns seen in the past. Values closer\
+            \ to 0 represent patterns which are ordinary given the data seen so far\
+            \ on this model, while values closer to 1000 represent anomalous patterns.\
+            \ Patterns with a high `anomalyIndex` belong to clusters with relatively\
+            \ few patterns compared to the other clusters."
+          items:
+            format: uint16
+            type: integer
+          type: array
+        clusterId:
+          description: |-
+            The cluster to which each input pattern was assigned. The first pattern is assigned a `clusterId` of 1. Each pattern thereafter is either assigned to an existing cluster (if its distance from that cluster is less than `percentVariation`) or creates a new cluster (if its distance from all clusters exceeds `percentVariation`). The `clusterId` for each new cluster is the current maximum `clusterId` plus one. For example, a model with 10 clusters will have `clusterIds` 1-10, and the next new cluster will have `clusterId` 11.
+
+            During `Monitoring`, the cluster model becomes frozen and no new clusters are formed. Patterns which cannot be assigned to any existing cluster will return a negative `clusterId`. These `clusterIds` start at -1 and decreasing strictly by 1 without repeating (they can be used for blame analysis).
+          items:
+            format: int32
+            type: integer
+          type: array
+      type: object
+    modelStatus:
+      example:
+        sampleCount: 7
+        clusterCount: 9
+        progress: 36
+        warningLevel: 2
+        state: null
+        message: message
+      properties:
+        state:
+          $ref: '#/components/schemas/amberState'
+        warningLevel:
+          description: "Current Amber warning level, a measure of the compliance of\
+            \ recent behavior compared to behavior observed `Learning`. \n- `0`: OK\n\
+            - `1`: asset changing\n- `2`: asset critical"
+          type: integer
+        sampleCount:
+          description: Total number of patterns processed since configuration.
+          format: uint64
+          type: integer
+        clusterCount:
+          description: Total number of clusters generated by patterns so far.
+          format: uint
+          type: integer
+        progress:
+          description: |-
+            During `Buffering`, `Learning` and `Autotuning`: estimated progress through the current state as an integer percentage.
+
+            During `Monitoring`: this field does not apply.
+          format: uint8
+          maximum: 100
+          minimum: 0
+          type: integer
+        message:
+          description: Status description.
+          type: string
+      type: object
+    amberState:
+      description: "Current state of the model within the Amber state machine. One\
+        \ of: `Buffering`, `Autotuning`, `Learning`, `Monitoring`.\n\nDuring `Buffering`,\
+        \ the model simply collects data which will be used to automatically fit its\
+        \ clustering parameters. During this stage no analytic results are returned.\
+        \ Once the model has collected `bufferSamples` input patterns, it transitions\
+        \ to `Autotuning`. \n\nDuring `Autotuning`, the model continues to collect\
+        \ data while using the data from `Buffering` to automatically discover good\
+        \ values for the clustering parameters (`minValue`, `maxValue` and `percentVariation`).\
+        \ No analytic results are returned during this stage, which does not last\
+        \ longer than 200 requests. Once finished, the model is configured with the\
+        \ newly discovered parameters and trained using all data collected during\
+        \ `Buffering` and `Autotuning`. At that point the model transitions to `Learning`.\n\
+        \nDuring `Learning`, the model starts returning analytic results while establishing\
+        \ a baseline for the expected number of anomalies per unit time. It also begins\
+        \ returning analytic results. During this phase the underlying asset should\
+        \ operate in a mostly compliant mode, even though the model is highly tolerant\
+        \ of anomalies that occur during `Learning` (i.e. an anomalous pattern encountered\
+        \ here will be considered just as anomalous during `Monitoring`). `Learning`\
+        \ transitions to `Monitoring` once any of the following requirements are met:\n\
+        - the model's `sampleCount` surpasses `learningMaxSamples`\n- the model's\
+        \ `clusterCount` surpasses `learningMaxClusters`\n- `learningRateNumerator`\
+        \ or fewer new clusters were created within the last `learningRateDenominator`\
+        \ samples.\n\nDuring `Monitoring`, all learning stops and the model continues\
+        \ to return analytic results. The model will remain in `Monitoring` until\
+        \ it is either re-configured or `Learning` is enabled again using `PUT /config`."
+      enum:
+      - Buffering
+      - Autotuning
+      - Learning
+      - Monitoring
+      type: string
+    pretrainStatus:
+      example:
+        message: message
+        status: None
+      properties:
+        status:
+          description: "Pretraining status of the model. One of: `None`, `Chunking`,\
+            \ `Pretraining`, `Pretrained`."
+          enum:
+          - None
+          - Chunking
+          - Pretraining
+          - Pretrained
+          type: string
+        message:
+          description: Pretraining status description.
+          type: string
+      type: object
+    endpointUsage:
+      example:
+        totalCalls: 6
+        lastCalled: lastCalled
+      properties:
+        totalCalls:
+          description: Total number of calls to this endpoint.
+          format: uint64
+          type: integer
+        lastCalled:
+          description: "Last time this endpoint was called, in ISO format."
+          type: string
+      type: object
+    postPretrainResponse_allOf:
+      properties:
+        token:
+          description: Transaction token for chunked uploads.
+          type: string
+        chunkspec:
+          description: Chunk specifier for chunked uploads.
+          type: string
+      type: object
+      example: null
+    getUsageResponse_endpoints:
+      example:
+        putConfig:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getModel:
+          totalCalls: 6
+          lastCalled: lastCalled
+        putModel:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getStatus:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getBlame:
+          totalCalls: 6
+          lastCalled: lastCalled
+        postOutage:
+          totalCalls: 6
+          lastCalled: lastCalled
+        postConfig:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getConfig:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getPretrain:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getUsage:
+          totalCalls: 6
+          lastCalled: lastCalled
+        postPretrain:
+          totalCalls: 6
+          lastCalled: lastCalled
+        putData:
+          totalCalls: 6
+          lastCalled: lastCalled
+        postData:
+          totalCalls: 6
+          lastCalled: lastCalled
+        getData:
+          totalCalls: 6
+          lastCalled: lastCalled
+      properties:
+        getModel:
+          $ref: '#/components/schemas/endpointUsage'
+        putModel:
+          $ref: '#/components/schemas/endpointUsage'
+        postConfig:
+          $ref: '#/components/schemas/endpointUsage'
+        putConfig:
+          $ref: '#/components/schemas/endpointUsage'
+        getConfig:
+          $ref: '#/components/schemas/endpointUsage'
+        postData:
+          $ref: '#/components/schemas/endpointUsage'
+        putData:
+          $ref: '#/components/schemas/endpointUsage'
+        getData:
+          $ref: '#/components/schemas/endpointUsage'
+        getStatus:
+          $ref: '#/components/schemas/endpointUsage'
+        postPretrain:
+          $ref: '#/components/schemas/endpointUsage'
+        getPretrain:
+          $ref: '#/components/schemas/endpointUsage'
+        getBlame:
+          $ref: '#/components/schemas/endpointUsage'
+        getUsage:
+          $ref: '#/components/schemas/endpointUsage'
+        postOutage:
+          $ref: '#/components/schemas/endpointUsage'
+      type: object
+    featureConfigResponse_allOf:
+      properties:
+        minMaxDefined:
+          description: Whether `minValue` and `maxValue` have been set for this feature
+            (through either configuration or autotuning). `minValue` and `maxValue`
+            are undefined when this field is false.
+          type: boolean
+      type: object
+      example: null
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey
+x-original-swagger-version: "2.0"
+
