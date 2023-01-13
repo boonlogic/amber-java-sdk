@@ -37,6 +37,7 @@ import org.boonamber.client.model.PutDataRequest;
 import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
 import org.boonamber.client.model.Version;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -63,8 +64,10 @@ public class DefaultApiTest {
     @Test
     public void deleteModelTest() throws ApiException {
         String modelId = null;
-        api.deleteModel(modelId);
-        // TODO: test validations
+//        api.deleteModel(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.deleteModel(modelId);
+        	}, "deleteModel accepted null modelId");
     }
 
     /**
@@ -79,8 +82,16 @@ public class DefaultApiTest {
         String modelId = null;
         String clusters = null;
         String vectors = null;
-        List<FeatureBlame> response = api.getBlame(modelId, clusters, vectors);
-        // TODO: test validations
+//        List<FeatureBlame> response = api.getBlame(modelId, clusters, vectors);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getBlame(modelId, clusters, vectors);
+        	}, "getBlame accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getBlame("nothing-model", clusters, vectors);
+        	}, "getBlame accepted null clusters");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getBlame("nothing-model", "1,2", vectors);
+        	}, "getBlame accepted null vectors");
     }
 
     /**
@@ -93,8 +104,10 @@ public class DefaultApiTest {
     @Test
     public void getConfigTest() throws ApiException {
         String modelId = null;
-        ConfigResponse response = api.getConfig(modelId);
-        // TODO: test validations
+//        ConfigResponse response = api.getConfig(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getConfig(modelId);
+        	}, "getConfig accepted null modelId");
     }
 
     /**
@@ -105,8 +118,10 @@ public class DefaultApiTest {
     @Test
     public void getDataTest() throws ApiException {
         String modelId = null;
-        GetDataResponse response = api.getData(modelId);
-        // TODO: test validations
+//        GetDataResponse response = api.getData(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getData(modelId);
+        	}, "getData accepted null modelId");
     }
 
     /**
@@ -119,8 +134,10 @@ public class DefaultApiTest {
     @Test
     public void getModelTest() throws ApiException {
         String modelId = null;
-        Model response = api.getModel(modelId);
-        // TODO: test validations
+//        Model response = api.getModel(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getModel(modelId);
+        	}, "getModel accepted null modelId");
     }
 
     /**
@@ -133,8 +150,10 @@ public class DefaultApiTest {
     @Test
     public void getModelsTest() throws ApiException {
         String verbose = null;
-        List<Model> response = api.getModels(verbose);
-        // TODO: test validations
+//        List<Model> response = api.getModels(verbose);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getModels(verbose);
+        	}, "getModels accepted null verbose");
     }
 
     /**
@@ -147,8 +166,10 @@ public class DefaultApiTest {
     @Test
     public void getPretrainTest() throws ApiException {
         String modelId = null;
-        PretrainStatus response = api.getPretrain(modelId);
-        // TODO: test validations
+//        PretrainStatus response = api.getPretrain(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getPretrain(modelId);
+        	}, "getPretrain accepted null modelId");
     }
 
     /**
@@ -161,8 +182,10 @@ public class DefaultApiTest {
     @Test
     public void getStatusTest() throws ApiException {
         String modelId = null;
-        ModelStatus response = api.getStatus(modelId);
-        // TODO: test validations
+//        ModelStatus response = api.getStatus(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getStatus(modelId);
+        	}, "getStatus accepted null modelId");
     }
 
     /**
@@ -175,8 +198,10 @@ public class DefaultApiTest {
     @Test
     public void getUsageTest() throws ApiException {
         String modelId = null;
-        GetUsageResponse response = api.getUsage(modelId);
-        // TODO: test validations
+//        GetUsageResponse response = api.getUsage(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.getUsage(modelId);
+        	}, "getUsage accepted null modelId");
     }
 
     /**
@@ -203,8 +228,13 @@ public class DefaultApiTest {
     public void postConfigTest() throws ApiException {
         String modelId = null;
         Config postConfigRequest = null;
-        ConfigResponse response = api.postConfig(modelId, postConfigRequest);
-        // TODO: test validations
+//        ConfigResponse response = api.postConfig(modelId, postConfigRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postConfig(modelId, postConfigRequest);
+        	}, "postConfig accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postConfig("nothing-model", postConfigRequest);
+        	}, "postConfig accepted null postConfigRequest");
     }
 
     /**
@@ -218,8 +248,13 @@ public class DefaultApiTest {
     public void postDataTest() throws ApiException {
         String modelId = null;
         PostDataRequest postDataRequest = null;
-        PostDataResponse response = api.postData(modelId, postDataRequest);
-        // TODO: test validations
+//        PostDataResponse response = api.postData(modelId, postDataRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postData(modelId, postDataRequest);
+        	}, "postData accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postData("nothing-model", postDataRequest);
+        	}, "postData accepted null postDataRequest");
     }
 
     /**
@@ -232,8 +267,10 @@ public class DefaultApiTest {
     @Test
     public void postModelTest() throws ApiException {
         PostModelRequest postModelRequest = null;
-        Model response = api.postModel(postModelRequest);
-        // TODO: test validations
+//        Model response = api.postModel(postModelRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postModel(postModelRequest);
+        	}, "postModel accepted null postModelRequest");
     }
 
     /**
@@ -246,8 +283,10 @@ public class DefaultApiTest {
     @Test
     public void postOauth2AccessTest() throws ApiException {
         PostOauth2AccessRequest postOauth2AccessRequest = null;
-        PostOauth2AccessResponse response = api.postOauth2Access(postOauth2AccessRequest);
-        // TODO: test validations
+//        PostOauth2AccessResponse response = api.postOauth2Access(postOauth2AccessRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postOauth2Access(postOauth2AccessRequest);
+        	}, "postOauth2Access accepted null postOauth2AccessRequest");
     }
 
     /**
@@ -260,8 +299,10 @@ public class DefaultApiTest {
     @Test
     public void postOauth2RefreshTest() throws ApiException {
         PostOauth2RefreshRequest postOauth2RefreshRequest = null;
-        PostOauth2RefreshResponse response = api.postOauth2Refresh(postOauth2RefreshRequest);
-        // TODO: test validations
+//        PostOauth2RefreshResponse response = api.postOauth2Refresh(postOauth2RefreshRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postOauth2Refresh(postOauth2RefreshRequest);
+        	}, "postOauth2Refresh accepted null postOauth2RefreshRequest");
     }
 
     /**
@@ -274,8 +315,10 @@ public class DefaultApiTest {
     @Test
     public void postOutageTest() throws ApiException {
         String modelId = null;
-        api.postOutage(modelId);
-        // TODO: test validations
+//        api.postOutage(modelId);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postOutage(modelId);
+        	}, "postOutage accepted null modelId");
     }
 
     /**
@@ -289,8 +332,21 @@ public class DefaultApiTest {
         PostPretrainRequest postPretrainRequest = null;
         String chunkspec = null;
         String token = null;
-        PostPretrainResponse response = api.postPretrain(modelId, postPretrainRequest, chunkspec, token);
-        // TODO: test validations
+//        PostPretrainResponse response = api.postPretrain(modelId, postPretrainRequest, chunkspec, token);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postPretrain(modelId, postPretrainRequest, chunkspec, token);
+        	}, "postPretrain accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postPretrain("nothing-model", postPretrainRequest, chunkspec, token);
+        	}, "postPretrain accepted null postPretrainRequest");
+        PostPretrainRequest postPretrainRequest2 = new PostPretrainRequest();
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postPretrain("nothing-model", postPretrainRequest2, chunkspec, token);
+        	}, "postPretrain accepted null chunkspec");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.postPretrain("nothing-model", postPretrainRequest, "test", token);
+        	}, "postPretrain accepted null token");
+        
     }
 
     /**
@@ -304,8 +360,13 @@ public class DefaultApiTest {
     public void putConfigTest() throws ApiException {
         String modelId = null;
         PutConfigRequest putConfigRequest = null;
-        ConfigResponse response = api.putConfig(modelId, putConfigRequest);
-        // TODO: test validations
+//        ConfigResponse response = api.putConfig(modelId, putConfigRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.putConfig(modelId, putConfigRequest);
+        	}, "putConfig accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.putConfig("nothing-model", putConfigRequest);
+        	}, "putConfig accepted null putConfigRequest");
     }
 
     /**
@@ -317,8 +378,13 @@ public class DefaultApiTest {
     public void putDataTest() throws ApiException {
         String modelId = null;
         PutDataRequest putDataRequest = null;
-        PutDataResponse response = api.putData(modelId, putDataRequest);
-        // TODO: test validations
+//        PutDataResponse response = api.putData(modelId, putDataRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.putData(modelId, putDataRequest);
+        	}, "putData accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.putData("nothing-model", putDataRequest);
+        	}, "putData accepted null putDataRequest");
     }
 
     /**
@@ -332,8 +398,13 @@ public class DefaultApiTest {
     public void putModelTest() throws ApiException {
         String modelId = null;
         PutModelRequest putModelRequest = null;
-        Model response = api.putModel(modelId, putModelRequest);
-        // TODO: test validations
+//        Model response = api.putModel(modelId, putModelRequest);
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.putModel(modelId, putModelRequest);
+        	}, "putModel accepted null modelId");
+        Assertions.assertThrows(ApiException.class, () -> {
+        	api.putModel("nothing-model", putModelRequest);
+        	}, "putModel accepted null putModelRequest");
     }
 
 }
