@@ -49,7 +49,6 @@ import java.util.Map;
 /**
  * API tests for DefaultApi
  */
-@Disabled
 public class DefaultApiTest {
 
     private final DefaultApi api = new DefaultApi();
