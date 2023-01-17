@@ -50,16 +50,17 @@ public class AmberClient {
     private String license_id;
     private String license_file;
 
-    public AmberClient() throws Exception {
+    public AmberClient() {
     	this("default", "~/.Amber.license", false, 300000);
     }
     
-    public AmberClient(String license_id, String license_file) throws Exception {
+    public AmberClient(String license_id, String license_file) {
     	this(license_id, license_file, false, 300000);
     }
     
-    public AmberClient(String license_id, String license_file, Boolean verify, int timeout) throws Exception{
+    public AmberClient(String license_id, String license_file, Boolean verify, int timeout) {
     	this.reauthTime = 0;
+    	this.refreshToken = "";
     	this.api = new DefaultApi();
     	
     	this.api.getApiClient().setConnectTimeout(timeout);
@@ -70,18 +71,51 @@ public class AmberClient {
     	
     	String license_path = System.getenv("AMBER_LICENSE_FILE");
     	this.license_file = (license_path == null) ? license_file : license_path;
+    	// java doesn't know what tilda means
+    	this.license_file = this.license_file.replaceFirst("^~", System.getProperty("user.home"));
+    	
+    	String server = "";
+    	try {
+    		if (this.license_file != null) {
+    			File f = new File(this.license_file);
+    			if (f.exists()) {
+    				JSONParser parser = new JSONParser();
+    			      try {
+    			         Object obj = parser.parse(new FileReader(this.license_file));
+    			         JSONObject jsonObject = (JSONObject)obj;
+    			         JSONObject profile = (JSONObject) jsonObject.get(this.license_id);
+    			         
+    			         server = (String) profile.get("server");
+    			      } catch (Exception e) {
+    			    	  // something went wrong but continue
+    			      }
+    			} else {
+    				throw new Exception("Amber license file not found");
+    			}
+    		}
+    	} catch (Exception e) {
+    		
+    	}
+    	
+    	String envServer = System.getenv("AMBER_SERVER");
+    	server = (envServer != null) ? envServer : server;
+    	
+    	if (server != "") {
+    		this.api.getApiClient().setBasePath(server);
+    	} // else just use defaultBasePath
+    	
+    	
     	
     	// check verify env TODO
 //    	String envVerify = System.getenv("AMBER_SSL_VERIFY");
 //    	String tmp_verify = (envVerify != null) ? envVerify : verify;
 //    	localVarApiClient.setVerifyingSsl(verify);
     	
-    	this.api.getApiClient().addDefaultHeader("Content-Type", "application/json");
     }
     
     private String[] loadAuthValues() throws Exception {
     	String[] auth = new String[2];
-    	auth[0] = auth[1] = auth[2] = "";
+    	auth[0] = auth[1] = "";
     	try {
     		if (this.license_file != null) {
     			File f = new File(this.license_file);
@@ -94,8 +128,6 @@ public class AmberClient {
     			         
     			         auth[0] = (String) profile.get("license");
     			         auth[1] = (String) profile.get("secret");
-    			         auth[2] = (String) profile.get("server");
-    			     	 this.api.getApiClient().setBasePath(auth[2]);
     			      } catch (Exception e) {
     			    	  // something went wrong but continue
     			      }
@@ -114,18 +146,11 @@ public class AmberClient {
     	String envSecret = System.getenv("AMBER_SECRET");
     	auth[1] = (envSecret != null) ? envSecret : auth[1];
     	
-    	String envServer = System.getenv("AMBER_SERVER");
-    	auth[2] = (envServer != null) ? envServer : auth[2];
-    	this.api.getApiClient().setBasePath(auth[2]);
-    	
     	if (auth[0] == "") {
     		throw new Exception("license not specified");
     	}
     	if (auth[1] == "") {
     		throw new Exception("secret not specified");
-    	}
-    	if (auth[2] == "") {
-    		throw new Exception("server not specified");
     	}
     	
     	return auth;

@@ -2,7 +2,6 @@
 
 Amber API Server
 - API version: 2.0.0
-  - Build date: 2023-01-13T16:08:34.904323-06:00[America/Chicago]
 
 Boon Logic Amber API server
 

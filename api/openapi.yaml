@@ -40,7 +40,7 @@ paths:
       operationId: postOauth2Access
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/postOauth2AccessRequest'
         description: Amber account credentials
@@ -73,7 +73,7 @@ paths:
       security: []
       summary: request an API token given license and secret key
       x-codegen-request-body-name: postOauth2AccessRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /oauth2/refresh:
     post:
@@ -81,7 +81,7 @@ paths:
       operationId: postOauth2Refresh
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/postOauth2RefreshRequest'
         description: Amber account credentials
@@ -114,7 +114,7 @@ paths:
       security: []
       summary: request an API token given a refresh token
       x-codegen-request-body-name: postOauth2RefreshRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /models:
     get:
@@ -152,7 +152,7 @@ paths:
       operationId: postModel
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/postModelRequest'
         description: initial metadata for new model
@@ -184,7 +184,7 @@ paths:
           description: Internal server error
       summary: create a model
       x-codegen-request-body-name: postModelRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /models/{modelId}:
     delete:
@@ -267,7 +267,7 @@ paths:
           type: string
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/putModelRequest'
         description: updates to apply
@@ -305,7 +305,7 @@ paths:
           description: Internal server error
       summary: update model metadata
       x-codegen-request-body-name: putModelRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /models/{modelId}/config:
     get:
@@ -356,7 +356,7 @@ paths:
           type: string
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/postConfigRequest'
         description: configuration to apply
@@ -394,7 +394,7 @@ paths:
           description: Internal server error
       summary: configure a model
       x-codegen-request-body-name: postConfigRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
     put:
       description: Update configuration for the specified model.
@@ -407,7 +407,7 @@ paths:
           type: string
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/putConfigRequest'
         description: updates to apply
@@ -445,7 +445,7 @@ paths:
           description: Internal server error
       summary: update model configuration
       x-codegen-request-body-name: putConfigRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /models/{modelId}/data:
     get:
@@ -495,7 +495,7 @@ paths:
           type: string
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/postDataRequest'
         description: data vector or vectors as a flattened list of comma-separated
@@ -534,7 +534,7 @@ paths:
           description: Internal server error
       summary: send data to model and get back results
       x-codegen-request-body-name: postDataRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
     put:
       operationId: putData
@@ -546,7 +546,7 @@ paths:
           type: string
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/putDataRequest'
         description: updates to the fusion vector
@@ -584,7 +584,7 @@ paths:
           description: Internal server error
       summary: update fusion vector and get back results
       x-codegen-request-body-name: putDataRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /models/{modelId}/status:
     get:
@@ -688,7 +688,7 @@ paths:
           type: string
       requestBody:
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/postPretrainRequest'
         description: Data to use for pretraining.
@@ -726,7 +726,7 @@ paths:
           description: Internal server error
       summary: pretrain model with an existing dataset
       x-codegen-request-body-name: postPretrainRequest
-      x-content-type: '*/*'
+      x-content-type: application/json
       x-accepts: '*/*'
   /models/{modelId}/blame:
     get:

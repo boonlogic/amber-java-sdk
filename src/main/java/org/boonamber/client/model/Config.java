@@ -52,7 +52,7 @@ import org.boonamber.client.JSON;
 /**
  * Config
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-13T16:08:34.904323-06:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Config {
   public static final String SERIALIZED_NAME_STREAMING_WINDOW = "streamingWindow";
   @SerializedName(SERIALIZED_NAME_STREAMING_WINDOW)

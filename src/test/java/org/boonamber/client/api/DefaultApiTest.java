@@ -51,7 +51,7 @@ import java.util.Map;
  */
 public class DefaultApiTest {
 
-    private final DefaultApi api = new DefaultApi();
+    private final AmberClient api = new AmberClient();
 
     /**
      * delete a model
