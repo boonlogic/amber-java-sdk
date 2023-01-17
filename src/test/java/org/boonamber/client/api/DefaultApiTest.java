@@ -38,7 +38,6 @@ import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
 import org.boonamber.client.model.Version;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
