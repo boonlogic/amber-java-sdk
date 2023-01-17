@@ -20,6 +20,7 @@ target
 .gradle
 build
 .openapi-generator/*
+.swagger-codegen/*
 
 amber-api.json
 amber-api.yml
