@@ -169,32 +169,30 @@ public class AmberClient {
     	}
     }
     
-    private void authenticate(Boolean force) throws ApiException {
+    private void authenticate(Boolean force) throws ApiException, Exception {
     	if (!force && this.timeNow() <= this.reauthTime) {
     		return; //not yet
     	}
     	
-    	String token;
-    	String expiresIn;
+    	String token = null;
+    	String expiresIn = null;
     	
     	// try to refresh the api token using the refresh token
     	PostOauth2RefreshRequest refreshBody = new PostOauth2RefreshRequest();
     	refreshBody.setRefreshToken(this.refreshToken);
-    	ApiResponse<PostOauth2RefreshResponse> refreshResponse;
     	try {
-    		refreshResponse = this.api.postOauth2RefreshWithHttpInfo(refreshBody);    	
-    	} catch (Exception e) {
-    		throw new ApiException(e);
-    	}
-    	
-    	// refresh token has expired so need to access oauth again
-    	String[] auth = new String[2];
-    	if (refreshResponse.getStatusCode() >= 200) {
+    		PostOauth2RefreshResponse refreshResponse;
+    		refreshResponse = this.api.postOauth2Refresh(refreshBody);   
+    		token = refreshResponse.getIdToken();
+        	expiresIn = refreshResponse.getExpiresIn();
+    	} catch (ApiException a) { // status code != 200
+        	// refresh token has expired so need to access oauth again
+        	String[] auth = new String[2];
     		// load license and secret from file
     		try {
     			auth = loadAuthValues();
     		} catch (Exception e) {
-    			throw new ApiException(e);
+    			throw new Exception(e);
     		}
     		
     		// access new oauth for new api and refresh token
@@ -212,13 +210,10 @@ public class AmberClient {
         	this.refreshToken = accessResponse.getRefreshToken();
         	token = accessResponse.getIdToken();
         	expiresIn = accessResponse.getExpiresIn();
-    		
-    	// refresh token is still valid so update the api token and expiration
-    	} else {
-	    	token = refreshResponse.getData().getIdToken();
-	    	expiresIn = refreshResponse.getData().getExpiresIn();
+    	} catch (Exception e) {
+    		throw new Exception(e);
     	}
-    	
+
     	// validate that the token and expiration are not null
     	if (token == null) {
     		throw new ApiException(401, "Authentication failed: invalid credentials");
