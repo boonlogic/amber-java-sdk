@@ -22,5 +22,7 @@ build
 .openapi-generator/*
 .swagger-codegen/*
 
+*.DS_Store
+
 amber-api.json
 amber-api.yml
