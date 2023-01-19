@@ -120,23 +120,22 @@ All URIs are relative to *http://amber.boonlogic.com/v2*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**deleteModel**](docs/DefaultApi.md#deleteModel) | **DELETE** /models/{modelId} | delete a model
-*DefaultApi* | [**getBlame**](docs/DefaultApi.md#getBlame) | **GET** /models/{modelId}/blame | perform root cause analysis
 *DefaultApi* | [**getConfig**](docs/DefaultApi.md#getConfig) | **GET** /models/{modelId}/config | get model configuration
-*DefaultApi* | [**getData**](docs/DefaultApi.md#getData) | **GET** /models/{modelId}/data | get the current fusion vector
 *DefaultApi* | [**getModel**](docs/DefaultApi.md#getModel) | **GET** /models/{modelId} | get model metadata
 *DefaultApi* | [**getModels**](docs/DefaultApi.md#getModels) | **GET** /models | list all models
 *DefaultApi* | [**getPretrain**](docs/DefaultApi.md#getPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress
+*DefaultApi* | [**getRootCause**](docs/DefaultApi.md#getRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis
 *DefaultApi* | [**getStatus**](docs/DefaultApi.md#getStatus) | **GET** /models/{modelId}/status | get current status of the model
 *DefaultApi* | [**getUsage**](docs/DefaultApi.md#getUsage) | **GET** /models/{modelId}/usage | get model usage metrics
 *DefaultApi* | [**getVersion**](docs/DefaultApi.md#getVersion) | **GET** /version | get version information
 *DefaultApi* | [**postConfig**](docs/DefaultApi.md#postConfig) | **POST** /models/{modelId}/config | configure a model
 *DefaultApi* | [**postData**](docs/DefaultApi.md#postData) | **POST** /models/{modelId}/data | send data to model and get back results
+*DefaultApi* | [**postLearning**](docs/DefaultApi.md#postLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning
 *DefaultApi* | [**postModel**](docs/DefaultApi.md#postModel) | **POST** /models | create a model
 *DefaultApi* | [**postOauth2Access**](docs/DefaultApi.md#postOauth2Access) | **POST** /oauth2/access | request an API token given license and secret key
 *DefaultApi* | [**postOauth2Refresh**](docs/DefaultApi.md#postOauth2Refresh) | **POST** /oauth2/refresh | request an API token given a refresh token
 *DefaultApi* | [**postOutage**](docs/DefaultApi.md#postOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming
 *DefaultApi* | [**postPretrain**](docs/DefaultApi.md#postPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset
-*DefaultApi* | [**putConfig**](docs/DefaultApi.md#putConfig) | **PUT** /models/{modelId}/config | update model configuration
 *DefaultApi* | [**putData**](docs/DefaultApi.md#putData) | **PUT** /models/{modelId}/data | update fusion vector and get back results
 *DefaultApi* | [**putModel**](docs/DefaultApi.md#putModel) | **PUT** /models/{modelId} | update model metadata
 
@@ -149,12 +148,11 @@ Class | Method | HTTP request | Description
  - [ConfigResponse](docs/ConfigResponse.md)
  - [EndpointUsage](docs/EndpointUsage.md)
  - [Error](docs/Error.md)
- - [FeatureBlame](docs/FeatureBlame.md)
  - [FeatureConfig](docs/FeatureConfig.md)
  - [FeatureConfigResponse](docs/FeatureConfigResponse.md)
  - [FeatureConfigResponseAllOf](docs/FeatureConfigResponseAllOf.md)
+ - [FeatureRootCause](docs/FeatureRootCause.md)
  - [FusionFeature](docs/FusionFeature.md)
- - [GetDataResponse](docs/GetDataResponse.md)
  - [GetUsageResponse](docs/GetUsageResponse.md)
  - [GetUsageResponseEndpoints](docs/GetUsageResponseEndpoints.md)
  - [Model](docs/Model.md)
@@ -162,6 +160,8 @@ Class | Method | HTTP request | Description
  - [PercentVariationResponse](docs/PercentVariationResponse.md)
  - [PostDataRequest](docs/PostDataRequest.md)
  - [PostDataResponse](docs/PostDataResponse.md)
+ - [PostLearningRequest](docs/PostLearningRequest.md)
+ - [PostLearningResponse](docs/PostLearningResponse.md)
  - [PostModelRequest](docs/PostModelRequest.md)
  - [PostOauth2AccessRequest](docs/PostOauth2AccessRequest.md)
  - [PostOauth2AccessResponse](docs/PostOauth2AccessResponse.md)
@@ -171,7 +171,6 @@ Class | Method | HTTP request | Description
  - [PostPretrainResponse](docs/PostPretrainResponse.md)
  - [PostPretrainResponseAllOf](docs/PostPretrainResponseAllOf.md)
  - [PretrainStatus](docs/PretrainStatus.md)
- - [PutConfigRequest](docs/PutConfigRequest.md)
  - [PutDataRequest](docs/PutDataRequest.md)
  - [PutDataResponse](docs/PutDataResponse.md)
  - [PutModelRequest](docs/PutModelRequest.md)

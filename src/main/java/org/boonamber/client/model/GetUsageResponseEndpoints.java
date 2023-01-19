@@ -63,9 +63,9 @@ public class GetUsageResponseEndpoints {
   @SerializedName(SERIALIZED_NAME_POST_CONFIG)
   private EndpointUsage postConfig;
 
-  public static final String SERIALIZED_NAME_PUT_CONFIG = "putConfig";
-  @SerializedName(SERIALIZED_NAME_PUT_CONFIG)
-  private EndpointUsage putConfig;
+  public static final String SERIALIZED_NAME_POST_LEARNING = "postLearning";
+  @SerializedName(SERIALIZED_NAME_POST_LEARNING)
+  private EndpointUsage postLearning;
 
   public static final String SERIALIZED_NAME_GET_CONFIG = "getConfig";
   @SerializedName(SERIALIZED_NAME_GET_CONFIG)
@@ -79,10 +79,6 @@ public class GetUsageResponseEndpoints {
   @SerializedName(SERIALIZED_NAME_PUT_DATA)
   private EndpointUsage putData;
 
-  public static final String SERIALIZED_NAME_GET_DATA = "getData";
-  @SerializedName(SERIALIZED_NAME_GET_DATA)
-  private EndpointUsage getData;
-
   public static final String SERIALIZED_NAME_GET_STATUS = "getStatus";
   @SerializedName(SERIALIZED_NAME_GET_STATUS)
   private EndpointUsage getStatus;
@@ -95,9 +91,9 @@ public class GetUsageResponseEndpoints {
   @SerializedName(SERIALIZED_NAME_GET_PRETRAIN)
   private EndpointUsage getPretrain;
 
-  public static final String SERIALIZED_NAME_GET_BLAME = "getBlame";
-  @SerializedName(SERIALIZED_NAME_GET_BLAME)
-  private EndpointUsage getBlame;
+  public static final String SERIALIZED_NAME_GET_ROOT_CAUSE = "getRootCause";
+  @SerializedName(SERIALIZED_NAME_GET_ROOT_CAUSE)
+  private EndpointUsage getRootCause;
 
   public static final String SERIALIZED_NAME_GET_USAGE = "getUsage";
   @SerializedName(SERIALIZED_NAME_GET_USAGE)
@@ -179,26 +175,26 @@ public class GetUsageResponseEndpoints {
   }
 
 
-  public GetUsageResponseEndpoints putConfig(EndpointUsage putConfig) {
+  public GetUsageResponseEndpoints postLearning(EndpointUsage postLearning) {
     
-    this.putConfig = putConfig;
+    this.postLearning = postLearning;
     return this;
   }
 
    /**
-   * Get putConfig
-   * @return putConfig
+   * Get postLearning
+   * @return postLearning
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public EndpointUsage getPutConfig() {
-    return putConfig;
+  public EndpointUsage getPostLearning() {
+    return postLearning;
   }
 
 
-  public void setPutConfig(EndpointUsage putConfig) {
-    this.putConfig = putConfig;
+  public void setPostLearning(EndpointUsage postLearning) {
+    this.postLearning = postLearning;
   }
 
 
@@ -271,29 +267,6 @@ public class GetUsageResponseEndpoints {
   }
 
 
-  public GetUsageResponseEndpoints getData(EndpointUsage getData) {
-    
-    this.getData = getData;
-    return this;
-  }
-
-   /**
-   * Get getData
-   * @return getData
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public EndpointUsage getGetData() {
-    return getData;
-  }
-
-
-  public void setGetData(EndpointUsage getData) {
-    this.getData = getData;
-  }
-
-
   public GetUsageResponseEndpoints getStatus(EndpointUsage getStatus) {
     
     this.getStatus = getStatus;
@@ -363,26 +336,26 @@ public class GetUsageResponseEndpoints {
   }
 
 
-  public GetUsageResponseEndpoints getBlame(EndpointUsage getBlame) {
+  public GetUsageResponseEndpoints getRootCause(EndpointUsage getRootCause) {
     
-    this.getBlame = getBlame;
+    this.getRootCause = getRootCause;
     return this;
   }
 
    /**
-   * Get getBlame
-   * @return getBlame
+   * Get getRootCause
+   * @return getRootCause
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public EndpointUsage getGetBlame() {
-    return getBlame;
+  public EndpointUsage getGetRootCause() {
+    return getRootCause;
   }
 
 
-  public void setGetBlame(EndpointUsage getBlame) {
-    this.getBlame = getBlame;
+  public void setGetRootCause(EndpointUsage getRootCause) {
+    this.getRootCause = getRootCause;
   }
 
 
@@ -445,22 +418,21 @@ public class GetUsageResponseEndpoints {
     return Objects.equals(this.getModel, getUsageResponseEndpoints.getModel) &&
         Objects.equals(this.putModel, getUsageResponseEndpoints.putModel) &&
         Objects.equals(this.postConfig, getUsageResponseEndpoints.postConfig) &&
-        Objects.equals(this.putConfig, getUsageResponseEndpoints.putConfig) &&
+        Objects.equals(this.postLearning, getUsageResponseEndpoints.postLearning) &&
         Objects.equals(this.getConfig, getUsageResponseEndpoints.getConfig) &&
         Objects.equals(this.postData, getUsageResponseEndpoints.postData) &&
         Objects.equals(this.putData, getUsageResponseEndpoints.putData) &&
-        Objects.equals(this.getData, getUsageResponseEndpoints.getData) &&
         Objects.equals(this.getStatus, getUsageResponseEndpoints.getStatus) &&
         Objects.equals(this.postPretrain, getUsageResponseEndpoints.postPretrain) &&
         Objects.equals(this.getPretrain, getUsageResponseEndpoints.getPretrain) &&
-        Objects.equals(this.getBlame, getUsageResponseEndpoints.getBlame) &&
+        Objects.equals(this.getRootCause, getUsageResponseEndpoints.getRootCause) &&
         Objects.equals(this.getUsage, getUsageResponseEndpoints.getUsage) &&
         Objects.equals(this.postOutage, getUsageResponseEndpoints.postOutage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getModel, putModel, postConfig, putConfig, getConfig, postData, putData, getData, getStatus, postPretrain, getPretrain, getBlame, getUsage, postOutage);
+    return Objects.hash(getModel, putModel, postConfig, postLearning, getConfig, postData, putData, getStatus, postPretrain, getPretrain, getRootCause, getUsage, postOutage);
   }
 
   @Override
@@ -470,15 +442,14 @@ public class GetUsageResponseEndpoints {
     sb.append("    getModel: ").append(toIndentedString(getModel)).append("\n");
     sb.append("    putModel: ").append(toIndentedString(putModel)).append("\n");
     sb.append("    postConfig: ").append(toIndentedString(postConfig)).append("\n");
-    sb.append("    putConfig: ").append(toIndentedString(putConfig)).append("\n");
+    sb.append("    postLearning: ").append(toIndentedString(postLearning)).append("\n");
     sb.append("    getConfig: ").append(toIndentedString(getConfig)).append("\n");
     sb.append("    postData: ").append(toIndentedString(postData)).append("\n");
     sb.append("    putData: ").append(toIndentedString(putData)).append("\n");
-    sb.append("    getData: ").append(toIndentedString(getData)).append("\n");
     sb.append("    getStatus: ").append(toIndentedString(getStatus)).append("\n");
     sb.append("    postPretrain: ").append(toIndentedString(postPretrain)).append("\n");
     sb.append("    getPretrain: ").append(toIndentedString(getPretrain)).append("\n");
-    sb.append("    getBlame: ").append(toIndentedString(getBlame)).append("\n");
+    sb.append("    getRootCause: ").append(toIndentedString(getRootCause)).append("\n");
     sb.append("    getUsage: ").append(toIndentedString(getUsage)).append("\n");
     sb.append("    postOutage: ").append(toIndentedString(postOutage)).append("\n");
     sb.append("}");
@@ -506,15 +477,14 @@ public class GetUsageResponseEndpoints {
     openapiFields.add("getModel");
     openapiFields.add("putModel");
     openapiFields.add("postConfig");
-    openapiFields.add("putConfig");
+    openapiFields.add("postLearning");
     openapiFields.add("getConfig");
     openapiFields.add("postData");
     openapiFields.add("putData");
-    openapiFields.add("getData");
     openapiFields.add("getStatus");
     openapiFields.add("postPretrain");
     openapiFields.add("getPretrain");
-    openapiFields.add("getBlame");
+    openapiFields.add("getRootCause");
     openapiFields.add("getUsage");
     openapiFields.add("postOutage");
 
@@ -554,9 +524,9 @@ public class GetUsageResponseEndpoints {
       if (jsonObj.get("postConfig") != null && !jsonObj.get("postConfig").isJsonNull()) {
         EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("postConfig"));
       }
-      // validate the optional field `putConfig`
-      if (jsonObj.get("putConfig") != null && !jsonObj.get("putConfig").isJsonNull()) {
-        EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("putConfig"));
+      // validate the optional field `postLearning`
+      if (jsonObj.get("postLearning") != null && !jsonObj.get("postLearning").isJsonNull()) {
+        EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("postLearning"));
       }
       // validate the optional field `getConfig`
       if (jsonObj.get("getConfig") != null && !jsonObj.get("getConfig").isJsonNull()) {
@@ -570,10 +540,6 @@ public class GetUsageResponseEndpoints {
       if (jsonObj.get("putData") != null && !jsonObj.get("putData").isJsonNull()) {
         EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("putData"));
       }
-      // validate the optional field `getData`
-      if (jsonObj.get("getData") != null && !jsonObj.get("getData").isJsonNull()) {
-        EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("getData"));
-      }
       // validate the optional field `getStatus`
       if (jsonObj.get("getStatus") != null && !jsonObj.get("getStatus").isJsonNull()) {
         EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("getStatus"));
@@ -586,9 +552,9 @@ public class GetUsageResponseEndpoints {
       if (jsonObj.get("getPretrain") != null && !jsonObj.get("getPretrain").isJsonNull()) {
         EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("getPretrain"));
       }
-      // validate the optional field `getBlame`
-      if (jsonObj.get("getBlame") != null && !jsonObj.get("getBlame").isJsonNull()) {
-        EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("getBlame"));
+      // validate the optional field `getRootCause`
+      if (jsonObj.get("getRootCause") != null && !jsonObj.get("getRootCause").isJsonNull()) {
+        EndpointUsage.validateJsonObject(jsonObj.getAsJsonObject("getRootCause"));
       }
       // validate the optional field `getUsage`
       if (jsonObj.get("getUsage") != null && !jsonObj.get("getUsage").isJsonNull()) {

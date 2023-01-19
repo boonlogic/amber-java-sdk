@@ -19,8 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.boonamber.client.model.Config;
 import org.boonamber.client.model.ConfigResponse;
-import org.boonamber.client.model.FeatureBlame;
-import org.boonamber.client.model.GetDataResponse;
+import org.boonamber.client.model.FeatureRootCause;
 import org.boonamber.client.model.GetUsageResponse;
 import org.boonamber.client.model.Model;
 import org.boonamber.client.model.ModelStatus;
@@ -34,7 +33,8 @@ import org.boonamber.client.model.PostOauth2RefreshResponse;
 import org.boonamber.client.model.PostPretrainRequest;
 import org.boonamber.client.model.PostPretrainResponse;
 import org.boonamber.client.model.PretrainStatus;
-import org.boonamber.client.model.PutConfigRequest;
+import org.boonamber.client.model.PostLearningRequest;
+import org.boonamber.client.model.PostLearningResponse;
 import org.boonamber.client.model.PutDataRequest;
 import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
@@ -227,6 +227,7 @@ public class AmberClient {
 		this.reauthTime = timeNow() + expiresInNum - 60;
 		
 		// update auth token
+		this.api.getApiClient().setApiKeyPrefix("Bearer");
 		this.api.getApiClient().setApiKey(token);
     }
 
@@ -251,16 +252,16 @@ public class AmberClient {
      * @param modelId  (required)
      * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
      * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
-     * @return List&lt;FeatureBlame&gt;
+     * @return List&lt;FeatureRootCause&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<FeatureBlame> getBlame(String modelId, String clusters, String vectors) throws ApiException {
+    public List<FeatureRootCause> getRootCause(String modelId, String clusters, String vectors) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.getBlame(modelId, clusters, vectors);
+        return this.api.getRootCause(modelId, clusters, vectors);
     }
 
     /**
@@ -277,22 +278,6 @@ public class AmberClient {
     		throw new ApiException(e);
     	}
         return this.api.getConfig(modelId);
-    }
-
-    /**
-     * get the current fusion vector
-     * 
-     * @param modelId  (required)
-     * @return GetDataResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public GetDataResponse getData(String modelId) throws ApiException {
-    	try {
-    		authenticate();
-    	} catch (ApiException e) {
-    		throw new ApiException(e);
-    	}
-        return this.api.getData(modelId);
     }
 
     /**
@@ -514,13 +499,13 @@ public class AmberClient {
      * @return ConfigResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ConfigResponse putConfig(String modelId, PutConfigRequest putConfigRequest) throws ApiException {
+    public PostLearningResponse enableLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.putConfig(modelId, putConfigRequest);
+        return this.api.postLearning(modelId, postLearningRequest);
     }
 
     /**

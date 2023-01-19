@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import org.boonamber.client.model.AmberState;
 
 import com.google.gson.Gson;
@@ -74,6 +75,14 @@ public class ModelStatus {
   public static final String SERIALIZED_NAME_MESSAGE = "message";
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
+
+  public static final String SERIALIZED_NAME_LAST_MODIFIED = "lastModified";
+  @SerializedName(SERIALIZED_NAME_LAST_MODIFIED)
+  private BigDecimal lastModified;
+
+  public static final String SERIALIZED_NAME_LAST_MODIFIED_DELTA = "lastModifiedDelta";
+  @SerializedName(SERIALIZED_NAME_LAST_MODIFIED_DELTA)
+  private BigDecimal lastModifiedDelta;
 
   public ModelStatus() {
   }
@@ -218,6 +227,52 @@ public class ModelStatus {
   }
 
 
+  public ModelStatus lastModified(BigDecimal lastModified) {
+    
+    this.lastModified = lastModified;
+    return this;
+  }
+
+   /**
+   * Unix time stamp of the last posted stream data
+   * @return lastModified
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Unix time stamp of the last posted stream data")
+
+  public BigDecimal getLastModified() {
+    return lastModified;
+  }
+
+
+  public void setLastModified(BigDecimal lastModified) {
+    this.lastModified = lastModified;
+  }
+
+
+  public ModelStatus lastModifiedDelta(BigDecimal lastModifiedDelta) {
+    
+    this.lastModifiedDelta = lastModifiedDelta;
+    return this;
+  }
+
+   /**
+   * number of seconds since the last posted stream data
+   * @return lastModifiedDelta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "number of seconds since the last posted stream data")
+
+  public BigDecimal getLastModifiedDelta() {
+    return lastModifiedDelta;
+  }
+
+
+  public void setLastModifiedDelta(BigDecimal lastModifiedDelta) {
+    this.lastModifiedDelta = lastModifiedDelta;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -233,12 +288,14 @@ public class ModelStatus {
         Objects.equals(this.sampleCount, modelStatus.sampleCount) &&
         Objects.equals(this.clusterCount, modelStatus.clusterCount) &&
         Objects.equals(this.progress, modelStatus.progress) &&
-        Objects.equals(this.message, modelStatus.message);
+        Objects.equals(this.message, modelStatus.message) &&
+        Objects.equals(this.lastModified, modelStatus.lastModified) &&
+        Objects.equals(this.lastModifiedDelta, modelStatus.lastModifiedDelta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(state, warningLevel, sampleCount, clusterCount, progress, message);
+    return Objects.hash(state, warningLevel, sampleCount, clusterCount, progress, message, lastModified, lastModifiedDelta);
   }
 
   @Override
@@ -251,6 +308,8 @@ public class ModelStatus {
     sb.append("    clusterCount: ").append(toIndentedString(clusterCount)).append("\n");
     sb.append("    progress: ").append(toIndentedString(progress)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    lastModified: ").append(toIndentedString(lastModified)).append("\n");
+    sb.append("    lastModifiedDelta: ").append(toIndentedString(lastModifiedDelta)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -279,6 +338,8 @@ public class ModelStatus {
     openapiFields.add("clusterCount");
     openapiFields.add("progress");
     openapiFields.add("message");
+    openapiFields.add("lastModified");
+    openapiFields.add("lastModifiedDelta");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

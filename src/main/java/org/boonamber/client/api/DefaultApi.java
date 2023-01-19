@@ -30,13 +30,14 @@ import java.io.IOException;
 import org.boonamber.client.model.Config;
 import org.boonamber.client.model.ConfigResponse;
 import org.boonamber.client.model.Error;
-import org.boonamber.client.model.FeatureBlame;
-import org.boonamber.client.model.GetDataResponse;
+import org.boonamber.client.model.FeatureRootCause;
 import org.boonamber.client.model.GetUsageResponse;
 import org.boonamber.client.model.Model;
 import org.boonamber.client.model.ModelStatus;
 import org.boonamber.client.model.PostDataRequest;
 import org.boonamber.client.model.PostDataResponse;
+import org.boonamber.client.model.PostLearningRequest;
+import org.boonamber.client.model.PostLearningResponse;
 import org.boonamber.client.model.PostModelRequest;
 import org.boonamber.client.model.PostOauth2AccessRequest;
 import org.boonamber.client.model.PostOauth2AccessResponse;
@@ -45,7 +46,6 @@ import org.boonamber.client.model.PostOauth2RefreshResponse;
 import org.boonamber.client.model.PostPretrainRequest;
 import org.boonamber.client.model.PostPretrainResponse;
 import org.boonamber.client.model.PretrainStatus;
-import org.boonamber.client.model.PutConfigRequest;
 import org.boonamber.client.model.PutDataRequest;
 import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
@@ -227,161 +227,6 @@ public class DefaultApi {
         return localVarCall;
     }
     /**
-     * Build call for getBlame
-     * @param modelId  (required)
-     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getBlameCall(String modelId, String clusters, String vectors, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/models/{modelId}/blame"
-            .replace("{" + "modelId" + "}", localVarApiClient.escapeString(modelId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (clusters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("clusters", clusters));
-        }
-
-        if (vectors != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("vectors", vectors));
-        }
-
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "Bearer" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getBlameValidateBeforeCall(String modelId, String clusters, String vectors, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'modelId' is set
-        if (modelId == null) {
-            throw new ApiException("Missing the required parameter 'modelId' when calling getBlame(Async)");
-        }
-
-        return getBlameCall(modelId, clusters, vectors, _callback);
-
-    }
-
-    /**
-     * perform root cause analysis
-     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
-     * @param modelId  (required)
-     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
-     * @return List&lt;FeatureBlame&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<FeatureBlame> getBlame(String modelId, String clusters, String vectors) throws ApiException {
-        ApiResponse<List<FeatureBlame>> localVarResp = getBlameWithHttpInfo(modelId, clusters, vectors);
-        return localVarResp.getData();
-    }
-
-    /**
-     * perform root cause analysis
-     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
-     * @param modelId  (required)
-     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
-     * @return ApiResponse&lt;List&lt;FeatureBlame&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<FeatureBlame>> getBlameWithHttpInfo(String modelId, String clusters, String vectors) throws ApiException {
-        okhttp3.Call localVarCall = getBlameValidateBeforeCall(modelId, clusters, vectors, null);
-        Type localVarReturnType = new TypeToken<List<FeatureBlame>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * perform root cause analysis (asynchronously)
-     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
-     * @param modelId  (required)
-     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getBlameAsync(String modelId, String clusters, String vectors, final ApiCallback<List<FeatureBlame>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getBlameValidateBeforeCall(modelId, clusters, vectors, _callback);
-        Type localVarReturnType = new TypeToken<List<FeatureBlame>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
      * Build call for getConfig
      * @param modelId  (required)
      * @param _callback Callback for upload/download progress
@@ -513,141 +358,6 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = getConfigValidateBeforeCall(modelId, _callback);
         Type localVarReturnType = new TypeToken<ConfigResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getData
-     * @param modelId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getDataCall(String modelId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/models/{modelId}/data"
-            .replace("{" + "modelId" + "}", localVarApiClient.escapeString(modelId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "Bearer" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getDataValidateBeforeCall(String modelId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'modelId' is set
-        if (modelId == null) {
-            throw new ApiException("Missing the required parameter 'modelId' when calling getData(Async)");
-        }
-
-        return getDataCall(modelId, _callback);
-
-    }
-
-    /**
-     * get the current fusion vector
-     * 
-     * @param modelId  (required)
-     * @return GetDataResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public GetDataResponse getData(String modelId) throws ApiException {
-        ApiResponse<GetDataResponse> localVarResp = getDataWithHttpInfo(modelId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * get the current fusion vector
-     * 
-     * @param modelId  (required)
-     * @return ApiResponse&lt;GetDataResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<GetDataResponse> getDataWithHttpInfo(String modelId) throws ApiException {
-        okhttp3.Call localVarCall = getDataValidateBeforeCall(modelId, null);
-        Type localVarReturnType = new TypeToken<GetDataResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * get the current fusion vector (asynchronously)
-     * 
-     * @param modelId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getDataAsync(String modelId, final ApiCallback<GetDataResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getDataValidateBeforeCall(modelId, _callback);
-        Type localVarReturnType = new TypeToken<GetDataResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1047,6 +757,161 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = getPretrainValidateBeforeCall(modelId, _callback);
         Type localVarReturnType = new TypeToken<PretrainStatus>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getRootCause
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRootCauseCall(String modelId, String clusters, String vectors, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/models/{modelId}/rootCause"
+            .replace("{" + "modelId" + "}", localVarApiClient.escapeString(modelId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (clusters != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("clusters", clusters));
+        }
+
+        if (vectors != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("vectors", vectors));
+        }
+
+        final String[] localVarAccepts = {
+            "*/*"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "Bearer" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRootCauseValidateBeforeCall(String modelId, String clusters, String vectors, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'modelId' is set
+        if (modelId == null) {
+            throw new ApiException("Missing the required parameter 'modelId' when calling getRootCause(Async)");
+        }
+
+        return getRootCauseCall(modelId, clusters, vectors, _callback);
+
+    }
+
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
+     * @return List&lt;FeatureRootCause&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public List<FeatureRootCause> getRootCause(String modelId, String clusters, String vectors) throws ApiException {
+        ApiResponse<List<FeatureRootCause>> localVarResp = getRootCauseWithHttpInfo(modelId, clusters, vectors);
+        return localVarResp.getData();
+    }
+
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
+     * @return ApiResponse&lt;List&lt;FeatureRootCause&gt;&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<List<FeatureRootCause>> getRootCauseWithHttpInfo(String modelId, String clusters, String vectors) throws ApiException {
+        okhttp3.Call localVarCall = getRootCauseValidateBeforeCall(modelId, clusters, vectors, null);
+        Type localVarReturnType = new TypeToken<List<FeatureRootCause>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * perform root cause analysis (asynchronously)
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRootCauseAsync(String modelId, String clusters, String vectors, final ApiCallback<List<FeatureRootCause>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getRootCauseValidateBeforeCall(modelId, clusters, vectors, _callback);
+        Type localVarReturnType = new TypeToken<List<FeatureRootCause>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1731,6 +1596,155 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = postDataValidateBeforeCall(modelId, postDataRequest, _callback);
         Type localVarReturnType = new TypeToken<PostDataResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for postLearning
+     * @param modelId  (required)
+     * @param postLearningRequest updates to apply (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call postLearningCall(String modelId, PostLearningRequest postLearningRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = postLearningRequest;
+
+        // create path and map variables
+        String localVarPath = "/models/{modelId}/learning"
+            .replace("{" + "modelId" + "}", localVarApiClient.escapeString(modelId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "Bearer" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call postLearningValidateBeforeCall(String modelId, PostLearningRequest postLearningRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'modelId' is set
+        if (modelId == null) {
+            throw new ApiException("Missing the required parameter 'modelId' when calling postLearning(Async)");
+        }
+
+        // verify the required parameter 'postLearningRequest' is set
+        if (postLearningRequest == null) {
+            throw new ApiException("Missing the required parameter 'postLearningRequest' when calling postLearning(Async)");
+        }
+
+        return postLearningCall(modelId, postLearningRequest, _callback);
+
+    }
+
+    /**
+     * update model configuration and re-enable learning
+     * Update model configuration and re-enable learning
+     * @param modelId  (required)
+     * @param postLearningRequest updates to apply (required)
+     * @return PostLearningResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public PostLearningResponse postLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
+        ApiResponse<PostLearningResponse> localVarResp = postLearningWithHttpInfo(modelId, postLearningRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * update model configuration and re-enable learning
+     * Update model configuration and re-enable learning
+     * @param modelId  (required)
+     * @param postLearningRequest updates to apply (required)
+     * @return ApiResponse&lt;PostLearningResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<PostLearningResponse> postLearningWithHttpInfo(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
+        okhttp3.Call localVarCall = postLearningValidateBeforeCall(modelId, postLearningRequest, null);
+        Type localVarReturnType = new TypeToken<PostLearningResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * update model configuration and re-enable learning (asynchronously)
+     * Update model configuration and re-enable learning
+     * @param modelId  (required)
+     * @param postLearningRequest updates to apply (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call postLearningAsync(String modelId, PostLearningRequest postLearningRequest, final ApiCallback<PostLearningResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = postLearningValidateBeforeCall(modelId, postLearningRequest, _callback);
+        Type localVarReturnType = new TypeToken<PostLearningResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -2432,155 +2446,6 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = postPretrainValidateBeforeCall(modelId, postPretrainRequest, chunkspec, token, _callback);
         Type localVarReturnType = new TypeToken<PostPretrainResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for putConfig
-     * @param modelId  (required)
-     * @param putConfigRequest updates to apply (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call putConfigCall(String modelId, PutConfigRequest putConfigRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = putConfigRequest;
-
-        // create path and map variables
-        String localVarPath = "/models/{modelId}/config"
-            .replace("{" + "modelId" + "}", localVarApiClient.escapeString(modelId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "Bearer" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call putConfigValidateBeforeCall(String modelId, PutConfigRequest putConfigRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'modelId' is set
-        if (modelId == null) {
-            throw new ApiException("Missing the required parameter 'modelId' when calling putConfig(Async)");
-        }
-
-        // verify the required parameter 'putConfigRequest' is set
-        if (putConfigRequest == null) {
-            throw new ApiException("Missing the required parameter 'putConfigRequest' when calling putConfig(Async)");
-        }
-
-        return putConfigCall(modelId, putConfigRequest, _callback);
-
-    }
-
-    /**
-     * update model configuration
-     * Update configuration for the specified model.
-     * @param modelId  (required)
-     * @param putConfigRequest updates to apply (required)
-     * @return ConfigResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConfigResponse putConfig(String modelId, PutConfigRequest putConfigRequest) throws ApiException {
-        ApiResponse<ConfigResponse> localVarResp = putConfigWithHttpInfo(modelId, putConfigRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * update model configuration
-     * Update configuration for the specified model.
-     * @param modelId  (required)
-     * @param putConfigRequest updates to apply (required)
-     * @return ApiResponse&lt;ConfigResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConfigResponse> putConfigWithHttpInfo(String modelId, PutConfigRequest putConfigRequest) throws ApiException {
-        okhttp3.Call localVarCall = putConfigValidateBeforeCall(modelId, putConfigRequest, null);
-        Type localVarReturnType = new TypeToken<ConfigResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * update model configuration (asynchronously)
-     * Update configuration for the specified model.
-     * @param modelId  (required)
-     * @param putConfigRequest updates to apply (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call putConfigAsync(String modelId, PutConfigRequest putConfigRequest, final ApiCallback<ConfigResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = putConfigValidateBeforeCall(modelId, putConfigRequest, _callback);
-        Type localVarReturnType = new TypeToken<ConfigResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

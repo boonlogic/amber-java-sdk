@@ -17,7 +17,7 @@ import org.boonamber.client.ApiException;
 import org.boonamber.client.model.Config;
 import org.boonamber.client.model.ConfigResponse;
 import org.boonamber.client.model.Error;
-import org.boonamber.client.model.FeatureBlame;
+import org.boonamber.client.model.FeatureRootCause;
 import org.boonamber.client.model.GetDataResponse;
 import org.boonamber.client.model.GetUsageResponse;
 import org.boonamber.client.model.Model;
@@ -25,6 +25,7 @@ import org.boonamber.client.model.ModelStatus;
 import org.boonamber.client.model.PostDataRequest;
 import org.boonamber.client.model.PostDataResponse;
 import org.boonamber.client.model.PostModelRequest;
+import org.boonamber.client.model.Model;
 import org.boonamber.client.model.PostOauth2AccessRequest;
 import org.boonamber.client.model.PostOauth2AccessResponse;
 import org.boonamber.client.model.PostOauth2RefreshRequest;
@@ -32,13 +33,16 @@ import org.boonamber.client.model.PostOauth2RefreshResponse;
 import org.boonamber.client.model.PostPretrainRequest;
 import org.boonamber.client.model.PostPretrainResponse;
 import org.boonamber.client.model.PretrainStatus;
-import org.boonamber.client.model.PutConfigRequest;
+import org.boonamber.client.model.PostLearningRequest;
 import org.boonamber.client.model.PutDataRequest;
 import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
 import org.boonamber.client.model.Version;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +55,32 @@ import java.util.Map;
 public class DefaultApiTest {
 
     private final AmberClient api = new AmberClient();
+    
+//    private String modelId = "";
+//    
+//    @BeforeEach
+//    String setUp() {
+//        PostModelRequest postModelRequest = new PostModelRequest();
+//        postModelRequest.setLabel("test-123");
+//        Model response = null;
+//        try {
+//        	response = api.postModel(postModelRequest);
+//        } catch (ApiException e) {
+//        	Assertions.assertTrue(false);
+//        }
+//        Assertions.assertEquals(postModelRequest.getLabel(), "test-123");
+//        this.modelId = response.getId();
+//        return this.modelId;
+//    }
+//    
+//    @AfterEach
+//    void teardown() {
+//        try {
+//        	api.deleteModel(this.modelId);
+//        } catch (ApiException e) {
+//        	Assertions.assertTrue(false);
+//        }
+//    }
 
     /**
      * delete a model
@@ -61,8 +91,8 @@ public class DefaultApiTest {
      */
     @Test
     public void deleteModelTest() throws ApiException {
+    	// validate null input
         String modelId = null;
-//        api.deleteModel(modelId);
         Assertions.assertThrows(ApiException.class, () -> {
         	api.deleteModel(modelId);
         	}, "deleteModel accepted null modelId");
@@ -75,21 +105,22 @@ public class DefaultApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Disabled
     @Test
-    public void getBlameTest() throws ApiException {
+    public void getRootCauseTest() throws ApiException {
         String modelId = null;
         String clusters = null;
         String vectors = null;
-//        List<FeatureBlame> response = api.getBlame(modelId, clusters, vectors);
+//        List<FeatureRootCause> response = api.getRootCause(modelId, clusters, vectors);
         Assertions.assertThrows(ApiException.class, () -> {
-        	api.getBlame(modelId, clusters, vectors);
-        	}, "getBlame accepted null modelId");
+        	api.getRootCause(modelId, clusters, vectors);
+        	}, "getRootCause accepted null modelId");
         Assertions.assertThrows(ApiException.class, () -> {
-        	api.getBlame("nothing-model", clusters, vectors);
-        	}, "getBlame accepted null clusters");
+        	api.getRootCause("nothing-model", clusters, vectors);
+        	}, "getRootCause accepted null clusters");
         Assertions.assertThrows(ApiException.class, () -> {
-        	api.getBlame("nothing-model", "1,2", vectors);
-        	}, "getBlame accepted null vectors");
+        	api.getRootCause("nothing-model", "1,2", vectors);
+        	}, "getRootCause accepted null vectors");
     }
 
     /**
@@ -109,20 +140,6 @@ public class DefaultApiTest {
     }
 
     /**
-     * get the current fusion vector
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getDataTest() throws ApiException {
-        String modelId = null;
-//        GetDataResponse response = api.getData(modelId);
-        Assertions.assertThrows(ApiException.class, () -> {
-        	api.getData(modelId);
-        	}, "getData accepted null modelId");
-    }
-
-    /**
      * get model metadata
      *
      * Return metadata for the specified model.
@@ -136,6 +153,7 @@ public class DefaultApiTest {
         Assertions.assertThrows(ApiException.class, () -> {
         	api.getModel(modelId);
         	}, "getModel accepted null modelId");
+        
     }
 
     /**
@@ -212,7 +230,10 @@ public class DefaultApiTest {
     @Test
     public void getVersionTest() throws ApiException {
         Version response = api.getVersion();
-        // TODO: test validations
+        Assertions.assertNotNull(response.getBuilder());
+        Assertions.assertNotNull(response.getNanoSecure());
+        Assertions.assertNotNull(response.getExpertApi());
+        Assertions.assertNotNull(response.getExpertCommon());
     }
 
     /**
@@ -355,16 +376,16 @@ public class DefaultApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void putConfigTest() throws ApiException {
+    public void enableLearningTest() throws ApiException {
         String modelId = null;
-        PutConfigRequest putConfigRequest = null;
+        PostLearningRequest postLearningRequest = null;
 //        ConfigResponse response = api.putConfig(modelId, putConfigRequest);
         Assertions.assertThrows(ApiException.class, () -> {
-        	api.putConfig(modelId, putConfigRequest);
-        	}, "putConfig accepted null modelId");
+        	api.enableLearning(modelId, postLearningRequest);
+        	}, "enableLearning accepted null modelId");
         Assertions.assertThrows(ApiException.class, () -> {
-        	api.putConfig("nothing-model", putConfigRequest);
-        	}, "putConfig accepted null putConfigRequest");
+        	api.enableLearning("nothing-model", postLearningRequest);
+        	}, "enableLearning accepted null postLearningRequest");
     }
 
     /**

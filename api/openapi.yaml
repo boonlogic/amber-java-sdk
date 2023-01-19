@@ -396,9 +396,10 @@ paths:
       x-codegen-request-body-name: postConfigRequest
       x-content-type: application/json
       x-accepts: '*/*'
-    put:
-      description: Update configuration for the specified model.
-      operationId: putConfig
+  /models/{modelId}/learning:
+    post:
+      description: Update model configuration and re-enable learning
+      operationId: postLearning
       parameters:
       - in: path
         name: modelId
@@ -409,7 +410,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/putConfigRequest'
+              $ref: '#/components/schemas/postLearningRequest'
         description: updates to apply
         required: true
       responses:
@@ -417,7 +418,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/postConfigResponse'
+                $ref: '#/components/schemas/postLearningResponse'
           description: OK
         "400":
           content:
@@ -443,46 +444,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Internal server error
-      summary: update model configuration
-      x-codegen-request-body-name: putConfigRequest
+      summary: update model configuration and re-enable learning
+      x-codegen-request-body-name: postLearningRequest
       x-content-type: application/json
       x-accepts: '*/*'
   /models/{modelId}/data:
-    get:
-      operationId: getData
-      parameters:
-      - in: path
-        name: modelId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/getDataResponse'
-          description: OK
-        "401":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Unauthorized
-        "404":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Resource not found
-        "500":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Internal server error
-      summary: get the current fusion vector
-      x-accepts: '*/*'
     post:
       description: "Send data to the specified model, and get back the resulting analytics\
         \ and model status."
@@ -728,14 +694,14 @@ paths:
       x-codegen-request-body-name: postPretrainRequest
       x-content-type: application/json
       x-accepts: '*/*'
-  /models/{modelId}/blame:
+  /models/{modelId}/rootCause:
     get:
       description: Return a measure of the significance of each feature in the creation
         of a cluster. The values range from 0 to 1 where a relatively high value represents
         a feature that was influential in creating the new cluster. No conclusions
         can be drawn from values close to zero. This measure can be computed for existing
         clusters or for individual vectors directly.
-      operationId: getBlame
+      operationId: getRootCause
       parameters:
       - in: path
         name: modelId
@@ -758,7 +724,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/getBlameResponse'
+                $ref: '#/components/schemas/getRootCauseResponse'
           description: OK
         "400":
           content:
@@ -951,7 +917,7 @@ components:
       type: object
     postConfigRequest:
       $ref: '#/components/schemas/config'
-    putConfigRequest:
+    postLearningRequest:
       properties:
         training:
           $ref: '#/components/schemas/trainingConfig'
@@ -978,26 +944,28 @@ components:
       example:
         analytics:
           recentAnomalies:
-          - 6
-          - 6
+          - 1
+          - 1
           warningLevel:
-          - 0
-          - 0
+          - 6
+          - 6
           anomalyIndex:
           - 5
           - 5
           clusterId:
-          - 5
-          - 5
+          - 2
+          - 2
           anomalyDetection:
-          - 1
-          - 1
+          - 5
+          - 5
         status:
-          sampleCount: 7
-          clusterCount: 9
-          progress: 36
-          warningLevel: 2
+          sampleCount: 6
+          clusterCount: 1
+          lastModifiedDelta: 2.3021358869347655
+          progress: 59
+          warningLevel: 0
           state: null
+          lastModified: 5.637376656633329
           message: message
       properties:
         analytics:
@@ -1023,49 +991,37 @@ components:
       required:
       - vector
       type: object
-    getDataResponse:
-      example:
-        vector:
-        - name: name
-          value: 0.8008282
-        - name: name
-          value: 0.8008282
-      properties:
-        vector:
-          description: The current fusion vector.
-          items:
-            $ref: '#/components/schemas/fusionFeature'
-          type: array
-      type: object
     putDataResponse:
       example:
         analytics:
           recentAnomalies:
-          - 6
-          - 6
+          - 1
+          - 1
           warningLevel:
-          - 0
-          - 0
+          - 6
+          - 6
           anomalyIndex:
           - 5
           - 5
           clusterId:
-          - 5
-          - 5
+          - 2
+          - 2
           anomalyDetection:
-          - 1
-          - 1
+          - 5
+          - 5
         vector:
         - name: name
           value: 0.8008282
         - name: name
           value: 0.8008282
         status:
-          sampleCount: 7
-          clusterCount: 9
-          progress: 36
-          warningLevel: 2
+          sampleCount: 6
+          clusterCount: 1
+          lastModifiedDelta: 2.3021358869347655
+          progress: 59
+          warningLevel: 0
           state: null
+          lastModified: 5.637376656633329
           message: message
       properties:
         vector:
@@ -1118,16 +1074,13 @@ components:
       - $ref: '#/components/schemas/postPretrainResponse_allOf'
     getPretrainResponse:
       $ref: '#/components/schemas/pretrainStatus'
-    getBlameResponse:
+    getRootCauseResponse:
       items:
-        $ref: '#/components/schemas/featureBlame'
+        $ref: '#/components/schemas/featureRootCause'
       type: array
     getUsageResponse:
       example:
         endpoints:
-          putConfig:
-            totalCalls: 6
-            lastCalled: lastCalled
           getModel:
             totalCalls: 6
             lastCalled: lastCalled
@@ -1137,13 +1090,13 @@ components:
           getStatus:
             totalCalls: 6
             lastCalled: lastCalled
-          getBlame:
-            totalCalls: 6
-            lastCalled: lastCalled
           postOutage:
             totalCalls: 6
             lastCalled: lastCalled
           postConfig:
+            totalCalls: 6
+            lastCalled: lastCalled
+          postLearning:
             totalCalls: 6
             lastCalled: lastCalled
           getConfig:
@@ -1161,10 +1114,10 @@ components:
           putData:
             totalCalls: 6
             lastCalled: lastCalled
-          postData:
+          getRootCause:
             totalCalls: 6
             lastCalled: lastCalled
-          getData:
+          postData:
             totalCalls: 6
             lastCalled: lastCalled
         totalSamples: 0
@@ -1213,6 +1166,30 @@ components:
           type: array
         training:
           $ref: '#/components/schemas/trainingConfig'
+      type: object
+    postLearningResponse:
+      example:
+        training:
+          learningRateDenominator: 9
+          learningMaxClusters: 2
+          bufferingSamples: 5
+          historyWindow: 1
+          learningMaxSamples: 5
+          learningRateNumerator: 7
+        status:
+          sampleCount: 6
+          clusterCount: 1
+          lastModifiedDelta: 2.3021358869347655
+          progress: 59
+          warningLevel: 0
+          state: null
+          lastModified: 5.637376656633329
+          message: message
+      properties:
+        training:
+          $ref: '#/components/schemas/trainingConfig'
+        status:
+          $ref: '#/components/schemas/modelStatus'
       type: object
     percentVariationResponse:
       example:
@@ -1462,7 +1439,7 @@ components:
       - name
       - value
       type: object
-    featureBlame:
+    featureRootCause:
       example:
         name: name
         value: 0.08008282
@@ -1471,10 +1448,10 @@ components:
           description: Name of this feature.
           type: string
         value:
-          description: "Blame of this feature relative to others, as a number between\
-            \ 0.0 and 1.0. 0.0 indicates no contribution to the anomaly index, while\
-            \ a value close to 1.0 means the present anomaly implicates this feature\
-            \ strongly."
+          description: "Root cause of this feature relative to others, as a number\
+            \ between 0.0 and 1.0. 0.0 indicates no contribution to the anomaly index,\
+            \ while a value close to 1.0 means the present anomaly implicates this\
+            \ feature strongly."
           format: float
           maximum: 1
           minimum: 0
@@ -1483,20 +1460,20 @@ components:
     analyticResults:
       example:
         recentAnomalies:
-        - 6
-        - 6
+        - 1
+        - 1
         warningLevel:
-        - 0
-        - 0
+        - 6
+        - 6
         anomalyIndex:
         - 5
         - 5
         clusterId:
-        - 5
-        - 5
+        - 2
+        - 2
         anomalyDetection:
-        - 1
-        - 1
+        - 5
+        - 5
       properties:
         warningLevel:
           description: |-
@@ -1537,7 +1514,7 @@ components:
           description: |-
             The cluster to which each input pattern was assigned. The first pattern is assigned a `clusterId` of 1. Each pattern thereafter is either assigned to an existing cluster (if its distance from that cluster is less than `percentVariation`) or creates a new cluster (if its distance from all clusters exceeds `percentVariation`). The `clusterId` for each new cluster is the current maximum `clusterId` plus one. For example, a model with 10 clusters will have `clusterIds` 1-10, and the next new cluster will have `clusterId` 11.
 
-            During `Monitoring`, the cluster model becomes frozen and no new clusters are formed. Patterns which cannot be assigned to any existing cluster will return a negative `clusterId`. These `clusterIds` start at -1 and decreasing strictly by 1 without repeating (they can be used for blame analysis).
+            During `Monitoring`, the cluster model becomes frozen and no new clusters are formed. Patterns which cannot be assigned to any existing cluster will return a negative `clusterId`. These `clusterIds` start at -1 and decreasing strictly by 1 without repeating (they can be used for root cause analysis).
           items:
             format: int32
             type: integer
@@ -1545,11 +1522,13 @@ components:
       type: object
     modelStatus:
       example:
-        sampleCount: 7
-        clusterCount: 9
-        progress: 36
-        warningLevel: 2
+        sampleCount: 6
+        clusterCount: 1
+        lastModifiedDelta: 2.3021358869347655
+        progress: 59
+        warningLevel: 0
         state: null
+        lastModified: 5.637376656633329
         message: message
       properties:
         state:
@@ -1579,6 +1558,14 @@ components:
         message:
           description: Status description.
           type: string
+        lastModified:
+          description: Unix time stamp of the last posted stream data
+          format: uint64
+          type: number
+        lastModifiedDelta:
+          description: number of seconds since the last posted stream data
+          format: uint64
+          type: number
       type: object
     amberState:
       description: "Current state of the model within the Amber state machine. One\
@@ -1655,9 +1642,6 @@ components:
       example: null
     getUsageResponse_endpoints:
       example:
-        putConfig:
-          totalCalls: 6
-          lastCalled: lastCalled
         getModel:
           totalCalls: 6
           lastCalled: lastCalled
@@ -1667,13 +1651,13 @@ components:
         getStatus:
           totalCalls: 6
           lastCalled: lastCalled
-        getBlame:
-          totalCalls: 6
-          lastCalled: lastCalled
         postOutage:
           totalCalls: 6
           lastCalled: lastCalled
         postConfig:
+          totalCalls: 6
+          lastCalled: lastCalled
+        postLearning:
           totalCalls: 6
           lastCalled: lastCalled
         getConfig:
@@ -1691,10 +1675,10 @@ components:
         putData:
           totalCalls: 6
           lastCalled: lastCalled
-        postData:
+        getRootCause:
           totalCalls: 6
           lastCalled: lastCalled
-        getData:
+        postData:
           totalCalls: 6
           lastCalled: lastCalled
       properties:
@@ -1704,7 +1688,7 @@ components:
           $ref: '#/components/schemas/endpointUsage'
         postConfig:
           $ref: '#/components/schemas/endpointUsage'
-        putConfig:
+        postLearning:
           $ref: '#/components/schemas/endpointUsage'
         getConfig:
           $ref: '#/components/schemas/endpointUsage'
@@ -1712,15 +1696,13 @@ components:
           $ref: '#/components/schemas/endpointUsage'
         putData:
           $ref: '#/components/schemas/endpointUsage'
-        getData:
-          $ref: '#/components/schemas/endpointUsage'
         getStatus:
           $ref: '#/components/schemas/endpointUsage'
         postPretrain:
           $ref: '#/components/schemas/endpointUsage'
         getPretrain:
           $ref: '#/components/schemas/endpointUsage'
-        getBlame:
+        getRootCause:
           $ref: '#/components/schemas/endpointUsage'
         getUsage:
           $ref: '#/components/schemas/endpointUsage'
