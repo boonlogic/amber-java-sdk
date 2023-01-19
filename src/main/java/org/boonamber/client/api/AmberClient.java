@@ -424,38 +424,6 @@ public class AmberClient {
     	}
         return this.api.postModel(postModelRequest);
     }
- 
-    /**
-     * request an API token given license and secret key
-     * Request an Oauth2 Bearer token.
-     * @param postOauth2AccessRequest Amber account credentials (required)
-     * @return PostOauth2AccessResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public PostOauth2AccessResponse postOauth2Access(PostOauth2AccessRequest postOauth2AccessRequest) throws ApiException {
-    	try {
-    		authenticate();
-    	} catch (ApiException e) {
-    		throw new ApiException(e);
-    	}
-        return this.api.postOauth2Access(postOauth2AccessRequest);
-    }
-
-    /**
-     * request an API token given a refresh token
-     * Request an Oauth2 Bearer token.
-     * @param postOauth2RefreshRequest Amber account credentials (required)
-     * @return PostOauth2RefreshResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public PostOauth2RefreshResponse postOauth2Refresh(PostOauth2RefreshRequest postOauth2RefreshRequest) throws ApiException {
-    	try {
-    		authenticate();
-    	} catch (ApiException e) {
-    		throw new ApiException(e);
-    	}
-        return this.api.postOauth2Refresh(postOauth2RefreshRequest);
-    }
 
     /**
      * call this after a data outage before resuming streaming
