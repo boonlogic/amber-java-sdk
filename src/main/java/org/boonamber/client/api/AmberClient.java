@@ -467,7 +467,7 @@ public class AmberClient {
      * @return ConfigResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostLearningResponse enableLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
+    public PostLearningResponse postEnableLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
