@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
-|**mValues** | **List&lt;Integer&gt;** |  |  |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
+|**mValues** | **List&lt;BigDecimal&gt;** |  |  |
 
 
 

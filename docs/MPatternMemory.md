@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 
 
 

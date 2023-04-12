@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**status** | [**StatusEnum**](#StatusEnum) | Pretraining status of the model. One of: &#x60;None&#x60;, &#x60;Chunking&#x60;, &#x60;Pretraining&#x60;, &#x60;Pretrained&#x60;. |  [optional] |
 |**message** | **String** | Pretraining status description. |  [optional] |
-|**token** | **String** | Transaction token for chunked uploads. |  [optional] |
+|**txnId** | **String** | Transaction id for chunked uploads. |  [optional] |
 |**chunkspec** | **String** | Chunk specifier for chunked uploads. |  [optional] |
 
 

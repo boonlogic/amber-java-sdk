@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,181 +50,346 @@ import org.boonamber.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AnalyticResults {
-  public static final String SERIALIZED_NAME_WARNING_LEVEL = "warningLevel";
-  @SerializedName(SERIALIZED_NAME_WARNING_LEVEL)
-  private List<Integer> warningLevel = null;
+  public static final String SERIALIZED_NAME_A_D = "AD";
+  @SerializedName(SERIALIZED_NAME_A_D)
+  private List<Integer> AD = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_RECENT_ANOMALIES = "recentAnomalies";
-  @SerializedName(SERIALIZED_NAME_RECENT_ANOMALIES)
-  private List<Integer> recentAnomalies = null;
+  public static final String SERIALIZED_NAME_A_H = "AH";
+  @SerializedName(SERIALIZED_NAME_A_H)
+  private List<Integer> AH = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_ANOMALY_DETECTION = "anomalyDetection";
-  @SerializedName(SERIALIZED_NAME_ANOMALY_DETECTION)
-  private List<Integer> anomalyDetection = null;
+  public static final String SERIALIZED_NAME_A_W = "AW";
+  @SerializedName(SERIALIZED_NAME_A_W)
+  private List<Integer> AW = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_ANOMALY_INDEX = "anomalyIndex";
-  @SerializedName(SERIALIZED_NAME_ANOMALY_INDEX)
-  private List<Integer> anomalyIndex = null;
+  public static final String SERIALIZED_NAME_I_D = "ID";
+  @SerializedName(SERIALIZED_NAME_I_D)
+  private List<Integer> ID = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_CLUSTER_ID = "clusterId";
-  @SerializedName(SERIALIZED_NAME_CLUSTER_ID)
-  private List<Integer> clusterId = null;
+  public static final String SERIALIZED_NAME_N_I = "NI";
+  @SerializedName(SERIALIZED_NAME_N_I)
+  private List<Integer> NI = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_N_S = "NS";
+  @SerializedName(SERIALIZED_NAME_N_S)
+  private List<Integer> NS = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_N_W = "NW";
+  @SerializedName(SERIALIZED_NAME_N_W)
+  private List<Float> NW = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_O_M = "OM";
+  @SerializedName(SERIALIZED_NAME_O_M)
+  private List<Float> OM = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_R_I = "RI";
+  @SerializedName(SERIALIZED_NAME_R_I)
+  private List<Integer> RI = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_S_I = "SI";
+  @SerializedName(SERIALIZED_NAME_S_I)
+  private List<Integer> SI = new ArrayList<>();
 
   public AnalyticResults() {
   }
 
-  public AnalyticResults warningLevel(List<Integer> warningLevel) {
+  public AnalyticResults AD(List<Integer> AD) {
     
-    this.warningLevel = warningLevel;
+    this.AD = AD;
     return this;
   }
 
-  public AnalyticResults addWarningLevelItem(Integer warningLevelItem) {
-    if (this.warningLevel == null) {
-      this.warningLevel = new ArrayList<>();
+  public AnalyticResults addADItem(Integer ADItem) {
+    if (this.AD == null) {
+      this.AD = new ArrayList<>();
     }
-    this.warningLevel.add(warningLevelItem);
-    return this;
-  }
-
-   /**
-   * Amber warning level at each sample, a measure of the compliance of recent behavior compared to behavior observed during &#x60;Learning&#x60;. This value is derived from &#x60;recentAnomalies&#x60; and a statistical model of expectations about the usual frequency of anomalies. - &#x60;0&#x60;: OK - &#x60;1&#x60;: asset changing - &#x60;2&#x60;: asset critical
-   * @return warningLevel
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Amber warning level at each sample, a measure of the compliance of recent behavior compared to behavior observed during `Learning`. This value is derived from `recentAnomalies` and a statistical model of expectations about the usual frequency of anomalies. - `0`: OK - `1`: asset changing - `2`: asset critical")
-
-  public List<Integer> getWarningLevel() {
-    return warningLevel;
-  }
-
-
-  public void setWarningLevel(List<Integer> warningLevel) {
-    this.warningLevel = warningLevel;
-  }
-
-
-  public AnalyticResults recentAnomalies(List<Integer> recentAnomalies) {
-    
-    this.recentAnomalies = recentAnomalies;
-    return this;
-  }
-
-  public AnalyticResults addRecentAnomaliesItem(Integer recentAnomaliesItem) {
-    if (this.recentAnomalies == null) {
-      this.recentAnomalies = new ArrayList<>();
-    }
-    this.recentAnomalies.add(recentAnomaliesItem);
-    return this;
-  }
-
-   /**
-   * The number of anomalous patterns in the last &#x60;historyWindow&#x60; samples. Specifically, this is a moving-window sum of the &#x60;anomalyDetection&#x60; array with window length &#x60;historyWindow&#x60;.
-   * @return recentAnomalies
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "The number of anomalous patterns in the last `historyWindow` samples. Specifically, this is a moving-window sum of the `anomalyDetection` array with window length `historyWindow`.")
-
-  public List<Integer> getRecentAnomalies() {
-    return recentAnomalies;
-  }
-
-
-  public void setRecentAnomalies(List<Integer> recentAnomalies) {
-    this.recentAnomalies = recentAnomalies;
-  }
-
-
-  public AnalyticResults anomalyDetection(List<Integer> anomalyDetection) {
-    
-    this.anomalyDetection = anomalyDetection;
-    return this;
-  }
-
-  public AnalyticResults addAnomalyDetectionItem(Integer anomalyDetectionItem) {
-    if (this.anomalyDetection == null) {
-      this.anomalyDetection = new ArrayList<>();
-    }
-    this.anomalyDetection.add(anomalyDetectionItem);
+    this.AD.add(ADItem);
     return this;
   }
 
    /**
    * A binary array where 1 means a pattern was anomalous and 0 means normal. This value is derived by thresholding the &#x60;anomalyIndex&#x60;.
-   * @return anomalyDetection
+   * @return AD
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "A binary array where 1 means a pattern was anomalous and 0 means normal. This value is derived by thresholding the `anomalyIndex`.")
 
-  public List<Integer> getAnomalyDetection() {
-    return anomalyDetection;
+  public List<Integer> getAD() {
+    return AD;
   }
 
 
-  public void setAnomalyDetection(List<Integer> anomalyDetection) {
-    this.anomalyDetection = anomalyDetection;
+  public void setAD(List<Integer> AD) {
+    this.AD = AD;
   }
 
 
-  public AnalyticResults anomalyIndex(List<Integer> anomalyIndex) {
+  public AnalyticResults AH(List<Integer> AH) {
     
-    this.anomalyIndex = anomalyIndex;
+    this.AH = AH;
     return this;
   }
 
-  public AnalyticResults addAnomalyIndexItem(Integer anomalyIndexItem) {
-    if (this.anomalyIndex == null) {
-      this.anomalyIndex = new ArrayList<>();
+  public AnalyticResults addAHItem(Integer AHItem) {
+    if (this.AH == null) {
+      this.AH = new ArrayList<>();
     }
-    this.anomalyIndex.add(anomalyIndexItem);
+    this.AH.add(AHItem);
     return this;
   }
 
    /**
-   * An integer between 0 and 1000 giving a measure of how anomalous this pattern is compared to patterns seen in the past. Values closer to 0 represent patterns which are ordinary given the data seen so far on this model, while values closer to 1000 represent anomalous patterns. Patterns with a high &#x60;anomalyIndex&#x60; belong to clusters with relatively few patterns compared to the other clusters.
-   * @return anomalyIndex
+   * The number of anomalous patterns in the last &#x60;historyWindow&#x60; samples. Specifically, this is a moving-window sum of the &#x60;anomalyDetection&#x60; array with window length &#x60;historyWindow&#x60;.
+   * @return AH
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "An integer between 0 and 1000 giving a measure of how anomalous this pattern is compared to patterns seen in the past. Values closer to 0 represent patterns which are ordinary given the data seen so far on this model, while values closer to 1000 represent anomalous patterns. Patterns with a high `anomalyIndex` belong to clusters with relatively few patterns compared to the other clusters.")
 
-  public List<Integer> getAnomalyIndex() {
-    return anomalyIndex;
+  public List<Integer> getAH() {
+    return AH;
   }
 
 
-  public void setAnomalyIndex(List<Integer> anomalyIndex) {
-    this.anomalyIndex = anomalyIndex;
+  public void setAH(List<Integer> AH) {
+    this.AH = AH;
   }
 
 
-  public AnalyticResults clusterId(List<Integer> clusterId) {
+  public AnalyticResults AW(List<Integer> AW) {
     
-    this.clusterId = clusterId;
+    this.AW = AW;
     return this;
   }
 
-  public AnalyticResults addClusterIdItem(Integer clusterIdItem) {
-    if (this.clusterId == null) {
-      this.clusterId = new ArrayList<>();
+  public AnalyticResults addAWItem(Integer AWItem) {
+    if (this.AW == null) {
+      this.AW = new ArrayList<>();
     }
-    this.clusterId.add(clusterIdItem);
+    this.AW.add(AWItem);
+    return this;
+  }
+
+   /**
+   * Amber warning level at each sample, a measure of the compliance of recent behavior compared to behavior observed during &#x60;Learning&#x60;. This value is derived from &#x60;recentAnomalies&#x60; and a statistical model of expectations about the usual frequency of anomalies. - &#x60;0&#x60;: OK - &#x60;1&#x60;: asset changing - &#x60;2&#x60;: asset critical
+   * @return AW
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getAW() {
+    return AW;
+  }
+
+
+  public void setAW(List<Integer> AW) {
+    this.AW = AW;
+  }
+
+
+  public AnalyticResults ID(List<Integer> ID) {
+    
+    this.ID = ID;
+    return this;
+  }
+
+  public AnalyticResults addIDItem(Integer IDItem) {
+    if (this.ID == null) {
+      this.ID = new ArrayList<>();
+    }
+    this.ID.add(IDItem);
     return this;
   }
 
    /**
    * The cluster to which each input pattern was assigned. The first pattern is assigned a &#x60;clusterId&#x60; of 1. Each pattern thereafter is either assigned to an existing cluster (if its distance from that cluster is less than &#x60;percentVariation&#x60;) or creates a new cluster (if its distance from all clusters exceeds &#x60;percentVariation&#x60;). The &#x60;clusterId&#x60; for each new cluster is the current maximum &#x60;clusterId&#x60; plus one. For example, a model with 10 clusters will have &#x60;clusterIds&#x60; 1-10, and the next new cluster will have &#x60;clusterId&#x60; 11.  During &#x60;Monitoring&#x60;, the cluster model becomes frozen and no new clusters are formed. Patterns which cannot be assigned to any existing cluster will return a negative &#x60;clusterId&#x60;. These &#x60;clusterIds&#x60; start at -1 and decreasing strictly by 1 without repeating (they can be used for root cause analysis).
-   * @return clusterId
+   * @return ID
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The cluster to which each input pattern was assigned. The first pattern is assigned a `clusterId` of 1. Each pattern thereafter is either assigned to an existing cluster (if its distance from that cluster is less than `percentVariation`) or creates a new cluster (if its distance from all clusters exceeds `percentVariation`). The `clusterId` for each new cluster is the current maximum `clusterId` plus one. For example, a model with 10 clusters will have `clusterIds` 1-10, and the next new cluster will have `clusterId` 11.  During `Monitoring`, the cluster model becomes frozen and no new clusters are formed. Patterns which cannot be assigned to any existing cluster will return a negative `clusterId`. These `clusterIds` start at -1 and decreasing strictly by 1 without repeating (they can be used for root cause analysis).")
 
-  public List<Integer> getClusterId() {
-    return clusterId;
+  public List<Integer> getID() {
+    return ID;
   }
 
 
-  public void setClusterId(List<Integer> clusterId) {
-    this.clusterId = clusterId;
+  public void setID(List<Integer> ID) {
+    this.ID = ID;
+  }
+
+
+  public AnalyticResults NI(List<Integer> NI) {
+    
+    this.NI = NI;
+    return this;
+  }
+
+  public AnalyticResults addNIItem(Integer NIItem) {
+    if (this.NI == null) {
+      this.NI = new ArrayList<>();
+    }
+    this.NI.add(NIItem);
+    return this;
+  }
+
+   /**
+   * See Boon Docs.
+   * @return NI
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getNI() {
+    return NI;
+  }
+
+
+  public void setNI(List<Integer> NI) {
+    this.NI = NI;
+  }
+
+
+  public AnalyticResults NS(List<Integer> NS) {
+    
+    this.NS = NS;
+    return this;
+  }
+
+  public AnalyticResults addNSItem(Integer NSItem) {
+    if (this.NS == null) {
+      this.NS = new ArrayList<>();
+    }
+    this.NS.add(NSItem);
+    return this;
+  }
+
+   /**
+   * See Boon Docs.
+   * @return NS
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getNS() {
+    return NS;
+  }
+
+
+  public void setNS(List<Integer> NS) {
+    this.NS = NS;
+  }
+
+
+  public AnalyticResults NW(List<Float> NW) {
+    
+    this.NW = NW;
+    return this;
+  }
+
+  public AnalyticResults addNWItem(Float NWItem) {
+    if (this.NW == null) {
+      this.NW = new ArrayList<>();
+    }
+    this.NW.add(NWItem);
+    return this;
+  }
+
+   /**
+   * See Boon Docs.
+   * @return NW
+  **/
+  @javax.annotation.Nullable
+
+  public List<Float> getNW() {
+    return NW;
+  }
+
+
+  public void setNW(List<Float> NW) {
+    this.NW = NW;
+  }
+
+
+  public AnalyticResults OM(List<Float> OM) {
+    
+    this.OM = OM;
+    return this;
+  }
+
+  public AnalyticResults addOMItem(Float OMItem) {
+    if (this.OM == null) {
+      this.OM = new ArrayList<>();
+    }
+    this.OM.add(OMItem);
+    return this;
+  }
+
+   /**
+   * See Boon Docs.
+   * @return OM
+  **/
+  @javax.annotation.Nullable
+
+  public List<Float> getOM() {
+    return OM;
+  }
+
+
+  public void setOM(List<Float> OM) {
+    this.OM = OM;
+  }
+
+
+  public AnalyticResults RI(List<Integer> RI) {
+    
+    this.RI = RI;
+    return this;
+  }
+
+  public AnalyticResults addRIItem(Integer RIItem) {
+    if (this.RI == null) {
+      this.RI = new ArrayList<>();
+    }
+    this.RI.add(RIItem);
+    return this;
+  }
+
+   /**
+   * An integer between 0 and 1000 giving a measure of how anomalous this pattern is compared to patterns seen in the past. Values closer to 0 represent patterns which are ordinary given the data seen so far on this model, while values closer to 1000 represent anomalous patterns. Patterns with a high &#x60;anomalyIndex&#x60; belong to clusters with relatively few patterns compared to the other clusters.
+   * @return RI
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getRI() {
+    return RI;
+  }
+
+
+  public void setRI(List<Integer> RI) {
+    this.RI = RI;
+  }
+
+
+  public AnalyticResults SI(List<Integer> SI) {
+    
+    this.SI = SI;
+    return this;
+  }
+
+  public AnalyticResults addSIItem(Integer SIItem) {
+    if (this.SI == null) {
+      this.SI = new ArrayList<>();
+    }
+    this.SI.add(SIItem);
+    return this;
+  }
+
+   /**
+   * Exponentially smoothed &#x60;anomalyIndex&#x60; over the last 15 samples. The range remains between 0 and 1000.
+   * @return SI
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getSI() {
+    return SI;
+  }
+
+
+  public void setSI(List<Integer> SI) {
+    this.SI = SI;
   }
 
 
@@ -240,27 +403,37 @@ public class AnalyticResults {
       return false;
     }
     AnalyticResults analyticResults = (AnalyticResults) o;
-    return Objects.equals(this.warningLevel, analyticResults.warningLevel) &&
-        Objects.equals(this.recentAnomalies, analyticResults.recentAnomalies) &&
-        Objects.equals(this.anomalyDetection, analyticResults.anomalyDetection) &&
-        Objects.equals(this.anomalyIndex, analyticResults.anomalyIndex) &&
-        Objects.equals(this.clusterId, analyticResults.clusterId);
+    return Objects.equals(this.AD, analyticResults.AD) &&
+        Objects.equals(this.AH, analyticResults.AH) &&
+        Objects.equals(this.AW, analyticResults.AW) &&
+        Objects.equals(this.ID, analyticResults.ID) &&
+        Objects.equals(this.NI, analyticResults.NI) &&
+        Objects.equals(this.NS, analyticResults.NS) &&
+        Objects.equals(this.NW, analyticResults.NW) &&
+        Objects.equals(this.OM, analyticResults.OM) &&
+        Objects.equals(this.RI, analyticResults.RI) &&
+        Objects.equals(this.SI, analyticResults.SI);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(warningLevel, recentAnomalies, anomalyDetection, anomalyIndex, clusterId);
+    return Objects.hash(AD, AH, AW, ID, NI, NS, NW, OM, RI, SI);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AnalyticResults {\n");
-    sb.append("    warningLevel: ").append(toIndentedString(warningLevel)).append("\n");
-    sb.append("    recentAnomalies: ").append(toIndentedString(recentAnomalies)).append("\n");
-    sb.append("    anomalyDetection: ").append(toIndentedString(anomalyDetection)).append("\n");
-    sb.append("    anomalyIndex: ").append(toIndentedString(anomalyIndex)).append("\n");
-    sb.append("    clusterId: ").append(toIndentedString(clusterId)).append("\n");
+    sb.append("    AD: ").append(toIndentedString(AD)).append("\n");
+    sb.append("    AH: ").append(toIndentedString(AH)).append("\n");
+    sb.append("    AW: ").append(toIndentedString(AW)).append("\n");
+    sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
+    sb.append("    NI: ").append(toIndentedString(NI)).append("\n");
+    sb.append("    NS: ").append(toIndentedString(NS)).append("\n");
+    sb.append("    NW: ").append(toIndentedString(NW)).append("\n");
+    sb.append("    OM: ").append(toIndentedString(OM)).append("\n");
+    sb.append("    RI: ").append(toIndentedString(RI)).append("\n");
+    sb.append("    SI: ").append(toIndentedString(SI)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -283,11 +456,16 @@ public class AnalyticResults {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("warningLevel");
-    openapiFields.add("recentAnomalies");
-    openapiFields.add("anomalyDetection");
-    openapiFields.add("anomalyIndex");
-    openapiFields.add("clusterId");
+    openapiFields.add("AD");
+    openapiFields.add("AH");
+    openapiFields.add("AW");
+    openapiFields.add("ID");
+    openapiFields.add("NI");
+    openapiFields.add("NS");
+    openapiFields.add("NW");
+    openapiFields.add("OM");
+    openapiFields.add("RI");
+    openapiFields.add("SI");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -314,24 +492,44 @@ public class AnalyticResults {
         }
       }
       // ensure the optional json data is an array if present
-      if (jsonObj.get("warningLevel") != null && !jsonObj.get("warningLevel").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `warningLevel` to be an array in the JSON string but got `%s`", jsonObj.get("warningLevel").toString()));
+      if (jsonObj.get("AD") != null && !jsonObj.get("AD").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `AD` to be an array in the JSON string but got `%s`", jsonObj.get("AD").toString()));
       }
       // ensure the optional json data is an array if present
-      if (jsonObj.get("recentAnomalies") != null && !jsonObj.get("recentAnomalies").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `recentAnomalies` to be an array in the JSON string but got `%s`", jsonObj.get("recentAnomalies").toString()));
+      if (jsonObj.get("AH") != null && !jsonObj.get("AH").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `AH` to be an array in the JSON string but got `%s`", jsonObj.get("AH").toString()));
       }
       // ensure the optional json data is an array if present
-      if (jsonObj.get("anomalyDetection") != null && !jsonObj.get("anomalyDetection").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `anomalyDetection` to be an array in the JSON string but got `%s`", jsonObj.get("anomalyDetection").toString()));
+      if (jsonObj.get("AW") != null && !jsonObj.get("AW").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `AW` to be an array in the JSON string but got `%s`", jsonObj.get("AW").toString()));
       }
       // ensure the optional json data is an array if present
-      if (jsonObj.get("anomalyIndex") != null && !jsonObj.get("anomalyIndex").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `anomalyIndex` to be an array in the JSON string but got `%s`", jsonObj.get("anomalyIndex").toString()));
+      if (jsonObj.get("ID") != null && !jsonObj.get("ID").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `ID` to be an array in the JSON string but got `%s`", jsonObj.get("ID").toString()));
       }
       // ensure the optional json data is an array if present
-      if (jsonObj.get("clusterId") != null && !jsonObj.get("clusterId").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `clusterId` to be an array in the JSON string but got `%s`", jsonObj.get("clusterId").toString()));
+      if (jsonObj.get("NI") != null && !jsonObj.get("NI").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `NI` to be an array in the JSON string but got `%s`", jsonObj.get("NI").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("NS") != null && !jsonObj.get("NS").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `NS` to be an array in the JSON string but got `%s`", jsonObj.get("NS").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("NW") != null && !jsonObj.get("NW").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `NW` to be an array in the JSON string but got `%s`", jsonObj.get("NW").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("OM") != null && !jsonObj.get("OM").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `OM` to be an array in the JSON string but got `%s`", jsonObj.get("OM").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("RI") != null && !jsonObj.get("RI").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `RI` to be an array in the JSON string but got `%s`", jsonObj.get("RI").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("SI") != null && !jsonObj.get("SI").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `SI` to be an array in the JSON string but got `%s`", jsonObj.get("SI").toString()));
       }
   }
 

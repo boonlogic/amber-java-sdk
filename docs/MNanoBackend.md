@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 |**mPatternMemory** | [**MPatternMemory**](MPatternMemory.md) |  |  [optional] |
 |**mInitComplete** | **Boolean** |  |  [optional] |
-|**mPatternLength** | **Integer** |  |  [optional] |
+|**mPatternLength** | **BigDecimal** |  |  [optional] |
 |**mLearningIsOn** | **Boolean** |  |  [optional] |
-|**mNumOfPatternsClustered** | **Integer** |  |  [optional] |
+|**mNumOfPatternsClustered** | **BigDecimal** |  |  [optional] |
 
 
 

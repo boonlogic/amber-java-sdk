@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -61,7 +59,9 @@ public class PostPretrainRequest {
   public enum FormatEnum {
     CSV("csv"),
     
-    B64FLOAT("b64float");
+    B64FLOAT("b64float"),
+    
+    PACKED_FLOAT("packed-float");
 
     private String value;
 
@@ -105,59 +105,6 @@ public class PostPretrainRequest {
   @SerializedName(SERIALIZED_NAME_FORMAT)
   private FormatEnum format = FormatEnum.CSV;
 
-  /**
-   * One of: &#x60;Autotuning&#x60;, &#x60;Learning&#x60;, &#x60;Monitoring&#x60;. If set, the &#x60;training&#x60; configuration parameters will be ignored and set automatically based on the dataset length such that the model emerges from pretraining at the start of the specified state.
-   */
-  @JsonAdapter(TargetStateEnum.Adapter.class)
-  public enum TargetStateEnum {
-    AUTOTUNING("Autotuning"),
-    
-    LEARNING("Learning"),
-    
-    MONITORING("Monitoring");
-
-    private String value;
-
-    TargetStateEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TargetStateEnum fromValue(String value) {
-      for (TargetStateEnum b : TargetStateEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<TargetStateEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TargetStateEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TargetStateEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TargetStateEnum.fromValue(value);
-      }
-    }
-  }
-
-  public static final String SERIALIZED_NAME_TARGET_STATE = "targetState";
-  @SerializedName(SERIALIZED_NAME_TARGET_STATE)
-  private TargetStateEnum targetState;
-
   public PostPretrainRequest() {
   }
 
@@ -168,11 +115,10 @@ public class PostPretrainRequest {
   }
 
    /**
-   * Data in one of two formats: 1) A flat list of comma-separated values. 2) The string that results from flattening the dataset, packing the values into a byte buffer as float32s (little-endian), and base-64 encoding the buffer.  Datasets which are too large to send in one request may be sent in multiple chunks using the header parameters for chunked uploads (&#x60;token&#x60; and &#x60;chunkspec&#x60;).  The total number of data values sent for pretraining must be a multiple of the number of features in the configuration.
+   * Data in one of two formats: 1) A flat list of comma-separated values. 2) The string that results from flattening the dataset, packing the values into a byte buffer as float32s (little-endian), and base-64 encoding the buffer.  Datasets which are too large to send in one request may be sent in multiple chunks using the header parameters for chunked uploads (&#x60;txnId&#x60; and &#x60;chunkspec&#x60;).  The total number of data values sent for pretraining must be a multiple of the number of features in the configuration.
    * @return data
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Data in one of two formats: 1) A flat list of comma-separated values. 2) The string that results from flattening the dataset, packing the values into a byte buffer as float32s (little-endian), and base-64 encoding the buffer.  Datasets which are too large to send in one request may be sent in multiple chunks using the header parameters for chunked uploads (`token` and `chunkspec`).  The total number of data values sent for pretraining must be a multiple of the number of features in the configuration.")
 
   public String getData() {
     return data;
@@ -195,7 +141,6 @@ public class PostPretrainRequest {
    * @return format
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Format specifier for `data`.")
 
   public FormatEnum getFormat() {
     return format;
@@ -204,29 +149,6 @@ public class PostPretrainRequest {
 
   public void setFormat(FormatEnum format) {
     this.format = format;
-  }
-
-
-  public PostPretrainRequest targetState(TargetStateEnum targetState) {
-    
-    this.targetState = targetState;
-    return this;
-  }
-
-   /**
-   * One of: &#x60;Autotuning&#x60;, &#x60;Learning&#x60;, &#x60;Monitoring&#x60;. If set, the &#x60;training&#x60; configuration parameters will be ignored and set automatically based on the dataset length such that the model emerges from pretraining at the start of the specified state.
-   * @return targetState
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "One of: `Autotuning`, `Learning`, `Monitoring`. If set, the `training` configuration parameters will be ignored and set automatically based on the dataset length such that the model emerges from pretraining at the start of the specified state.")
-
-  public TargetStateEnum getTargetState() {
-    return targetState;
-  }
-
-
-  public void setTargetState(TargetStateEnum targetState) {
-    this.targetState = targetState;
   }
 
 
@@ -241,13 +163,12 @@ public class PostPretrainRequest {
     }
     PostPretrainRequest postPretrainRequest = (PostPretrainRequest) o;
     return Objects.equals(this.data, postPretrainRequest.data) &&
-        Objects.equals(this.format, postPretrainRequest.format) &&
-        Objects.equals(this.targetState, postPretrainRequest.targetState);
+        Objects.equals(this.format, postPretrainRequest.format);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, format, targetState);
+    return Objects.hash(data, format);
   }
 
   @Override
@@ -256,7 +177,6 @@ public class PostPretrainRequest {
     sb.append("class PostPretrainRequest {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    format: ").append(toIndentedString(format)).append("\n");
-    sb.append("    targetState: ").append(toIndentedString(targetState)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -281,7 +201,6 @@ public class PostPretrainRequest {
     openapiFields = new HashSet<String>();
     openapiFields.add("data");
     openapiFields.add("format");
-    openapiFields.add("targetState");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -320,9 +239,6 @@ public class PostPretrainRequest {
       }
       if ((jsonObj.get("format") != null && !jsonObj.get("format").isJsonNull()) && !jsonObj.get("format").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `format` to be a primitive type in the JSON string but got `%s`", jsonObj.get("format").toString()));
-      }
-      if ((jsonObj.get("targetState") != null && !jsonObj.get("targetState").isJsonNull()) && !jsonObj.get("targetState").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `targetState` to be a primitive type in the JSON string but got `%s`", jsonObj.get("targetState").toString()));
       }
   }
 

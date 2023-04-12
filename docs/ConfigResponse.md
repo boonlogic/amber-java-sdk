@@ -11,6 +11,7 @@
 |**percentVariation** | [**PercentVariationResponse**](PercentVariationResponse.md) |  |  [optional] |
 |**features** | [**List&lt;FeatureConfigResponse&gt;**](FeatureConfigResponse.md) |  |  [optional] |
 |**training** | [**TrainingConfig**](TrainingConfig.md) |  |  [optional] |
+|**autotuning** | [**Autotuning**](Autotuning.md) |  |  [optional] |
 
 
 

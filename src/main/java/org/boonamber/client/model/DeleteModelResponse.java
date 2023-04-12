@@ -20,10 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.boonamber.client.model.GetUsageResponseEndpoints;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,64 +44,62 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * GetUsageResponse
+ * DeleteModelResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class GetUsageResponse {
-  public static final String SERIALIZED_NAME_TOTAL_SAMPLES = "totalSamples";
-  @SerializedName(SERIALIZED_NAME_TOTAL_SAMPLES)
-  private Integer totalSamples;
+public class DeleteModelResponse {
+  public static final String SERIALIZED_NAME_CODE = "code";
+  @SerializedName(SERIALIZED_NAME_CODE)
+  private Integer code;
 
-  public static final String SERIALIZED_NAME_ENDPOINTS = "endpoints";
-  @SerializedName(SERIALIZED_NAME_ENDPOINTS)
-  private GetUsageResponseEndpoints endpoints;
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
+  private String message;
 
-  public GetUsageResponse() {
+  public DeleteModelResponse() {
   }
 
-  public GetUsageResponse totalSamples(Integer totalSamples) {
+  public DeleteModelResponse code(Integer code) {
     
-    this.totalSamples = totalSamples;
+    this.code = code;
     return this;
   }
 
    /**
-   * All-time total number of model inferences.
-   * @return totalSamples
+   * HTTP status code.
+   * @return code
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "All-time total number of model inferences.")
 
-  public Integer getTotalSamples() {
-    return totalSamples;
+  public Integer getCode() {
+    return code;
   }
 
 
-  public void setTotalSamples(Integer totalSamples) {
-    this.totalSamples = totalSamples;
+  public void setCode(Integer code) {
+    this.code = code;
   }
 
 
-  public GetUsageResponse endpoints(GetUsageResponseEndpoints endpoints) {
+  public DeleteModelResponse message(String message) {
     
-    this.endpoints = endpoints;
+    this.message = message;
     return this;
   }
 
    /**
-   * Get endpoints
-   * @return endpoints
+   * Error description.
+   * @return message
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
-  public GetUsageResponseEndpoints getEndpoints() {
-    return endpoints;
+  public String getMessage() {
+    return message;
   }
 
 
-  public void setEndpoints(GetUsageResponseEndpoints endpoints) {
-    this.endpoints = endpoints;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
 
@@ -117,22 +112,22 @@ public class GetUsageResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetUsageResponse getUsageResponse = (GetUsageResponse) o;
-    return Objects.equals(this.totalSamples, getUsageResponse.totalSamples) &&
-        Objects.equals(this.endpoints, getUsageResponse.endpoints);
+    DeleteModelResponse deleteModelResponse = (DeleteModelResponse) o;
+    return Objects.equals(this.code, deleteModelResponse.code) &&
+        Objects.equals(this.message, deleteModelResponse.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalSamples, endpoints);
+    return Objects.hash(code, message);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetUsageResponse {\n");
-    sb.append("    totalSamples: ").append(toIndentedString(totalSamples)).append("\n");
-    sb.append("    endpoints: ").append(toIndentedString(endpoints)).append("\n");
+    sb.append("class DeleteModelResponse {\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -155,8 +150,8 @@ public class GetUsageResponse {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("totalSamples");
-    openapiFields.add("endpoints");
+    openapiFields.add("code");
+    openapiFields.add("message");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -166,25 +161,24 @@ public class GetUsageResponse {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GetUsageResponse
+  * @throws IOException if the JSON Object is invalid with respect to DeleteModelResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!GetUsageResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in GetUsageResponse is not found in the empty JSON string", GetUsageResponse.openapiRequiredFields.toString()));
+        if (!DeleteModelResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in DeleteModelResponse is not found in the empty JSON string", DeleteModelResponse.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!GetUsageResponse.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GetUsageResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!DeleteModelResponse.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `DeleteModelResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      // validate the optional field `endpoints`
-      if (jsonObj.get("endpoints") != null && !jsonObj.get("endpoints").isJsonNull()) {
-        GetUsageResponseEndpoints.validateJsonObject(jsonObj.getAsJsonObject("endpoints"));
+      if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
       }
   }
 
@@ -192,22 +186,22 @@ public class GetUsageResponse {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!GetUsageResponse.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'GetUsageResponse' and its subtypes
+       if (!DeleteModelResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'DeleteModelResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<GetUsageResponse> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(GetUsageResponse.class));
+       final TypeAdapter<DeleteModelResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(DeleteModelResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<GetUsageResponse>() {
+       return (TypeAdapter<T>) new TypeAdapter<DeleteModelResponse>() {
            @Override
-           public void write(JsonWriter out, GetUsageResponse value) throws IOException {
+           public void write(JsonWriter out, DeleteModelResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public GetUsageResponse read(JsonReader in) throws IOException {
+           public DeleteModelResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -218,18 +212,18 @@ public class GetUsageResponse {
   }
 
  /**
-  * Create an instance of GetUsageResponse given an JSON string
+  * Create an instance of DeleteModelResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of GetUsageResponse
-  * @throws IOException if the JSON string is invalid with respect to GetUsageResponse
+  * @return An instance of DeleteModelResponse
+  * @throws IOException if the JSON string is invalid with respect to DeleteModelResponse
   */
-  public static GetUsageResponse fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, GetUsageResponse.class);
+  public static DeleteModelResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, DeleteModelResponse.class);
   }
 
  /**
-  * Convert an instance of GetUsageResponse to an JSON string
+  * Convert an instance of DeleteModelResponse to an JSON string
   *
   * @return JSON string
   */

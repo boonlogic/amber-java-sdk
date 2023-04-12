@@ -7,13 +7,13 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 |**mEnableAutotuning** | **Boolean** |  |  [optional] |
-|**mSamplesToBufferForAutotuning** | **Integer** |  |  |
-|**mGraduationAtRateNumerator** | **Integer** |  |  |
-|**mGraduationAtRateDenominator** | **Integer** |  |  |
-|**mGraduateAtMaxClusters** | **Integer** |  |  |
-|**mGraduateAtMaxSamples** | **Integer** |  |  |
+|**mSamplesToBufferForAutotuning** | **BigDecimal** |  |  |
+|**mGraduationAtRateNumerator** | **BigDecimal** |  |  |
+|**mGraduationAtRateDenominator** | **BigDecimal** |  |  |
+|**mGraduateAtMaxClusters** | **BigDecimal** |  |  |
+|**mGraduateAtMaxSamples** | **BigDecimal** |  |  |
 
 
 

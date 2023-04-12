@@ -7,15 +7,15 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 |**mStatus** | **String** |  |  |
 |**mMessage** | **String** |  |  [optional] |
-|**mProgress** | **Integer** |  |  [optional] |
-|**mCurrentClusterCount** | **Integer** |  |  |
-|**mRetryCount** | **Integer** |  |  |
-|**mStreamingWindowSize** | **Integer** |  |  |
-|**mTotalInferences** | **Integer** |  |  |
-|**mTotalSamplesWritten** | **Integer** |  |  [optional] |
+|**mProgress** | **BigDecimal** |  |  [optional] |
+|**mCurrentClusterCount** | **BigDecimal** |  |  |
+|**mRetryCount** | **BigDecimal** |  |  |
+|**mStreamingWindowSize** | **BigDecimal** |  |  |
+|**mTotalInferences** | **BigDecimal** |  |  |
+|**mTotalSamplesWritten** | **BigDecimal** |  |  [optional] |
 
 
 

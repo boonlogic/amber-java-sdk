@@ -2,8 +2,10 @@ export SHELL := /bin/bash
 export PYTHONPATH := $(shell pwd)
 
 generate:
-	openapi-generator generate -i amber-api.yml -g java -c "openapi-config.json" \
-	--http-user-agent "BoonLogic / Amber Java SDK / requests"
+	openapi-generator generate -i amber-api.yml -g java -c "config.yaml" \
+	--http-user-agent "BoonLogic / Amber Java SDK / requests" \
+	--global-property=modelTests=false \
+	--global-property=apiTests=false \
 
 init:
 	[ -f ./target/junit-platform-console-standalone-1.9.2.jar ] && true || \

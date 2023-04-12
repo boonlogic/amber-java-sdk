@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -88,7 +86,6 @@ public class TrainingConfig {
    * @return historyWindow
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Number of past inferences to take into account when computing `warningLevel` at a given moment.")
 
   public Integer getHistoryWindow() {
     return historyWindow;
@@ -111,7 +108,6 @@ public class TrainingConfig {
    * @return bufferingSamples
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Number of data vectors to collect during `Buffering`. These samples are used as data for `Autotuning`.")
 
   public Integer getBufferingSamples() {
     return bufferingSamples;
@@ -134,7 +130,6 @@ public class TrainingConfig {
    * @return learningMaxSamples
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Maximum number of vectors to process during `Learning` before transitioning to `Monitoring`.")
 
   public Integer getLearningMaxSamples() {
     return learningMaxSamples;
@@ -157,7 +152,6 @@ public class TrainingConfig {
    * @return learningMaxClusters
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Maximum number of clusters before model transitions from `Learning` to `Monitoring`.")
 
   public Integer getLearningMaxClusters() {
     return learningMaxClusters;
@@ -180,7 +174,6 @@ public class TrainingConfig {
    * @return learningRateNumerator
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Switch to `Monitoring` if there were fewer than `learningRateNumerator` new clusters in the last `learningRateDenominator` inferences.")
 
   public Integer getLearningRateNumerator() {
     return learningRateNumerator;
@@ -203,7 +196,6 @@ public class TrainingConfig {
    * @return learningRateDenominator
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "See `learningRateNumerator`.")
 
   public Integer getLearningRateDenominator() {
     return learningRateDenominator;

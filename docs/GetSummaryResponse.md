@@ -7,27 +7,27 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**magicNumber** | **Integer** |  |  [optional] |
-|**versionNumber** | **Integer** |  |  [optional] |
+|**magicNumber** | **BigDecimal** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 |**mNano** | [**MNano**](MNano.md) |  |  |
 |**mBufferStats** | [**MBufferStats**](MBufferStats.md) |  |  [optional] |
 |**mAutotune** | [**MAutotune**](MAutotune.md) |  |  |
-|**mAutotuningElbowClusterCounts** | **List&lt;Integer&gt;** |  |  |
+|**mAutotuningElbowClusterCounts** | **List&lt;BigDecimal&gt;** |  |  |
 |**mAutotuningElbowPVArray** | **List&lt;Float&gt;** |  |  |
 |**mStreamingParameters** | [**MStreamingParameters**](MStreamingParameters.md) |  |  |
 |**mAmberStatus** | [**MAmberStatus**](MAmberStatus.md) |  |  |
 |**mTraining** | [**MTraining**](MTraining.md) |  |  |
-|**mAnomalyThreshold** | **Integer** |  |  |
-|**mAmberWarningCriticalValue** | **Integer** |  |  |
-|**mAmberAlertCriticalValue** | **Integer** |  |  |
+|**mAnomalyThreshold** | **BigDecimal** |  |  |
+|**mAmberWarningCriticalValue** | **BigDecimal** |  |  |
+|**mAmberAlertCriticalValue** | **BigDecimal** |  |  |
 |**mErrorStringBuffer** | **String** |  |  [optional] |
 |**mClusteringParametersInitialized** | **Boolean** |  |  [optional] |
 |**mStreamingMode** | **Boolean** |  |  [optional] |
-|**mStreamingModeStatus** | **Integer** |  |  [optional] |
-|**mModifiedAt** | **Integer** |  |  [optional] |
+|**mStreamingModeStatus** | **BigDecimal** |  |  [optional] |
+|**mModifiedAt** | **BigDecimal** |  |  [optional] |
 |**mAnomalyMetricByAnomalyCount** | **List&lt;Float&gt;** |  |  [optional] |
-|**mRecentAnomalyCount** | **Integer** |  |  [optional] |
-|**mResultsIDArray** | **List&lt;Integer&gt;** |  |  [optional] |
+|**mRecentAnomalyCount** | **BigDecimal** |  |  [optional] |
+|**mResultsIDArray** | **List&lt;BigDecimal&gt;** |  |  [optional] |
 |**mTrainingSamples** | [**MRecentSamples**](MRecentSamples.md) |  |  [optional] |
 |**mRecentSamples** | [**MRecentSamples**](MRecentSamples.md) |  |  |
 |**mRecentRawSamples** | [**MRecentSamples**](MRecentSamples.md) |  |  |

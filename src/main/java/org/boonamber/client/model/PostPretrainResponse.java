@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -109,9 +107,9 @@ public class PostPretrainResponse {
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
-  public static final String SERIALIZED_NAME_TOKEN = "token";
-  @SerializedName(SERIALIZED_NAME_TOKEN)
-  private String token;
+  public static final String SERIALIZED_NAME_TXN_ID = "txnId";
+  @SerializedName(SERIALIZED_NAME_TXN_ID)
+  private String txnId;
 
   public static final String SERIALIZED_NAME_CHUNKSPEC = "chunkspec";
   @SerializedName(SERIALIZED_NAME_CHUNKSPEC)
@@ -131,7 +129,6 @@ public class PostPretrainResponse {
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Pretraining status of the model. One of: `None`, `Chunking`, `Pretraining`, `Pretrained`.")
 
   public StatusEnum getStatus() {
     return status;
@@ -154,7 +151,6 @@ public class PostPretrainResponse {
    * @return message
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Pretraining status description.")
 
   public String getMessage() {
     return message;
@@ -166,26 +162,25 @@ public class PostPretrainResponse {
   }
 
 
-  public PostPretrainResponse token(String token) {
+  public PostPretrainResponse txnId(String txnId) {
     
-    this.token = token;
+    this.txnId = txnId;
     return this;
   }
 
    /**
-   * Transaction token for chunked uploads.
-   * @return token
+   * Transaction id for chunked uploads.
+   * @return txnId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Transaction token for chunked uploads.")
 
-  public String getToken() {
-    return token;
+  public String getTxnId() {
+    return txnId;
   }
 
 
-  public void setToken(String token) {
-    this.token = token;
+  public void setTxnId(String txnId) {
+    this.txnId = txnId;
   }
 
 
@@ -200,7 +195,6 @@ public class PostPretrainResponse {
    * @return chunkspec
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Chunk specifier for chunked uploads.")
 
   public String getChunkspec() {
     return chunkspec;
@@ -224,13 +218,13 @@ public class PostPretrainResponse {
     PostPretrainResponse postPretrainResponse = (PostPretrainResponse) o;
     return Objects.equals(this.status, postPretrainResponse.status) &&
         Objects.equals(this.message, postPretrainResponse.message) &&
-        Objects.equals(this.token, postPretrainResponse.token) &&
+        Objects.equals(this.txnId, postPretrainResponse.txnId) &&
         Objects.equals(this.chunkspec, postPretrainResponse.chunkspec);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, message, token, chunkspec);
+    return Objects.hash(status, message, txnId, chunkspec);
   }
 
   @Override
@@ -239,7 +233,7 @@ public class PostPretrainResponse {
     sb.append("class PostPretrainResponse {\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    token: ").append(toIndentedString(token)).append("\n");
+    sb.append("    txnId: ").append(toIndentedString(txnId)).append("\n");
     sb.append("    chunkspec: ").append(toIndentedString(chunkspec)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -265,7 +259,7 @@ public class PostPretrainResponse {
     openapiFields = new HashSet<String>();
     openapiFields.add("status");
     openapiFields.add("message");
-    openapiFields.add("token");
+    openapiFields.add("txnId");
     openapiFields.add("chunkspec");
 
     // a set of required properties/fields (JSON key names)
@@ -298,8 +292,8 @@ public class PostPretrainResponse {
       if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
       }
-      if ((jsonObj.get("token") != null && !jsonObj.get("token").isJsonNull()) && !jsonObj.get("token").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `token` to be a primitive type in the JSON string but got `%s`", jsonObj.get("token").toString()));
+      if ((jsonObj.get("txnId") != null && !jsonObj.get("txnId").isJsonNull()) && !jsonObj.get("txnId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `txnId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("txnId").toString()));
       }
       if ((jsonObj.get("chunkspec") != null && !jsonObj.get("chunkspec").isJsonNull()) && !jsonObj.get("chunkspec").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `chunkspec` to be a primitive type in the JSON string but got `%s`", jsonObj.get("chunkspec").toString()));

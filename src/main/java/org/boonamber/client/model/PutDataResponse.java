@@ -20,13 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import org.boonamber.client.model.AnalyticResults;
-import org.boonamber.client.model.FusionFeature;
 import org.boonamber.client.model.ModelStatus;
 
 import com.google.gson.Gson;
@@ -57,7 +54,7 @@ import org.boonamber.client.JSON;
 public class PutDataResponse {
   public static final String SERIALIZED_NAME_VECTOR = "vector";
   @SerializedName(SERIALIZED_NAME_VECTOR)
-  private List<FusionFeature> vector = null;
+  private Map<String, Float> vector = new HashMap<>();
 
   public static final String SERIALIZED_NAME_ANALYTICS = "analytics";
   @SerializedName(SERIALIZED_NAME_ANALYTICS)
@@ -70,17 +67,17 @@ public class PutDataResponse {
   public PutDataResponse() {
   }
 
-  public PutDataResponse vector(List<FusionFeature> vector) {
+  public PutDataResponse vector(Map<String, Float> vector) {
     
     this.vector = vector;
     return this;
   }
 
-  public PutDataResponse addVectorItem(FusionFeature vectorItem) {
+  public PutDataResponse putVectorItem(String key, Float vectorItem) {
     if (this.vector == null) {
-      this.vector = new ArrayList<>();
+      this.vector = new HashMap<>();
     }
-    this.vector.add(vectorItem);
+    this.vector.put(key, vectorItem);
     return this;
   }
 
@@ -89,14 +86,13 @@ public class PutDataResponse {
    * @return vector
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The current fusion vector.")
 
-  public List<FusionFeature> getVector() {
+  public Map<String, Float> getVector() {
     return vector;
   }
 
 
-  public void setVector(List<FusionFeature> vector) {
+  public void setVector(Map<String, Float> vector) {
     this.vector = vector;
   }
 
@@ -112,7 +108,6 @@ public class PutDataResponse {
    * @return analytics
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
   public AnalyticResults getAnalytics() {
     return analytics;
@@ -135,7 +130,6 @@ public class PutDataResponse {
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
   public ModelStatus getStatus() {
     return status;
@@ -222,20 +216,6 @@ public class PutDataResponse {
       for (Entry<String, JsonElement> entry : entries) {
         if (!PutDataResponse.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PutDataResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
-        }
-      }
-      if (jsonObj.get("vector") != null && !jsonObj.get("vector").isJsonNull()) {
-        JsonArray jsonArrayvector = jsonObj.getAsJsonArray("vector");
-        if (jsonArrayvector != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("vector").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `vector` to be an array in the JSON string but got `%s`", jsonObj.get("vector").toString()));
-          }
-
-          // validate the optional field `vector` (array)
-          for (int i = 0; i < jsonArrayvector.size(); i++) {
-            FusionFeature.validateJsonObject(jsonArrayvector.get(i).getAsJsonObject());
-          };
         }
       }
       // validate the optional field `analytics`

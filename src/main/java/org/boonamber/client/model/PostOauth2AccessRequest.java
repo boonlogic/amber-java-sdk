@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -56,7 +54,7 @@ public class PostOauth2AccessRequest {
 
   public static final String SERIALIZED_NAME_SECRET_KEY = "secretKey";
   @SerializedName(SERIALIZED_NAME_SECRET_KEY)
-  private Object secretKey;
+  private String secretKey;
 
   public PostOauth2AccessRequest() {
   }
@@ -72,7 +70,6 @@ public class PostOauth2AccessRequest {
    * @return licenseId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Amber account license.")
 
   public String getLicenseId() {
     return licenseId;
@@ -84,7 +81,7 @@ public class PostOauth2AccessRequest {
   }
 
 
-  public PostOauth2AccessRequest secretKey(Object secretKey) {
+  public PostOauth2AccessRequest secretKey(String secretKey) {
     
     this.secretKey = secretKey;
     return this;
@@ -95,14 +92,13 @@ public class PostOauth2AccessRequest {
    * @return secretKey
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Amber account secret key.")
 
-  public Object getSecretKey() {
+  public String getSecretKey() {
     return secretKey;
   }
 
 
-  public void setSecretKey(Object secretKey) {
+  public void setSecretKey(String secretKey) {
     this.secretKey = secretKey;
   }
 
@@ -192,6 +188,9 @@ public class PostOauth2AccessRequest {
       }
       if (!jsonObj.get("licenseId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `licenseId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("licenseId").toString()));
+      }
+      if (!jsonObj.get("secretKey").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `secretKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("secretKey").toString()));
       }
   }
 

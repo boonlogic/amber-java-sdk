@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 |**mAutotuningInProgress** | **Boolean** |  |  [optional] |
 |**mPercentComplete** | **BigDecimal** |  |  [optional] |
 |**mAutotuningSucceeded** | **Boolean** |  |  [optional] |
-|**mNumPatternsToAutotune** | **Integer** |  |  [optional] |
+|**mNumPatternsToAutotune** | **BigDecimal** |  |  [optional] |
 |**mErrorStringBuffer** | **String** |  |  [optional] |
 |**mFeaturesToTuneArray** | **List&lt;Boolean&gt;** |  |  [optional] |
 |**mNCP** | [**MNCP**](MNCP.md) |  |  [optional] |

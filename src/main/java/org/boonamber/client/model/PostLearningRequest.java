@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import org.boonamber.client.model.TrainingConfig;
 
@@ -68,8 +66,7 @@ public class PostLearningRequest {
    * Get training
    * @return training
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
 
   public TrainingConfig getTraining() {
     return training;
@@ -130,7 +127,6 @@ public class PostLearningRequest {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("training");
   }
 
  /**
@@ -153,15 +149,10 @@ public class PostLearningRequest {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PostLearningRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : PostLearningRequest.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
+      // validate the optional field `training`
+      if (jsonObj.get("training") != null && !jsonObj.get("training").isJsonNull()) {
+        TrainingConfig.validateJsonObject(jsonObj.getAsJsonObject("training"));
       }
-      // validate the required field `training`
-      TrainingConfig.validateJsonObject(jsonObj.getAsJsonObject("training"));
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

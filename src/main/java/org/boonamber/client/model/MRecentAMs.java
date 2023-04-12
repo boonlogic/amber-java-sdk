@@ -20,10 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.boonamber.client.model.TrainingConfig;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,37 +47,67 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * PutConfigRequest
+ * MRecentAMs
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class PutConfigRequest {
-  public static final String SERIALIZED_NAME_TRAINING = "training";
-  @SerializedName(SERIALIZED_NAME_TRAINING)
-  private TrainingConfig training;
+public class MRecentAMs {
+  public static final String SERIALIZED_NAME_VERSION_NUMBER = "versionNumber";
+  @SerializedName(SERIALIZED_NAME_VERSION_NUMBER)
+  private BigDecimal versionNumber;
 
-  public PutConfigRequest() {
+  public static final String SERIALIZED_NAME_M_VALUES = "m_Values";
+  @SerializedName(SERIALIZED_NAME_M_VALUES)
+  private List<Float> mValues = new ArrayList<>();
+
+  public MRecentAMs() {
   }
 
-  public PutConfigRequest training(TrainingConfig training) {
+  public MRecentAMs versionNumber(BigDecimal versionNumber) {
     
-    this.training = training;
+    this.versionNumber = versionNumber;
     return this;
   }
 
    /**
-   * Get training
-   * @return training
+   * Get versionNumber
+   * @return versionNumber
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
 
-  public TrainingConfig getTraining() {
-    return training;
+  public BigDecimal getVersionNumber() {
+    return versionNumber;
   }
 
 
-  public void setTraining(TrainingConfig training) {
-    this.training = training;
+  public void setVersionNumber(BigDecimal versionNumber) {
+    this.versionNumber = versionNumber;
+  }
+
+
+  public MRecentAMs mValues(List<Float> mValues) {
+    
+    this.mValues = mValues;
+    return this;
+  }
+
+  public MRecentAMs addMValuesItem(Float mValuesItem) {
+    this.mValues.add(mValuesItem);
+    return this;
+  }
+
+   /**
+   * Get mValues
+   * @return mValues
+  **/
+  @javax.annotation.Nonnull
+
+  public List<Float> getmValues() {
+    return mValues;
+  }
+
+
+  public void setmValues(List<Float> mValues) {
+    this.mValues = mValues;
   }
 
 
@@ -90,20 +120,22 @@ public class PutConfigRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PutConfigRequest putConfigRequest = (PutConfigRequest) o;
-    return Objects.equals(this.training, putConfigRequest.training);
+    MRecentAMs mRecentAMs = (MRecentAMs) o;
+    return Objects.equals(this.versionNumber, mRecentAMs.versionNumber) &&
+        Objects.equals(this.mValues, mRecentAMs.mValues);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(training);
+    return Objects.hash(versionNumber, mValues);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PutConfigRequest {\n");
-    sb.append("    training: ").append(toIndentedString(training)).append("\n");
+    sb.append("class MRecentAMs {\n");
+    sb.append("    versionNumber: ").append(toIndentedString(versionNumber)).append("\n");
+    sb.append("    mValues: ").append(toIndentedString(mValues)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -126,64 +158,69 @@ public class PutConfigRequest {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("training");
+    openapiFields.add("versionNumber");
+    openapiFields.add("m_Values");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("training");
+    openapiRequiredFields.add("m_Values");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to PutConfigRequest
+  * @throws IOException if the JSON Object is invalid with respect to MRecentAMs
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!PutConfigRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PutConfigRequest is not found in the empty JSON string", PutConfigRequest.openapiRequiredFields.toString()));
+        if (!MRecentAMs.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in MRecentAMs is not found in the empty JSON string", MRecentAMs.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!PutConfigRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PutConfigRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!MRecentAMs.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MRecentAMs` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : PutConfigRequest.openapiRequiredFields) {
+      for (String requiredField : MRecentAMs.openapiRequiredFields) {
         if (jsonObj.get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-      // validate the required field `training`
-      TrainingConfig.validateJsonObject(jsonObj.getAsJsonObject("training"));
+      // ensure the required json array is present
+      if (jsonObj.get("m_Values") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("m_Values").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `m_Values` to be an array in the JSON string but got `%s`", jsonObj.get("m_Values").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PutConfigRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PutConfigRequest' and its subtypes
+       if (!MRecentAMs.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'MRecentAMs' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PutConfigRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PutConfigRequest.class));
+       final TypeAdapter<MRecentAMs> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(MRecentAMs.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<PutConfigRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<MRecentAMs>() {
            @Override
-           public void write(JsonWriter out, PutConfigRequest value) throws IOException {
+           public void write(JsonWriter out, MRecentAMs value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public PutConfigRequest read(JsonReader in) throws IOException {
+           public MRecentAMs read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -194,18 +231,18 @@ public class PutConfigRequest {
   }
 
  /**
-  * Create an instance of PutConfigRequest given an JSON string
+  * Create an instance of MRecentAMs given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of PutConfigRequest
-  * @throws IOException if the JSON string is invalid with respect to PutConfigRequest
+  * @return An instance of MRecentAMs
+  * @throws IOException if the JSON string is invalid with respect to MRecentAMs
   */
-  public static PutConfigRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PutConfigRequest.class);
+  public static MRecentAMs fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, MRecentAMs.class);
   }
 
  /**
-  * Convert an instance of PutConfigRequest to an JSON string
+  * Convert an instance of MRecentAMs to an JSON string
   *
   * @return JSON string
   */

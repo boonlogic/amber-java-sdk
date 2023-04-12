@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -80,7 +78,6 @@ public class PostOauth2AccessResponse {
    * @return idToken
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Authorization token. Requests to all API endpoints except `POST /oauth2` must include a valid token in a header field called `Authorization` with value `Bearer ${idToken}`.")
 
   public String getIdToken() {
     return idToken;
@@ -103,7 +100,6 @@ public class PostOauth2AccessResponse {
    * @return tokenType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Always `Bearer`.")
 
   public String getTokenType() {
     return tokenType;
@@ -126,7 +122,6 @@ public class PostOauth2AccessResponse {
    * @return expiresIn
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Number of seconds before `idToken` becomes invalid.")
 
   public String getExpiresIn() {
     return expiresIn;
@@ -149,7 +144,6 @@ public class PostOauth2AccessResponse {
    * @return refreshToken
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Can be used to refresh the `idToken` when it is nearing expiration.")
 
   public String getRefreshToken() {
     return refreshToken;

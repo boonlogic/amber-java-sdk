@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
-|**totalBytesWritten** | **Integer** |  |  [optional] |
-|**totalBytesProcessed** | **Integer** |  |  [optional] |
-|**loadBufferLength** | **Integer** |  |  [optional] |
-|**loadBufferCapacity** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
+|**totalBytesWritten** | **BigDecimal** |  |  [optional] |
+|**totalBytesProcessed** | **BigDecimal** |  |  [optional] |
+|**loadBufferLength** | **BigDecimal** |  |  [optional] |
+|**loadBufferCapacity** | **BigDecimal** |  |  [optional] |
 
 
 

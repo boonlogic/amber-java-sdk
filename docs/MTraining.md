@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **List&lt;Integer&gt;** |  |  [optional] |
+|**versionNumber** | **List&lt;BigDecimal&gt;** |  |  [optional] |
 |**mGeometricPlotY** | **List&lt;Float&gt;** |  |  |
-|**mGeometricPlotX** | **List&lt;Integer&gt;** |  |  |
-|**mClusterGrowth** | **List&lt;Integer&gt;** |  |  |
-|**mAnomalyIndexes** | **List&lt;Integer&gt;** |  |  [optional] |
+|**mGeometricPlotX** | **List&lt;BigDecimal&gt;** |  |  |
+|**mClusterGrowth** | **List&lt;BigDecimal&gt;** |  |  |
+|**mAnomalyIndexes** | **List&lt;BigDecimal&gt;** |  |  [optional] |
 
 
 

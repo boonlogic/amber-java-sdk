@@ -20,9 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.boonamber.client.model.Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,64 +47,44 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * EndpointUsage
+ * GetModelsResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class EndpointUsage {
-  public static final String SERIALIZED_NAME_TOTAL_CALLS = "totalCalls";
-  @SerializedName(SERIALIZED_NAME_TOTAL_CALLS)
-  private Integer totalCalls;
+public class GetModelsResponse {
+  public static final String SERIALIZED_NAME_MODEL_LIST = "modelList";
+  @SerializedName(SERIALIZED_NAME_MODEL_LIST)
+  private List<Model> modelList = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_LAST_CALLED = "lastCalled";
-  @SerializedName(SERIALIZED_NAME_LAST_CALLED)
-  private String lastCalled;
-
-  public EndpointUsage() {
+  public GetModelsResponse() {
   }
 
-  public EndpointUsage totalCalls(Integer totalCalls) {
+  public GetModelsResponse modelList(List<Model> modelList) {
     
-    this.totalCalls = totalCalls;
+    this.modelList = modelList;
+    return this;
+  }
+
+  public GetModelsResponse addModelListItem(Model modelListItem) {
+    if (this.modelList == null) {
+      this.modelList = new ArrayList<>();
+    }
+    this.modelList.add(modelListItem);
     return this;
   }
 
    /**
-   * Total number of calls to this endpoint.
-   * @return totalCalls
+   * Get modelList
+   * @return modelList
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Total number of calls to this endpoint.")
 
-  public Integer getTotalCalls() {
-    return totalCalls;
+  public List<Model> getModelList() {
+    return modelList;
   }
 
 
-  public void setTotalCalls(Integer totalCalls) {
-    this.totalCalls = totalCalls;
-  }
-
-
-  public EndpointUsage lastCalled(String lastCalled) {
-    
-    this.lastCalled = lastCalled;
-    return this;
-  }
-
-   /**
-   * Last time this endpoint was called, in ISO format.
-   * @return lastCalled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Last time this endpoint was called, in ISO format.")
-
-  public String getLastCalled() {
-    return lastCalled;
-  }
-
-
-  public void setLastCalled(String lastCalled) {
-    this.lastCalled = lastCalled;
+  public void setModelList(List<Model> modelList) {
+    this.modelList = modelList;
   }
 
 
@@ -116,22 +97,20 @@ public class EndpointUsage {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EndpointUsage endpointUsage = (EndpointUsage) o;
-    return Objects.equals(this.totalCalls, endpointUsage.totalCalls) &&
-        Objects.equals(this.lastCalled, endpointUsage.lastCalled);
+    GetModelsResponse getModelsResponse = (GetModelsResponse) o;
+    return Objects.equals(this.modelList, getModelsResponse.modelList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalCalls, lastCalled);
+    return Objects.hash(modelList);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EndpointUsage {\n");
-    sb.append("    totalCalls: ").append(toIndentedString(totalCalls)).append("\n");
-    sb.append("    lastCalled: ").append(toIndentedString(lastCalled)).append("\n");
+    sb.append("class GetModelsResponse {\n");
+    sb.append("    modelList: ").append(toIndentedString(modelList)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -154,8 +133,7 @@ public class EndpointUsage {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("totalCalls");
-    openapiFields.add("lastCalled");
+    openapiFields.add("modelList");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -165,24 +143,35 @@ public class EndpointUsage {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to EndpointUsage
+  * @throws IOException if the JSON Object is invalid with respect to GetModelsResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!EndpointUsage.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in EndpointUsage is not found in the empty JSON string", EndpointUsage.openapiRequiredFields.toString()));
+        if (!GetModelsResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in GetModelsResponse is not found in the empty JSON string", GetModelsResponse.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!EndpointUsage.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `EndpointUsage` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!GetModelsResponse.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GetModelsResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      if ((jsonObj.get("lastCalled") != null && !jsonObj.get("lastCalled").isJsonNull()) && !jsonObj.get("lastCalled").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `lastCalled` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastCalled").toString()));
+      if (jsonObj.get("modelList") != null && !jsonObj.get("modelList").isJsonNull()) {
+        JsonArray jsonArraymodelList = jsonObj.getAsJsonArray("modelList");
+        if (jsonArraymodelList != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("modelList").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `modelList` to be an array in the JSON string but got `%s`", jsonObj.get("modelList").toString()));
+          }
+
+          // validate the optional field `modelList` (array)
+          for (int i = 0; i < jsonArraymodelList.size(); i++) {
+            Model.validateJsonObject(jsonArraymodelList.get(i).getAsJsonObject());
+          };
+        }
       }
   }
 
@@ -190,22 +179,22 @@ public class EndpointUsage {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!EndpointUsage.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'EndpointUsage' and its subtypes
+       if (!GetModelsResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'GetModelsResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<EndpointUsage> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(EndpointUsage.class));
+       final TypeAdapter<GetModelsResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(GetModelsResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<EndpointUsage>() {
+       return (TypeAdapter<T>) new TypeAdapter<GetModelsResponse>() {
            @Override
-           public void write(JsonWriter out, EndpointUsage value) throws IOException {
+           public void write(JsonWriter out, GetModelsResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public EndpointUsage read(JsonReader in) throws IOException {
+           public GetModelsResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -216,18 +205,18 @@ public class EndpointUsage {
   }
 
  /**
-  * Create an instance of EndpointUsage given an JSON string
+  * Create an instance of GetModelsResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of EndpointUsage
-  * @throws IOException if the JSON string is invalid with respect to EndpointUsage
+  * @return An instance of GetModelsResponse
+  * @throws IOException if the JSON string is invalid with respect to GetModelsResponse
   */
-  public static EndpointUsage fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, EndpointUsage.class);
+  public static GetModelsResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, GetModelsResponse.class);
   }
 
  /**
-  * Convert an instance of EndpointUsage to an JSON string
+  * Convert an instance of GetModelsResponse to an JSON string
   *
   * @return JSON string
   */

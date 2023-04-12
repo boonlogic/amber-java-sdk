@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -50,9 +48,9 @@ import org.boonamber.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PostPretrainResponseAllOf {
-  public static final String SERIALIZED_NAME_TOKEN = "token";
-  @SerializedName(SERIALIZED_NAME_TOKEN)
-  private String token;
+  public static final String SERIALIZED_NAME_TXN_ID = "txnId";
+  @SerializedName(SERIALIZED_NAME_TXN_ID)
+  private String txnId;
 
   public static final String SERIALIZED_NAME_CHUNKSPEC = "chunkspec";
   @SerializedName(SERIALIZED_NAME_CHUNKSPEC)
@@ -61,26 +59,25 @@ public class PostPretrainResponseAllOf {
   public PostPretrainResponseAllOf() {
   }
 
-  public PostPretrainResponseAllOf token(String token) {
+  public PostPretrainResponseAllOf txnId(String txnId) {
     
-    this.token = token;
+    this.txnId = txnId;
     return this;
   }
 
    /**
-   * Transaction token for chunked uploads.
-   * @return token
+   * Transaction id for chunked uploads.
+   * @return txnId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Transaction token for chunked uploads.")
 
-  public String getToken() {
-    return token;
+  public String getTxnId() {
+    return txnId;
   }
 
 
-  public void setToken(String token) {
-    this.token = token;
+  public void setTxnId(String txnId) {
+    this.txnId = txnId;
   }
 
 
@@ -95,7 +92,6 @@ public class PostPretrainResponseAllOf {
    * @return chunkspec
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Chunk specifier for chunked uploads.")
 
   public String getChunkspec() {
     return chunkspec;
@@ -117,20 +113,20 @@ public class PostPretrainResponseAllOf {
       return false;
     }
     PostPretrainResponseAllOf postPretrainResponseAllOf = (PostPretrainResponseAllOf) o;
-    return Objects.equals(this.token, postPretrainResponseAllOf.token) &&
+    return Objects.equals(this.txnId, postPretrainResponseAllOf.txnId) &&
         Objects.equals(this.chunkspec, postPretrainResponseAllOf.chunkspec);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(token, chunkspec);
+    return Objects.hash(txnId, chunkspec);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PostPretrainResponseAllOf {\n");
-    sb.append("    token: ").append(toIndentedString(token)).append("\n");
+    sb.append("    txnId: ").append(toIndentedString(txnId)).append("\n");
     sb.append("    chunkspec: ").append(toIndentedString(chunkspec)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -154,7 +150,7 @@ public class PostPretrainResponseAllOf {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("token");
+    openapiFields.add("txnId");
     openapiFields.add("chunkspec");
 
     // a set of required properties/fields (JSON key names)
@@ -181,8 +177,8 @@ public class PostPretrainResponseAllOf {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PostPretrainResponseAllOf` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      if ((jsonObj.get("token") != null && !jsonObj.get("token").isJsonNull()) && !jsonObj.get("token").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `token` to be a primitive type in the JSON string but got `%s`", jsonObj.get("token").toString()));
+      if ((jsonObj.get("txnId") != null && !jsonObj.get("txnId").isJsonNull()) && !jsonObj.get("txnId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `txnId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("txnId").toString()));
       }
       if ((jsonObj.get("chunkspec") != null && !jsonObj.get("chunkspec").isJsonNull()) && !jsonObj.get("chunkspec").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `chunkspec` to be a primitive type in the JSON string but got `%s`", jsonObj.get("chunkspec").toString()));

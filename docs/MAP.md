@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
 |**mAutotuneRange** | **Boolean** |  |  |
 |**mAutotunePV** | **Boolean** |  |  |
 |**mAutotuneByFeatures** | **Boolean** |  |  |
-|**mMaxClusters** | **Integer** |  |  [optional] |
-|**mFeaturesToTuneArray** | **List&lt;Integer&gt;** |  |  [optional] |
+|**mMaxClusters** | **BigDecimal** |  |  [optional] |
+|**mFeaturesToTuneArray** | **List&lt;BigDecimal&gt;** |  |  [optional] |
 
 
 

@@ -5,29 +5,32 @@ All URIs are relative to *http://amber.boonlogic.com/v2*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**deleteModel**](DefaultApi.md#deleteModel) | **DELETE** /models/{modelId} | delete a model |
-| [**getConfig**](DefaultApi.md#getConfig) | **GET** /models/{modelId}/config | get model configuration |
 | [**getModel**](DefaultApi.md#getModel) | **GET** /models/{modelId} | get model metadata |
+| [**getModelConfig**](DefaultApi.md#getModelConfig) | **GET** /models/{modelId}/config | get model configuration |
+| [**getModelDiagnostic**](DefaultApi.md#getModelDiagnostic) | **GET** /models/{modelId}/diagnostic | get the diagnostic of a model |
+| [**getModelNanoStatus**](DefaultApi.md#getModelNanoStatus) | **GET** /models/{modelId}/status/nano | get current nano status of the model |
+| [**getModelPretrain**](DefaultApi.md#getModelPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress |
+| [**getModelRootCause**](DefaultApi.md#getModelRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis |
+| [**getModelStatus**](DefaultApi.md#getModelStatus) | **GET** /models/{modelId}/status | get current status of the model |
+| [**getModelSummary**](DefaultApi.md#getModelSummary) | **GET** /models/{modelId}/summary | get the summation of a model |
 | [**getModels**](DefaultApi.md#getModels) | **GET** /models | list all models |
-| [**getPretrain**](DefaultApi.md#getPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress |
-| [**getRootCause**](DefaultApi.md#getRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis |
-| [**getStatus**](DefaultApi.md#getStatus) | **GET** /models/{modelId}/status | get current status of the model |
-| [**getUsage**](DefaultApi.md#getUsage) | **GET** /models/{modelId}/usage | get model usage metrics |
 | [**getVersion**](DefaultApi.md#getVersion) | **GET** /version | get version information |
-| [**postConfig**](DefaultApi.md#postConfig) | **POST** /models/{modelId}/config | configure a model |
-| [**postData**](DefaultApi.md#postData) | **POST** /models/{modelId}/data | send data to model and get back results |
-| [**postLearning**](DefaultApi.md#postLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning |
 | [**postModel**](DefaultApi.md#postModel) | **POST** /models | create a model |
+| [**postModelConfig**](DefaultApi.md#postModelConfig) | **POST** /models/{modelId}/config | configure a model |
+| [**postModelData**](DefaultApi.md#postModelData) | **POST** /models/{modelId}/data | send data to model and get back results |
+| [**postModelLearning**](DefaultApi.md#postModelLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning |
+| [**postModelMigrate**](DefaultApi.md#postModelMigrate) | **POST** /models/{v1ModelId}/migrate | migrate a v1 sensor to a v2 model |
+| [**postModelOutage**](DefaultApi.md#postModelOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming |
+| [**postModelPretrain**](DefaultApi.md#postModelPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset |
 | [**postOauth2Access**](DefaultApi.md#postOauth2Access) | **POST** /oauth2/access | request an API token given license and secret key |
 | [**postOauth2Refresh**](DefaultApi.md#postOauth2Refresh) | **POST** /oauth2/refresh | request an API token given a refresh token |
-| [**postOutage**](DefaultApi.md#postOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming |
-| [**postPretrain**](DefaultApi.md#postPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset |
-| [**putData**](DefaultApi.md#putData) | **PUT** /models/{modelId}/data | update fusion vector and get back results |
 | [**putModel**](DefaultApi.md#putModel) | **PUT** /models/{modelId} | update model metadata |
+| [**putModelData**](DefaultApi.md#putModelData) | **PUT** /models/{modelId}/data | update fusion vector and get back results |
 
 
 <a name="deleteModel"></a>
 # **deleteModel**
-> deleteModel(modelId)
+> DeleteModelResponse deleteModel(modelId)
 
 delete a model
 
@@ -57,7 +60,8 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      apiInstance.deleteModel(modelId);
+      DeleteModelResponse result = apiInstance.deleteModel(modelId);
+      System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#deleteModel");
       System.err.println("Status code: " + e.getCode());
@@ -77,7 +81,7 @@ public class Example {
 
 ### Return type
 
-null (empty response body)
+[**DeleteModelResponse**](DeleteModelResponse.md)
 
 ### Authorization
 
@@ -86,79 +90,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="getConfig"></a>
-# **getConfig**
-> ConfigResponse getConfig(modelId)
-
-get model configuration
-
-Get the configuration of the specified model.
-
-### Example
-```java
-// Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
-    
-    // Configure API key authorization: Bearer
-    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-    Bearer.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //Bearer.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String modelId = "modelId_example"; // String | 
-    try {
-      ConfigResponse result = apiInstance.getConfig(modelId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getConfig");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **modelId** | **String**|  | |
-
-### Return type
-
-[**ConfigResponse**](ConfigResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -170,7 +102,7 @@ public class Example {
 
 <a name="getModel"></a>
 # **getModel**
-> Model getModel(modelId)
+> PostModelResponse getModel(modelId)
 
 get model metadata
 
@@ -200,7 +132,7 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      Model result = apiInstance.getModel(modelId);
+      PostModelResponse result = apiInstance.getModel(modelId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getModel");
@@ -221,7 +153,7 @@ public class Example {
 
 ### Return type
 
-[**Model**](Model.md)
+[**PostModelResponse**](PostModelResponse.md)
 
 ### Authorization
 
@@ -230,7 +162,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -240,13 +172,13 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getModels"></a>
-# **getModels**
-> List&lt;Model&gt; getModels(verbose)
+<a name="getModelConfig"></a>
+# **getModelConfig**
+> PostConfigResponse getModelConfig(modelId)
 
-list all models
+get model configuration
 
-Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
+Get the configuration of the specified model.
 
 ### Example
 ```java
@@ -270,12 +202,12 @@ public class Example {
     //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String verbose = "verbose_example"; // String | If `true`, include full model metadata.
+    String modelId = "modelId_example"; // String | 
     try {
-      List<Model> result = apiInstance.getModels(verbose);
+      PostConfigResponse result = apiInstance.getModelConfig(modelId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getModels");
+      System.err.println("Exception when calling DefaultApi#getModelConfig");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -289,11 +221,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **verbose** | **String**| If &#x60;true&#x60;, include full model metadata. | [optional] |
+| **modelId** | **String**|  | |
 
 ### Return type
 
-[**List&lt;Model&gt;**](Model.md)
+[**PostConfigResponse**](PostConfigResponse.md)
 
 ### Authorization
 
@@ -302,18 +234,163 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 | **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getPretrain"></a>
-# **getPretrain**
-> PretrainStatus getPretrain(modelId)
+<a name="getModelDiagnostic"></a>
+# **getModelDiagnostic**
+> File getModelDiagnostic(modelId)
+
+get the diagnostic of a model
+
+Get the current diagnostic of the specified model.
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      File result = apiInstance.getModelDiagnostic(modelId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getModelDiagnostic");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+
+### Return type
+
+[**File**](File.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getModelNanoStatus"></a>
+# **getModelNanoStatus**
+> GetNanoStatusResponse getModelNanoStatus(modelId)
+
+get current nano status of the model
+
+Get the current nano state of the specified model.
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      GetNanoStatusResponse result = apiInstance.getModelNanoStatus(modelId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getModelNanoStatus");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+
+### Return type
+
+[**GetNanoStatusResponse**](GetNanoStatusResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getModelPretrain"></a>
+# **getModelPretrain**
+> GetPretrainResponse getModelPretrain(modelId)
 
 get pretraining progress
 
@@ -343,10 +420,10 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      PretrainStatus result = apiInstance.getPretrain(modelId);
+      GetPretrainResponse result = apiInstance.getModelPretrain(modelId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getPretrain");
+      System.err.println("Exception when calling DefaultApi#getModelPretrain");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -364,7 +441,7 @@ public class Example {
 
 ### Return type
 
-[**PretrainStatus**](PretrainStatus.md)
+[**GetPretrainResponse**](GetPretrainResponse.md)
 
 ### Authorization
 
@@ -373,19 +450,20 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | OK |  -  |
+| **200** | Model is not pretraining |  -  |
+| **202** | Model is currently pretraining |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getRootCause"></a>
-# **getRootCause**
-> List&lt;FeatureRootCause&gt; getRootCause(modelId, clusters, vectors)
+<a name="getModelRootCause"></a>
+# **getModelRootCause**
+> GetRootCauseResponse getModelRootCause(modelId, clusters, vectors)
 
 perform root cause analysis
 
@@ -417,10 +495,10 @@ public class Example {
     String clusters = "clusters_example"; // String | Clusters to analyze (list of comma-separated integers).
     String vectors = "vectors_example"; // String | Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
     try {
-      List<FeatureRootCause> result = apiInstance.getRootCause(modelId, clusters, vectors);
+      GetRootCauseResponse result = apiInstance.getModelRootCause(modelId, clusters, vectors);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getRootCause");
+      System.err.println("Exception when calling DefaultApi#getModelRootCause");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -440,7 +518,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;FeatureRootCause&gt;**](FeatureRootCause.md)
+[**GetRootCauseResponse**](GetRootCauseResponse.md)
 
 ### Authorization
 
@@ -449,7 +527,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -460,9 +538,9 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getStatus"></a>
-# **getStatus**
-> ModelStatus getStatus(modelId)
+<a name="getModelStatus"></a>
+# **getModelStatus**
+> GetStatusResponse getModelStatus(modelId)
 
 get current status of the model
 
@@ -492,10 +570,10 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      ModelStatus result = apiInstance.getStatus(modelId);
+      GetStatusResponse result = apiInstance.getModelStatus(modelId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getStatus");
+      System.err.println("Exception when calling DefaultApi#getModelStatus");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -513,7 +591,7 @@ public class Example {
 
 ### Return type
 
-[**ModelStatus**](ModelStatus.md)
+[**GetStatusResponse**](GetStatusResponse.md)
 
 ### Authorization
 
@@ -522,7 +600,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -532,13 +610,13 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getUsage"></a>
-# **getUsage**
-> GetUsageResponse getUsage(modelId)
+<a name="getModelSummary"></a>
+# **getModelSummary**
+> GetSummaryResponse getModelSummary(modelId)
 
-get model usage metrics
+get the summation of a model
 
-Return usage metrics for the specified model.
+Get the current summation of the specified model.
 
 ### Example
 ```java
@@ -564,10 +642,10 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      GetUsageResponse result = apiInstance.getUsage(modelId);
+      GetSummaryResponse result = apiInstance.getModelSummary(modelId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#getUsage");
+      System.err.println("Exception when calling DefaultApi#getModelSummary");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -585,7 +663,7 @@ public class Example {
 
 ### Return type
 
-[**GetUsageResponse**](GetUsageResponse.md)
+[**GetSummaryResponse**](GetSummaryResponse.md)
 
 ### Authorization
 
@@ -594,7 +672,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -604,9 +682,80 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
+<a name="getModels"></a>
+# **getModels**
+> GetModelsResponse getModels(verbose)
+
+list all models
+
+Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String verbose = "verbose_example"; // String | If `true`, include full model metadata.
+    try {
+      GetModelsResponse result = apiInstance.getModels(verbose);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getModels");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **verbose** | **String**| If &#x60;true&#x60;, include full model metadata. | [optional] |
+
+### Return type
+
+[**GetModelsResponse**](GetModelsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getVersion"></a>
 # **getVersion**
-> Version getVersion()
+> GetVersionResponse getVersion()
 
 get version information
 
@@ -635,7 +784,7 @@ public class Example {
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     try {
-      Version result = apiInstance.getVersion();
+      GetVersionResponse result = apiInstance.getVersion();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getVersion");
@@ -653,7 +802,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Version**](Version.md)
+[**GetVersionResponse**](GetVersionResponse.md)
 
 ### Authorization
 
@@ -662,7 +811,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -671,9 +820,81 @@ This endpoint does not need any parameter.
 | **401** | Unauthorized |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="postConfig"></a>
-# **postConfig**
-> ConfigResponse postConfig(modelId, postConfigRequest)
+<a name="postModel"></a>
+# **postModel**
+> PostModelResponse postModel(postModelRequest)
+
+create a model
+
+Create a new model and return its unique identifier.
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    PostModelRequest postModelRequest = new PostModelRequest(); // PostModelRequest | initial metadata for new model
+    try {
+      PostModelResponse result = apiInstance.postModel(postModelRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postModel");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **postModelRequest** | [**PostModelRequest**](PostModelRequest.md)| initial metadata for new model | |
+
+### Return type
+
+[**PostModelResponse**](PostModelResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postModelConfig"></a>
+# **postModelConfig**
+> PostConfigResponse postModelConfig(modelId, postConfigRequest)
 
 configure a model
 
@@ -702,12 +923,12 @@ public class Example {
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
-    Config postConfigRequest = new Config(); // Config | configuration to apply
+    PostConfigRequest postConfigRequest = new PostConfigRequest(); // PostConfigRequest | configuration to apply
     try {
-      ConfigResponse result = apiInstance.postConfig(modelId, postConfigRequest);
+      PostConfigResponse result = apiInstance.postModelConfig(modelId, postConfigRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postConfig");
+      System.err.println("Exception when calling DefaultApi#postModelConfig");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -722,11 +943,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **modelId** | **String**|  | |
-| **postConfigRequest** | **Config**| configuration to apply | [optional] |
+| **postConfigRequest** | [**PostConfigRequest**](PostConfigRequest.md)| configuration to apply | [optional] |
 
 ### Return type
 
-[**ConfigResponse**](ConfigResponse.md)
+[**PostConfigResponse**](PostConfigResponse.md)
 
 ### Authorization
 
@@ -735,7 +956,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -746,9 +967,9 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="postData"></a>
-# **postData**
-> PostDataResponse postData(modelId, postDataRequest)
+<a name="postModelData"></a>
+# **postModelData**
+> PostDataResponse postModelData(modelId, postDataRequest)
 
 send data to model and get back results
 
@@ -779,10 +1000,10 @@ public class Example {
     String modelId = "modelId_example"; // String | 
     PostDataRequest postDataRequest = new PostDataRequest(); // PostDataRequest | data vector or vectors as a flattened list of comma-separated values
     try {
-      PostDataResponse result = apiInstance.postData(modelId, postDataRequest);
+      PostDataResponse result = apiInstance.postModelData(modelId, postDataRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postData");
+      System.err.println("Exception when calling DefaultApi#postModelData");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -810,7 +1031,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -821,9 +1042,9 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="postLearning"></a>
-# **postLearning**
-> PostLearningResponse postLearning(modelId, postLearningRequest)
+<a name="postModelLearning"></a>
+# **postModelLearning**
+> PostLearningResponse postModelLearning(modelId, postLearningRequest)
 
 update model configuration and re-enable learning
 
@@ -854,10 +1075,10 @@ public class Example {
     String modelId = "modelId_example"; // String | 
     PostLearningRequest postLearningRequest = new PostLearningRequest(); // PostLearningRequest | updates to apply
     try {
-      PostLearningResponse result = apiInstance.postLearning(modelId, postLearningRequest);
+      PostLearningResponse result = apiInstance.postModelLearning(modelId, postLearningRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postLearning");
+      System.err.println("Exception when calling DefaultApi#postModelLearning");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -872,7 +1093,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **modelId** | **String**|  | |
-| **postLearningRequest** | [**PostLearningRequest**](PostLearningRequest.md)| updates to apply | |
+| **postLearningRequest** | [**PostLearningRequest**](PostLearningRequest.md)| updates to apply | [optional] |
 
 ### Return type
 
@@ -885,7 +1106,7 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -896,13 +1117,13 @@ public class Example {
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="postModel"></a>
-# **postModel**
-> Model postModel(postModelRequest)
+<a name="postModelMigrate"></a>
+# **postModelMigrate**
+> PostModelResponse postModelMigrate(v1ModelId)
 
-create a model
+migrate a v1 sensor to a v2 model
 
-Create a new model and return its unique identifier.
+migrate a v1 sensor to a v2 model
 
 ### Example
 ```java
@@ -926,12 +1147,12 @@ public class Example {
     //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    PostModelRequest postModelRequest = new PostModelRequest(); // PostModelRequest | initial metadata for new model
+    String v1ModelId = "v1ModelId_example"; // String | version 1 model id
     try {
-      Model result = apiInstance.postModel(postModelRequest);
+      PostModelResponse result = apiInstance.postModelMigrate(v1ModelId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postModel");
+      System.err.println("Exception when calling DefaultApi#postModelMigrate");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -945,11 +1166,160 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **postModelRequest** | [**PostModelRequest**](PostModelRequest.md)| initial metadata for new model | |
+| **v1ModelId** | **String**| version 1 model id | |
 
 ### Return type
 
-[**Model**](Model.md)
+[**PostModelResponse**](PostModelResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postModelOutage"></a>
+# **postModelOutage**
+> Error postModelOutage(modelId)
+
+call this after a data outage before resuming streaming
+
+Resets the streaming window generated by &#x60;streamingWindow&#x60;. This endpoint should be called after a data outage before resuming streaming.
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    try {
+      Error result = apiInstance.postModelOutage(modelId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postModelOutage");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+
+### Return type
+
+[**Error**](Error.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postModelPretrain"></a>
+# **postModelPretrain**
+> PostPretrainResponse postModelPretrain(modelId, postPretrainRequest, chunkspec, txnId)
+
+pretrain model with an existing dataset
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    PostPretrainRequest postPretrainRequest = new PostPretrainRequest(); // PostPretrainRequest | Data to use for pretraining.
+    String chunkspec = "chunkspec_example"; // String | Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a `chunkspec` of the form `1:3`, `2:10`, `7:7`, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received.
+    String txnId = "txnId_example"; // String | Transaction id for chunked uploads. The response body for the first request in a chunked upload will contain a `txnId` which uniquely identifies the chunking transaction across multiple requests. That `txnId` must be included in the header of all remaining chunks uploaded in the transaction.
+    try {
+      PostPretrainResponse result = apiInstance.postModelPretrain(modelId, postPretrainRequest, chunkspec, txnId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postModelPretrain");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+| **postPretrainRequest** | [**PostPretrainRequest**](PostPretrainRequest.md)| Data to use for pretraining. | |
+| **chunkspec** | **String**| Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a &#x60;chunkspec&#x60; of the form &#x60;1:3&#x60;, &#x60;2:10&#x60;, &#x60;7:7&#x60;, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received. | [optional] |
+| **txnId** | **String**| Transaction id for chunked uploads. The response body for the first request in a chunked upload will contain a &#x60;txnId&#x60; which uniquely identifies the chunking transaction across multiple requests. That &#x60;txnId&#x60; must be included in the header of all remaining chunks uploaded in the transaction. | [optional] |
+
+### Return type
+
+[**PostPretrainResponse**](PostPretrainResponse.md)
 
 ### Authorization
 
@@ -958,14 +1328,16 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **202** | Operation was accepted |  * txnId -  <br>  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="postOauth2Access"></a>
@@ -1023,7 +1395,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1088,7 +1460,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1096,232 +1468,11 @@ No authorization required
 | **200** | OK |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="postOutage"></a>
-# **postOutage**
-> postOutage(modelId)
-
-call this after a data outage before resuming streaming
-
-Resets the streaming window generated by &#x60;streamingWindow&#x60;. This endpoint should be called after a data outage before resuming streaming.
-
-### Example
-```java
-// Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
-    
-    // Configure API key authorization: Bearer
-    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-    Bearer.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //Bearer.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String modelId = "modelId_example"; // String | 
-    try {
-      apiInstance.postOutage(modelId);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postOutage");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **modelId** | **String**|  | |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="postPretrain"></a>
-# **postPretrain**
-> PostPretrainResponse postPretrain(modelId, postPretrainRequest, chunkspec, token)
-
-pretrain model with an existing dataset
-
-### Example
-```java
-// Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
-    
-    // Configure API key authorization: Bearer
-    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-    Bearer.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //Bearer.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String modelId = "modelId_example"; // String | 
-    PostPretrainRequest postPretrainRequest = new PostPretrainRequest(); // PostPretrainRequest | Data to use for pretraining.
-    String chunkspec = "chunkspec_example"; // String | Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a `chunkspec` of the form `1:3`, `2:10`, `7:7`, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received.
-    String token = "token_example"; // String | Transaction token for chunked uploads. The response body for the first request in a chunked upload will contain a `token` which uniquely identifies the chunking transaction across multiple requests. That `token` must be included in the header of all remaining chunks uploaded in the transaction.
-    try {
-      PostPretrainResponse result = apiInstance.postPretrain(modelId, postPretrainRequest, chunkspec, token);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#postPretrain");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **modelId** | **String**|  | |
-| **postPretrainRequest** | [**PostPretrainRequest**](PostPretrainRequest.md)| Data to use for pretraining. | |
-| **chunkspec** | **String**| Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a &#x60;chunkspec&#x60; of the form &#x60;1:3&#x60;, &#x60;2:10&#x60;, &#x60;7:7&#x60;, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received. | [optional] |
-| **token** | **String**| Transaction token for chunked uploads. The response body for the first request in a chunked upload will contain a &#x60;token&#x60; which uniquely identifies the chunking transaction across multiple requests. That &#x60;token&#x60; must be included in the header of all remaining chunks uploaded in the transaction. | [optional] |
-
-### Return type
-
-[**PostPretrainResponse**](PostPretrainResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="putData"></a>
-# **putData**
-> PutDataResponse putData(modelId, putDataRequest)
-
-update fusion vector and get back results
-
-### Example
-```java
-// Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
-    
-    // Configure API key authorization: Bearer
-    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-    Bearer.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //Bearer.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String modelId = "modelId_example"; // String | 
-    PutDataRequest putDataRequest = new PutDataRequest(); // PutDataRequest | updates to the fusion vector
-    try {
-      PutDataResponse result = apiInstance.putData(modelId, putDataRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#putData");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **modelId** | **String**|  | |
-| **putDataRequest** | [**PutDataRequest**](PutDataRequest.md)| updates to the fusion vector | |
-
-### Return type
-
-[**PutDataResponse**](PutDataResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="putModel"></a>
 # **putModel**
-> Model putModel(modelId, putModelRequest)
+> PostModelResponse putModel(modelId, putModelRequest)
 
 update model metadata
 
@@ -1352,7 +1503,7 @@ public class Example {
     String modelId = "modelId_example"; // String | 
     PutModelRequest putModelRequest = new PutModelRequest(); // PutModelRequest | updates to apply
     try {
-      Model result = apiInstance.putModel(modelId, putModelRequest);
+      PostModelResponse result = apiInstance.putModel(modelId, putModelRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#putModel");
@@ -1374,7 +1525,7 @@ public class Example {
 
 ### Return type
 
-[**Model**](Model.md)
+[**PostModelResponse**](PostModelResponse.md)
 
 ### Authorization
 
@@ -1383,12 +1534,86 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="putModelData"></a>
+# **putModelData**
+> PutDataResponse putModelData(modelId, putDataRequest)
+
+update fusion vector and get back results
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    PutDataRequest putDataRequest = new PutDataRequest(); // PutDataRequest | updates to the fusion vector
+    try {
+      PutDataResponse result = apiInstance.putModelData(modelId, putDataRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#putModelData");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+| **putDataRequest** | [**PutDataRequest**](PutDataRequest.md)| updates to the fusion vector | |
+
+### Return type
+
+[**PutDataResponse**](PutDataResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Vector has been updated and analytics were run. |  -  |
+| **202** | Vector has been updated but no analytics were run. |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |

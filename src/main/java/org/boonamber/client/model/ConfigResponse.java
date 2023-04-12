@@ -20,11 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.boonamber.client.model.Autotuning;
 import org.boonamber.client.model.FeatureConfigResponse;
 import org.boonamber.client.model.PercentVariationResponse;
 import org.boonamber.client.model.TrainingConfig;
@@ -65,11 +64,15 @@ public class ConfigResponse {
 
   public static final String SERIALIZED_NAME_FEATURES = "features";
   @SerializedName(SERIALIZED_NAME_FEATURES)
-  private List<FeatureConfigResponse> features = null;
+  private List<FeatureConfigResponse> features = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TRAINING = "training";
   @SerializedName(SERIALIZED_NAME_TRAINING)
   private TrainingConfig training;
+
+  public static final String SERIALIZED_NAME_AUTOTUNING = "autotuning";
+  @SerializedName(SERIALIZED_NAME_AUTOTUNING)
+  private Autotuning autotuning;
 
   public ConfigResponse() {
   }
@@ -86,7 +89,6 @@ public class ConfigResponse {
    * @return streamingWindow
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Number of recent input _vectors_ concatenated together to make up a full input _pattern_ presented to the model for inference.  Let `featureCount` be the configured number of features. The model consumes data sequentially in steps of size `featureCount`. Each time it receives `featureCount` data values, `featureCount` input values are consumed and concatenated together to form an input _vector_. This input vector is then concatenated with zero or more past input vectors to form an input _pattern_. The input _pattern_ is the true data vector inferenced by the model at each step. Configuring the `streamingWindow` greater than 1 allows a model to identify patterns in vectors that change over time.  If monitoring a single timeseries signal, the model should be configured with just one feature. In that case the input vector has length 1, and `streamingWindow` determines the length of a moving window over past samples which is the input pattern to the model for each new sample. For example, a model configured with one feature and a `streamingWindow` of 25 will concatenate together and inference the 25 most recent data values for each new value consumed.  If monitoring instantaneous readings from several sensors jointly, each sensor should be associated with one feature in the configuration. In this case `streamingWindow` is usually set to 1 so that the input pattern is just the current vector of readings. For example, a model configured with 5 features and a `streamingWindow` of 1 will consume 5 values at a time and inference those 5 values as a pattern of length 5. If the `streamingWindow` were 2, the model would still consume 5 values at a time, but its input pattern would contain the last 10 samples.")
 
   public Integer getStreamingWindow() {
     return streamingWindow;
@@ -109,7 +111,6 @@ public class ConfigResponse {
    * @return percentVariation
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
   public PercentVariationResponse getPercentVariation() {
     return percentVariation;
@@ -140,7 +141,6 @@ public class ConfigResponse {
    * @return features
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
   public List<FeatureConfigResponse> getFeatures() {
     return features;
@@ -163,7 +163,6 @@ public class ConfigResponse {
    * @return training
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
   public TrainingConfig getTraining() {
     return training;
@@ -172,6 +171,28 @@ public class ConfigResponse {
 
   public void setTraining(TrainingConfig training) {
     this.training = training;
+  }
+
+
+  public ConfigResponse autotuning(Autotuning autotuning) {
+    
+    this.autotuning = autotuning;
+    return this;
+  }
+
+   /**
+   * Get autotuning
+   * @return autotuning
+  **/
+  @javax.annotation.Nullable
+
+  public Autotuning getAutotuning() {
+    return autotuning;
+  }
+
+
+  public void setAutotuning(Autotuning autotuning) {
+    this.autotuning = autotuning;
   }
 
 
@@ -188,12 +209,13 @@ public class ConfigResponse {
     return Objects.equals(this.streamingWindow, configResponse.streamingWindow) &&
         Objects.equals(this.percentVariation, configResponse.percentVariation) &&
         Objects.equals(this.features, configResponse.features) &&
-        Objects.equals(this.training, configResponse.training);
+        Objects.equals(this.training, configResponse.training) &&
+        Objects.equals(this.autotuning, configResponse.autotuning);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(streamingWindow, percentVariation, features, training);
+    return Objects.hash(streamingWindow, percentVariation, features, training, autotuning);
   }
 
   @Override
@@ -204,6 +226,7 @@ public class ConfigResponse {
     sb.append("    percentVariation: ").append(toIndentedString(percentVariation)).append("\n");
     sb.append("    features: ").append(toIndentedString(features)).append("\n");
     sb.append("    training: ").append(toIndentedString(training)).append("\n");
+    sb.append("    autotuning: ").append(toIndentedString(autotuning)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -230,6 +253,7 @@ public class ConfigResponse {
     openapiFields.add("percentVariation");
     openapiFields.add("features");
     openapiFields.add("training");
+    openapiFields.add("autotuning");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -276,6 +300,10 @@ public class ConfigResponse {
       // validate the optional field `training`
       if (jsonObj.get("training") != null && !jsonObj.get("training").isJsonNull()) {
         TrainingConfig.validateJsonObject(jsonObj.getAsJsonObject("training"));
+      }
+      // validate the optional field `autotuning`
+      if (jsonObj.get("autotuning") != null && !jsonObj.get("autotuning").isJsonNull()) {
+        Autotuning.validateJsonObject(jsonObj.getAsJsonObject("autotuning"));
       }
   }
 

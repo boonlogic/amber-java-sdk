@@ -100,7 +100,8 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      apiInstance.deleteModel(modelId);
+      DeleteModelResponse result = apiInstance.deleteModel(modelId);
+      System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#deleteModel");
       System.err.println("Status code: " + e.getCode());
@@ -120,49 +121,78 @@ All URIs are relative to *http://amber.boonlogic.com/v2*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**deleteModel**](docs/DefaultApi.md#deleteModel) | **DELETE** /models/{modelId} | delete a model
-*DefaultApi* | [**getConfig**](docs/DefaultApi.md#getConfig) | **GET** /models/{modelId}/config | get model configuration
 *DefaultApi* | [**getModel**](docs/DefaultApi.md#getModel) | **GET** /models/{modelId} | get model metadata
+*DefaultApi* | [**getModelConfig**](docs/DefaultApi.md#getModelConfig) | **GET** /models/{modelId}/config | get model configuration
+*DefaultApi* | [**getModelDiagnostic**](docs/DefaultApi.md#getModelDiagnostic) | **GET** /models/{modelId}/diagnostic | get the diagnostic of a model
+*DefaultApi* | [**getModelNanoStatus**](docs/DefaultApi.md#getModelNanoStatus) | **GET** /models/{modelId}/status/nano | get current nano status of the model
+*DefaultApi* | [**getModelPretrain**](docs/DefaultApi.md#getModelPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress
+*DefaultApi* | [**getModelRootCause**](docs/DefaultApi.md#getModelRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis
+*DefaultApi* | [**getModelStatus**](docs/DefaultApi.md#getModelStatus) | **GET** /models/{modelId}/status | get current status of the model
+*DefaultApi* | [**getModelSummary**](docs/DefaultApi.md#getModelSummary) | **GET** /models/{modelId}/summary | get the summation of a model
 *DefaultApi* | [**getModels**](docs/DefaultApi.md#getModels) | **GET** /models | list all models
-*DefaultApi* | [**getPretrain**](docs/DefaultApi.md#getPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress
-*DefaultApi* | [**getRootCause**](docs/DefaultApi.md#getRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis
-*DefaultApi* | [**getStatus**](docs/DefaultApi.md#getStatus) | **GET** /models/{modelId}/status | get current status of the model
-*DefaultApi* | [**getUsage**](docs/DefaultApi.md#getUsage) | **GET** /models/{modelId}/usage | get model usage metrics
 *DefaultApi* | [**getVersion**](docs/DefaultApi.md#getVersion) | **GET** /version | get version information
-*DefaultApi* | [**postConfig**](docs/DefaultApi.md#postConfig) | **POST** /models/{modelId}/config | configure a model
-*DefaultApi* | [**postData**](docs/DefaultApi.md#postData) | **POST** /models/{modelId}/data | send data to model and get back results
-*DefaultApi* | [**postLearning**](docs/DefaultApi.md#postLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning
 *DefaultApi* | [**postModel**](docs/DefaultApi.md#postModel) | **POST** /models | create a model
+*DefaultApi* | [**postModelConfig**](docs/DefaultApi.md#postModelConfig) | **POST** /models/{modelId}/config | configure a model
+*DefaultApi* | [**postModelData**](docs/DefaultApi.md#postModelData) | **POST** /models/{modelId}/data | send data to model and get back results
+*DefaultApi* | [**postModelLearning**](docs/DefaultApi.md#postModelLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning
+*DefaultApi* | [**postModelMigrate**](docs/DefaultApi.md#postModelMigrate) | **POST** /models/{v1ModelId}/migrate | migrate a v1 sensor to a v2 model
+*DefaultApi* | [**postModelOutage**](docs/DefaultApi.md#postModelOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming
+*DefaultApi* | [**postModelPretrain**](docs/DefaultApi.md#postModelPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset
 *DefaultApi* | [**postOauth2Access**](docs/DefaultApi.md#postOauth2Access) | **POST** /oauth2/access | request an API token given license and secret key
 *DefaultApi* | [**postOauth2Refresh**](docs/DefaultApi.md#postOauth2Refresh) | **POST** /oauth2/refresh | request an API token given a refresh token
-*DefaultApi* | [**postOutage**](docs/DefaultApi.md#postOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming
-*DefaultApi* | [**postPretrain**](docs/DefaultApi.md#postPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset
-*DefaultApi* | [**putData**](docs/DefaultApi.md#putData) | **PUT** /models/{modelId}/data | update fusion vector and get back results
 *DefaultApi* | [**putModel**](docs/DefaultApi.md#putModel) | **PUT** /models/{modelId} | update model metadata
+*DefaultApi* | [**putModelData**](docs/DefaultApi.md#putModelData) | **PUT** /models/{modelId}/data | update fusion vector and get back results
 
 
 ## Documentation for Models
 
  - [AmberState](docs/AmberState.md)
  - [AnalyticResults](docs/AnalyticResults.md)
- - [Config](docs/Config.md)
+ - [Autotuning](docs/Autotuning.md)
  - [ConfigResponse](docs/ConfigResponse.md)
- - [EndpointUsage](docs/EndpointUsage.md)
+ - [DeleteModelResponse](docs/DeleteModelResponse.md)
  - [Error](docs/Error.md)
  - [FeatureConfig](docs/FeatureConfig.md)
  - [FeatureConfigResponse](docs/FeatureConfigResponse.md)
  - [FeatureConfigResponseAllOf](docs/FeatureConfigResponseAllOf.md)
  - [FeatureRootCause](docs/FeatureRootCause.md)
  - [FusionFeature](docs/FusionFeature.md)
- - [GetUsageResponse](docs/GetUsageResponse.md)
- - [GetUsageResponseEndpoints](docs/GetUsageResponseEndpoints.md)
+ - [GetModelsResponse](docs/GetModelsResponse.md)
+ - [GetNanoStatusResponse](docs/GetNanoStatusResponse.md)
+ - [GetPretrainResponse](docs/GetPretrainResponse.md)
+ - [GetRootCauseResponse](docs/GetRootCauseResponse.md)
+ - [GetStatusResponse](docs/GetStatusResponse.md)
+ - [GetSummaryResponse](docs/GetSummaryResponse.md)
+ - [GetVersionResponse](docs/GetVersionResponse.md)
+ - [MAP](docs/MAP.md)
+ - [MAmberStatus](docs/MAmberStatus.md)
+ - [MAutotune](docs/MAutotune.md)
+ - [MBufferStats](docs/MBufferStats.md)
+ - [MNCP](docs/MNCP.md)
+ - [MNano](docs/MNano.md)
+ - [MNanoBackend](docs/MNanoBackend.md)
+ - [MNanoConfig](docs/MNanoConfig.md)
+ - [MPatternMemory](docs/MPatternMemory.md)
+ - [MRecentAMs](docs/MRecentAMs.md)
+ - [MRecentAnalytics](docs/MRecentAnalytics.md)
+ - [MRecentFloats](docs/MRecentFloats.md)
+ - [MRecentIDs](docs/MRecentIDs.md)
+ - [MRecentSamples](docs/MRecentSamples.md)
+ - [MRecentTimes](docs/MRecentTimes.md)
+ - [MStreamingParameters](docs/MStreamingParameters.md)
+ - [MTraining](docs/MTraining.md)
  - [Model](docs/Model.md)
  - [ModelStatus](docs/ModelStatus.md)
+ - [NanoStatus](docs/NanoStatus.md)
  - [PercentVariationResponse](docs/PercentVariationResponse.md)
+ - [PostConfigRequest](docs/PostConfigRequest.md)
+ - [PostConfigResponse](docs/PostConfigResponse.md)
  - [PostDataRequest](docs/PostDataRequest.md)
  - [PostDataResponse](docs/PostDataResponse.md)
  - [PostLearningRequest](docs/PostLearningRequest.md)
  - [PostLearningResponse](docs/PostLearningResponse.md)
  - [PostModelRequest](docs/PostModelRequest.md)
+ - [PostModelResponse](docs/PostModelResponse.md)
  - [PostOauth2AccessRequest](docs/PostOauth2AccessRequest.md)
  - [PostOauth2AccessResponse](docs/PostOauth2AccessResponse.md)
  - [PostOauth2RefreshRequest](docs/PostOauth2RefreshRequest.md)
@@ -175,7 +205,6 @@ Class | Method | HTTP request | Description
  - [PutDataResponse](docs/PutDataResponse.md)
  - [PutModelRequest](docs/PutModelRequest.md)
  - [TrainingConfig](docs/TrainingConfig.md)
- - [Version](docs/Version.md)
 
 
 ## Documentation for Authorization

@@ -1,7 +1,0 @@
-{ 
-	"apiPackage": "org.boonamber.client.api",
-	"groupId": "org.boonamber",
-	"hideGenerationTimestamp": true,
-	"invokerPackage": "org.boonamber.client",
-	"modelPackage": "org.boonamber.client.model"
-}

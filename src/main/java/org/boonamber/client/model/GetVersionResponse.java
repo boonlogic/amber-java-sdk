@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -46,10 +44,10 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * Version
+ * GetVersionResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class Version {
+public class GetVersionResponse {
   public static final String SERIALIZED_NAME_API_VERSION = "api-version";
   @SerializedName(SERIALIZED_NAME_API_VERSION)
   private String apiVersion;
@@ -86,10 +84,10 @@ public class Version {
   @SerializedName(SERIALIZED_NAME_MONGOLIA)
   private String mongolia;
 
-  public Version() {
+  public GetVersionResponse() {
   }
 
-  public Version apiVersion(String apiVersion) {
+  public GetVersionResponse apiVersion(String apiVersion) {
     
     this.apiVersion = apiVersion;
     return this;
@@ -100,7 +98,6 @@ public class Version {
    * @return apiVersion
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "API version.")
 
   public String getApiVersion() {
     return apiVersion;
@@ -112,7 +109,7 @@ public class Version {
   }
 
 
-  public Version release(String release) {
+  public GetVersionResponse release(String release) {
     
     this.release = release;
     return this;
@@ -123,7 +120,6 @@ public class Version {
    * @return release
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Software release of server.")
 
   public String getRelease() {
     return release;
@@ -135,7 +131,7 @@ public class Version {
   }
 
 
-  public Version swaggerUi(String swaggerUi) {
+  public GetVersionResponse swaggerUi(String swaggerUi) {
     
     this.swaggerUi = swaggerUi;
     return this;
@@ -146,7 +142,6 @@ public class Version {
    * @return swaggerUi
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of Swagger UI.")
 
   public String getSwaggerUi() {
     return swaggerUi;
@@ -158,7 +153,7 @@ public class Version {
   }
 
 
-  public Version builder(String builder) {
+  public GetVersionResponse builder(String builder) {
     
     this.builder = builder;
     return this;
@@ -169,7 +164,6 @@ public class Version {
    * @return builder
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of `builder`.")
 
   public String getBuilder() {
     return builder;
@@ -181,7 +175,7 @@ public class Version {
   }
 
 
-  public Version expertApi(String expertApi) {
+  public GetVersionResponse expertApi(String expertApi) {
     
     this.expertApi = expertApi;
     return this;
@@ -192,7 +186,6 @@ public class Version {
    * @return expertApi
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of `expert-api`.")
 
   public String getExpertApi() {
     return expertApi;
@@ -204,7 +197,7 @@ public class Version {
   }
 
 
-  public Version expertCommon(String expertCommon) {
+  public GetVersionResponse expertCommon(String expertCommon) {
     
     this.expertCommon = expertCommon;
     return this;
@@ -215,7 +208,6 @@ public class Version {
    * @return expertCommon
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of `expert-common`.")
 
   public String getExpertCommon() {
     return expertCommon;
@@ -227,7 +219,7 @@ public class Version {
   }
 
 
-  public Version nanoSecure(String nanoSecure) {
+  public GetVersionResponse nanoSecure(String nanoSecure) {
     
     this.nanoSecure = nanoSecure;
     return this;
@@ -238,7 +230,6 @@ public class Version {
    * @return nanoSecure
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of `nano-secure`.")
 
   public String getNanoSecure() {
     return nanoSecure;
@@ -250,7 +241,7 @@ public class Version {
   }
 
 
-  public Version amberStore(String amberStore) {
+  public GetVersionResponse amberStore(String amberStore) {
     
     this.amberStore = amberStore;
     return this;
@@ -261,7 +252,6 @@ public class Version {
    * @return amberStore
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of `amber-store`.")
 
   public String getAmberStore() {
     return amberStore;
@@ -273,7 +263,7 @@ public class Version {
   }
 
 
-  public Version mongolia(String mongolia) {
+  public GetVersionResponse mongolia(String mongolia) {
     
     this.mongolia = mongolia;
     return this;
@@ -284,7 +274,6 @@ public class Version {
    * @return mongolia
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "SHA-1 of `mongolia`.")
 
   public String getMongolia() {
     return mongolia;
@@ -305,16 +294,16 @@ public class Version {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Version version = (Version) o;
-    return Objects.equals(this.apiVersion, version.apiVersion) &&
-        Objects.equals(this.release, version.release) &&
-        Objects.equals(this.swaggerUi, version.swaggerUi) &&
-        Objects.equals(this.builder, version.builder) &&
-        Objects.equals(this.expertApi, version.expertApi) &&
-        Objects.equals(this.expertCommon, version.expertCommon) &&
-        Objects.equals(this.nanoSecure, version.nanoSecure) &&
-        Objects.equals(this.amberStore, version.amberStore) &&
-        Objects.equals(this.mongolia, version.mongolia);
+    GetVersionResponse getVersionResponse = (GetVersionResponse) o;
+    return Objects.equals(this.apiVersion, getVersionResponse.apiVersion) &&
+        Objects.equals(this.release, getVersionResponse.release) &&
+        Objects.equals(this.swaggerUi, getVersionResponse.swaggerUi) &&
+        Objects.equals(this.builder, getVersionResponse.builder) &&
+        Objects.equals(this.expertApi, getVersionResponse.expertApi) &&
+        Objects.equals(this.expertCommon, getVersionResponse.expertCommon) &&
+        Objects.equals(this.nanoSecure, getVersionResponse.nanoSecure) &&
+        Objects.equals(this.amberStore, getVersionResponse.amberStore) &&
+        Objects.equals(this.mongolia, getVersionResponse.mongolia);
   }
 
   @Override
@@ -325,7 +314,7 @@ public class Version {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Version {\n");
+    sb.append("class GetVersionResponse {\n");
     sb.append("    apiVersion: ").append(toIndentedString(apiVersion)).append("\n");
     sb.append("    release: ").append(toIndentedString(release)).append("\n");
     sb.append("    swaggerUi: ").append(toIndentedString(swaggerUi)).append("\n");
@@ -375,20 +364,20 @@ public class Version {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Version
+  * @throws IOException if the JSON Object is invalid with respect to GetVersionResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!Version.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Version is not found in the empty JSON string", Version.openapiRequiredFields.toString()));
+        if (!GetVersionResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in GetVersionResponse is not found in the empty JSON string", GetVersionResponse.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!Version.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Version` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!GetVersionResponse.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GetVersionResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
       if ((jsonObj.get("api-version") != null && !jsonObj.get("api-version").isJsonNull()) && !jsonObj.get("api-version").isJsonPrimitive()) {
@@ -424,22 +413,22 @@ public class Version {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Version.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Version' and its subtypes
+       if (!GetVersionResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'GetVersionResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Version> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Version.class));
+       final TypeAdapter<GetVersionResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(GetVersionResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Version>() {
+       return (TypeAdapter<T>) new TypeAdapter<GetVersionResponse>() {
            @Override
-           public void write(JsonWriter out, Version value) throws IOException {
+           public void write(JsonWriter out, GetVersionResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Version read(JsonReader in) throws IOException {
+           public GetVersionResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -450,18 +439,18 @@ public class Version {
   }
 
  /**
-  * Create an instance of Version given an JSON string
+  * Create an instance of GetVersionResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Version
-  * @throws IOException if the JSON string is invalid with respect to Version
+  * @return An instance of GetVersionResponse
+  * @throws IOException if the JSON string is invalid with respect to GetVersionResponse
   */
-  public static Version fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Version.class);
+  public static GetVersionResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, GetVersionResponse.class);
   }
 
  /**
-  * Convert an instance of Version to an JSON string
+  * Convert an instance of GetVersionResponse to an JSON string
   *
   * @return JSON string
   */

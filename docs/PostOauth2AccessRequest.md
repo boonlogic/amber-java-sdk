@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**licenseId** | **String** | Amber account license. |  |
-|**secretKey** | **Object** | Amber account secret key. |  |
+|**secretKey** | **String** | Amber account secret key. |  |
 
 
 

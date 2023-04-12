@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -72,7 +70,6 @@ public class PostDataRequest {
    * @return data
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Data as a flat list of comma-separated values. The number of values sent must be a multiple of the number of features in the configuration.")
 
   public String getData() {
     return data;
@@ -95,7 +92,6 @@ public class PostDataRequest {
    * @return saveImage
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "If false, saved model image will not be updated on this request. Applies only to on-premises deployments.")
 
   public Boolean getSaveImage() {
     return saveImage;

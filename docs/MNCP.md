@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**versionNumber** | **Integer** |  |  [optional] |
-|**numOfFeatures** | **Integer** |  |  [optional] |
-|**mNumericFormat** | **Integer** |  |  [optional] |
+|**versionNumber** | **BigDecimal** |  |  [optional] |
+|**numOfFeatures** | **BigDecimal** |  |  [optional] |
+|**mNumericFormat** | **BigDecimal** |  |  [optional] |
 |**mPercentVariation** | **Float** |  |  [optional] |
 |**mAccuracy** | **Float** |  |  [optional] |
-|**mStreamingWindowSize** | **Integer** |  |  [optional] |
+|**mStreamingWindowSize** | **BigDecimal** |  |  [optional] |
 
 
 

@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -72,7 +70,6 @@ public class FeatureRootCause {
    * @return name
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Name of this feature.")
 
   public String getName() {
     return name;
@@ -97,7 +94,6 @@ public class FeatureRootCause {
    * @return value
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Root cause of this feature relative to others, as a number between 0.0 and 1.0. 0.0 indicates no contribution to the anomaly index, while a value close to 1.0 means the present anomaly implicates this feature strongly.")
 
   public Float getValue() {
     return value;

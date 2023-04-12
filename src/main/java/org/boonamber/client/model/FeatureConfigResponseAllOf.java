@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -64,11 +62,10 @@ public class FeatureConfigResponseAllOf {
   }
 
    /**
-   * Whether &#x60;minValue&#x60; and &#x60;maxValue&#x60; have been set for this feature (through either configuration or autotuning). &#x60;minValue&#x60; and &#x60;maxValue&#x60; are undefined when this field is false.
+   * Whether &#x60;minVal&#x60; and &#x60;maxVal&#x60; have been set for this feature (through either configuration or autotuning). &#x60;minVal&#x60; and &#x60;maxVal&#x60; are undefined when this field is false.
    * @return minMaxDefined
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Whether `minValue` and `maxValue` have been set for this feature (through either configuration or autotuning). `minValue` and `maxValue` are undefined when this field is false.")
 
   public Boolean getMinMaxDefined() {
     return minMaxDefined;

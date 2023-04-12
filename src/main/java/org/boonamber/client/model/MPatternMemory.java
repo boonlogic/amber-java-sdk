@@ -20,12 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.boonamber.client.model.FusionFeature;
+import java.math.BigDecimal;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,45 +45,36 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * GetDataResponse
+ * MPatternMemory
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class GetDataResponse {
-  public static final String SERIALIZED_NAME_VECTOR = "vector";
-  @SerializedName(SERIALIZED_NAME_VECTOR)
-  private List<FusionFeature> vector = null;
+public class MPatternMemory {
+  public static final String SERIALIZED_NAME_VERSION_NUMBER = "versionNumber";
+  @SerializedName(SERIALIZED_NAME_VERSION_NUMBER)
+  private BigDecimal versionNumber;
 
-  public GetDataResponse() {
+  public MPatternMemory() {
   }
 
-  public GetDataResponse vector(List<FusionFeature> vector) {
+  public MPatternMemory versionNumber(BigDecimal versionNumber) {
     
-    this.vector = vector;
-    return this;
-  }
-
-  public GetDataResponse addVectorItem(FusionFeature vectorItem) {
-    if (this.vector == null) {
-      this.vector = new ArrayList<>();
-    }
-    this.vector.add(vectorItem);
+    this.versionNumber = versionNumber;
     return this;
   }
 
    /**
-   * The current fusion vector.
-   * @return vector
+   * Get versionNumber
+   * @return versionNumber
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The current fusion vector.")
 
-  public List<FusionFeature> getVector() {
-    return vector;
+  public BigDecimal getVersionNumber() {
+    return versionNumber;
   }
 
 
-  public void setVector(List<FusionFeature> vector) {
-    this.vector = vector;
+  public void setVersionNumber(BigDecimal versionNumber) {
+    this.versionNumber = versionNumber;
   }
 
 
@@ -100,20 +87,20 @@ public class GetDataResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetDataResponse getDataResponse = (GetDataResponse) o;
-    return Objects.equals(this.vector, getDataResponse.vector);
+    MPatternMemory mPatternMemory = (MPatternMemory) o;
+    return Objects.equals(this.versionNumber, mPatternMemory.versionNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(vector);
+    return Objects.hash(versionNumber);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetDataResponse {\n");
-    sb.append("    vector: ").append(toIndentedString(vector)).append("\n");
+    sb.append("class MPatternMemory {\n");
+    sb.append("    versionNumber: ").append(toIndentedString(versionNumber)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -136,7 +123,7 @@ public class GetDataResponse {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("vector");
+    openapiFields.add("versionNumber");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -146,34 +133,20 @@ public class GetDataResponse {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GetDataResponse
+  * @throws IOException if the JSON Object is invalid with respect to MPatternMemory
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!GetDataResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in GetDataResponse is not found in the empty JSON string", GetDataResponse.openapiRequiredFields.toString()));
+        if (!MPatternMemory.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in MPatternMemory is not found in the empty JSON string", MPatternMemory.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!GetDataResponse.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GetDataResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
-        }
-      }
-      if (jsonObj.get("vector") != null && !jsonObj.get("vector").isJsonNull()) {
-        JsonArray jsonArrayvector = jsonObj.getAsJsonArray("vector");
-        if (jsonArrayvector != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("vector").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `vector` to be an array in the JSON string but got `%s`", jsonObj.get("vector").toString()));
-          }
-
-          // validate the optional field `vector` (array)
-          for (int i = 0; i < jsonArrayvector.size(); i++) {
-            FusionFeature.validateJsonObject(jsonArrayvector.get(i).getAsJsonObject());
-          };
+        if (!MPatternMemory.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MPatternMemory` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
   }
@@ -182,22 +155,22 @@ public class GetDataResponse {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!GetDataResponse.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'GetDataResponse' and its subtypes
+       if (!MPatternMemory.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'MPatternMemory' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<GetDataResponse> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(GetDataResponse.class));
+       final TypeAdapter<MPatternMemory> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(MPatternMemory.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<GetDataResponse>() {
+       return (TypeAdapter<T>) new TypeAdapter<MPatternMemory>() {
            @Override
-           public void write(JsonWriter out, GetDataResponse value) throws IOException {
+           public void write(JsonWriter out, MPatternMemory value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public GetDataResponse read(JsonReader in) throws IOException {
+           public MPatternMemory read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -208,18 +181,18 @@ public class GetDataResponse {
   }
 
  /**
-  * Create an instance of GetDataResponse given an JSON string
+  * Create an instance of MPatternMemory given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of GetDataResponse
-  * @throws IOException if the JSON string is invalid with respect to GetDataResponse
+  * @return An instance of MPatternMemory
+  * @throws IOException if the JSON string is invalid with respect to MPatternMemory
   */
-  public static GetDataResponse fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, GetDataResponse.class);
+  public static MPatternMemory fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, MPatternMemory.class);
   }
 
  /**
-  * Convert an instance of GetDataResponse to an JSON string
+  * Convert an instance of MPatternMemory to an JSON string
   *
   * @return JSON string
   */

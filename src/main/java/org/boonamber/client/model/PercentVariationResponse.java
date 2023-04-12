@@ -20,9 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,10 +53,6 @@ public class PercentVariationResponse {
   @SerializedName(SERIALIZED_NAME_VALUE)
   private Float value;
 
-  public static final String SERIALIZED_NAME_IS_DEFINED = "isDefined";
-  @SerializedName(SERIALIZED_NAME_IS_DEFINED)
-  private Boolean isDefined;
-
   public PercentVariationResponse() {
   }
 
@@ -69,12 +64,9 @@ public class PercentVariationResponse {
 
    /**
    * Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small &#x60;percentVariation&#x60; will segment a dataset into many clusters while a larger &#x60;percentVariation&#x60; will segment the dataset into fewer clusters.  &#x60;percentVariation&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal &#x60;percentVariation&#x60; during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
-   * minimum: 0.01
-   * maximum: 0.2
    * @return value
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.  `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.")
 
   public Float getValue() {
     return value;
@@ -83,29 +75,6 @@ public class PercentVariationResponse {
 
   public void setValue(Float value) {
     this.value = value;
-  }
-
-
-  public PercentVariationResponse isDefined(Boolean isDefined) {
-    
-    this.isDefined = isDefined;
-    return this;
-  }
-
-   /**
-   * Whether the &#x60;percentVariation&#x60; has been set (through either configuration or autotuning). &#x60;value&#x60; is undefined when this field is false.
-   * @return isDefined
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Whether the `percentVariation` has been set (through either configuration or autotuning). `value` is undefined when this field is false.")
-
-  public Boolean getIsDefined() {
-    return isDefined;
-  }
-
-
-  public void setIsDefined(Boolean isDefined) {
-    this.isDefined = isDefined;
   }
 
 
@@ -119,13 +88,23 @@ public class PercentVariationResponse {
       return false;
     }
     PercentVariationResponse percentVariationResponse = (PercentVariationResponse) o;
-    return Objects.equals(this.value, percentVariationResponse.value) &&
-        Objects.equals(this.isDefined, percentVariationResponse.isDefined);
+    return Objects.equals(this.value, percentVariationResponse.value);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, isDefined);
+    return Objects.hash(value);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -133,7 +112,6 @@ public class PercentVariationResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class PercentVariationResponse {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    isDefined: ").append(toIndentedString(isDefined)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -157,7 +135,6 @@ public class PercentVariationResponse {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("value");
-    openapiFields.add("isDefined");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

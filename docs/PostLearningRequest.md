@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**training** | [**TrainingConfig**](TrainingConfig.md) |  |  |
+|**training** | [**TrainingConfig**](TrainingConfig.md) |  |  [optional] |
 
 
 

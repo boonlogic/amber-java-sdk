@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +56,12 @@ public class PutDataRequest {
   private List<FusionFeature> vector = new ArrayList<>();
 
   /**
-   * If &#x60;submit&#x60;, the fusion vector will be submitted for inference on this request. If &#x60;nosubmit&#x60;, this request will not trigger an inference.
+   * If &#x60;submit&#x60;, the fusion vector will be submitted for inference on this request. If &#x60;nosubmit&#x60;, this request will not trigger an inference. If &#x60;default&#x60;, follow the rules for the submitted features.
    */
   @JsonAdapter(FusionRuleEnum.Adapter.class)
   public enum FusionRuleEnum {
+    DEFAULT("default"),
+    
     SUBMIT("submit"),
     
     NOSUBMIT("nosubmit");
@@ -106,7 +106,7 @@ public class PutDataRequest {
 
   public static final String SERIALIZED_NAME_FUSION_RULE = "fusionRule";
   @SerializedName(SERIALIZED_NAME_FUSION_RULE)
-  private FusionRuleEnum fusionRule = FusionRuleEnum.SUBMIT;
+  private FusionRuleEnum fusionRule = FusionRuleEnum.DEFAULT;
 
   public PutDataRequest() {
   }
@@ -127,7 +127,6 @@ public class PutDataRequest {
    * @return vector
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Updates to apply to the current fusion vector.")
 
   public List<FusionFeature> getVector() {
     return vector;
@@ -146,11 +145,10 @@ public class PutDataRequest {
   }
 
    /**
-   * If &#x60;submit&#x60;, the fusion vector will be submitted for inference on this request. If &#x60;nosubmit&#x60;, this request will not trigger an inference.
+   * If &#x60;submit&#x60;, the fusion vector will be submitted for inference on this request. If &#x60;nosubmit&#x60;, this request will not trigger an inference. If &#x60;default&#x60;, follow the rules for the submitted features.
    * @return fusionRule
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "If `submit`, the fusion vector will be submitted for inference on this request. If `nosubmit`, this request will not trigger an inference.")
 
   public FusionRuleEnum getFusionRule() {
     return fusionRule;

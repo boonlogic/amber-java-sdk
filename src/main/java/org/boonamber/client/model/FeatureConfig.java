@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -50,17 +48,17 @@ import org.boonamber.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FeatureConfig {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private String id;
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
-  public static final String SERIALIZED_NAME_MIN_VALUE = "minValue";
-  @SerializedName(SERIALIZED_NAME_MIN_VALUE)
-  private Float minValue;
+  public static final String SERIALIZED_NAME_MIN_VAL = "minVal";
+  @SerializedName(SERIALIZED_NAME_MIN_VAL)
+  private Float minVal;
 
-  public static final String SERIALIZED_NAME_MAX_VALUE = "maxValue";
-  @SerializedName(SERIALIZED_NAME_MAX_VALUE)
-  private Float maxValue;
+  public static final String SERIALIZED_NAME_MAX_VAL = "maxVal";
+  @SerializedName(SERIALIZED_NAME_MAX_VAL)
+  private Float maxVal;
 
   public static final String SERIALIZED_NAME_WEIGHT = "weight";
   @SerializedName(SERIALIZED_NAME_WEIGHT)
@@ -124,72 +122,69 @@ public class FeatureConfig {
   public FeatureConfig() {
   }
 
-  public FeatureConfig id(String id) {
+  public FeatureConfig name(String name) {
     
-    this.id = id;
+    this.name = name;
     return this;
   }
 
    /**
-   * Identifier for this feature. Must be unique with respect to other features in the configuration. Regex: &#x60;^[A-Za-z0-9.:_-]{1,1024}$&#x60;.
-   * @return id
+   * Name for this feature. Must be unique with respect to other features in the configuration. Regex: &#x60;^[A-Za-z0-9.:_-]{1,1024}$&#x60;.
+   * @return name
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Identifier for this feature. Must be unique with respect to other features in the configuration. Regex: `^[A-Za-z0-9.:_-]{1,1024}$`.")
 
-  public String getId() {
-    return id;
+  public String getName() {
+    return name;
   }
 
 
-  public void setId(String id) {
-    this.id = id;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
-  public FeatureConfig minValue(Float minValue) {
+  public FeatureConfig minVal(Float minVal) {
     
-    this.minValue = minValue;
+    this.minVal = minVal;
     return this;
   }
 
    /**
-   * Minimum expected value for this feature. &#x60;minValue&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal &#x60;minValue&#x60; during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
-   * @return minValue
+   * Minimum expected value for this feature. &#x60;minVal&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal &#x60;minVal&#x60; during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
+   * @return minVal
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Minimum expected value for this feature. `minValue` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `minValue` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.")
 
-  public Float getMinValue() {
-    return minValue;
+  public Float getMinVal() {
+    return minVal;
   }
 
 
-  public void setMinValue(Float minValue) {
-    this.minValue = minValue;
+  public void setMinVal(Float minVal) {
+    this.minVal = minVal;
   }
 
 
-  public FeatureConfig maxValue(Float maxValue) {
+  public FeatureConfig maxVal(Float maxVal) {
     
-    this.maxValue = maxValue;
+    this.maxVal = maxVal;
     return this;
   }
 
    /**
-   * Maximum expected value for this feature. &#x60;maxValue&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal value during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
-   * @return maxValue
+   * Maximum expected value for this feature. &#x60;maxVal&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal value during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
+   * @return maxVal
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Maximum expected value for this feature. `maxValue` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal value during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.")
 
-  public Float getMaxValue() {
-    return maxValue;
+  public Float getMaxVal() {
+    return maxVal;
   }
 
 
-  public void setMaxValue(Float maxValue) {
-    this.maxValue = maxValue;
+  public void setMaxVal(Float maxVal) {
+    this.maxVal = maxVal;
   }
 
 
@@ -206,7 +201,6 @@ public class FeatureConfig {
    * @return weight
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Weight of this feature relative to others, as an integer between 1 and 1000.")
 
   public Integer getWeight() {
     return weight;
@@ -229,7 +223,6 @@ public class FeatureConfig {
    * @return fusionRule
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Inference policy for the fusion vector when using `PUT /data`. If `submit`, any `PUT /data` request that updates this feature will cause the fusion vector to be submitted for inference. If `nosubmit`, updates to this feature will not trigger a fusion vector inference.")
 
   public FusionRuleEnum getFusionRule() {
     return fusionRule;
@@ -252,7 +245,6 @@ public class FeatureConfig {
    * @return fusionTTL
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Number of seconds without an update before this feature's value is considered invalid.")
 
   public Integer getFusionTTL() {
     return fusionTTL;
@@ -274,9 +266,9 @@ public class FeatureConfig {
       return false;
     }
     FeatureConfig featureConfig = (FeatureConfig) o;
-    return Objects.equals(this.id, featureConfig.id) &&
-        Objects.equals(this.minValue, featureConfig.minValue) &&
-        Objects.equals(this.maxValue, featureConfig.maxValue) &&
+    return Objects.equals(this.name, featureConfig.name) &&
+        Objects.equals(this.minVal, featureConfig.minVal) &&
+        Objects.equals(this.maxVal, featureConfig.maxVal) &&
         Objects.equals(this.weight, featureConfig.weight) &&
         Objects.equals(this.fusionRule, featureConfig.fusionRule) &&
         Objects.equals(this.fusionTTL, featureConfig.fusionTTL);
@@ -284,16 +276,16 @@ public class FeatureConfig {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, minValue, maxValue, weight, fusionRule, fusionTTL);
+    return Objects.hash(name, minVal, maxVal, weight, fusionRule, fusionTTL);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FeatureConfig {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    minValue: ").append(toIndentedString(minValue)).append("\n");
-    sb.append("    maxValue: ").append(toIndentedString(maxValue)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    minVal: ").append(toIndentedString(minVal)).append("\n");
+    sb.append("    maxVal: ").append(toIndentedString(maxVal)).append("\n");
     sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
     sb.append("    fusionRule: ").append(toIndentedString(fusionRule)).append("\n");
     sb.append("    fusionTTL: ").append(toIndentedString(fusionTTL)).append("\n");
@@ -319,9 +311,9 @@ public class FeatureConfig {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("minValue");
-    openapiFields.add("maxValue");
+    openapiFields.add("name");
+    openapiFields.add("minVal");
+    openapiFields.add("maxVal");
     openapiFields.add("weight");
     openapiFields.add("fusionRule");
     openapiFields.add("fusionTTL");
@@ -350,8 +342,8 @@ public class FeatureConfig {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `FeatureConfig` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
       if ((jsonObj.get("fusionRule") != null && !jsonObj.get("fusionRule").isJsonNull()) && !jsonObj.get("fusionRule").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `fusionRule` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fusionRule").toString()));

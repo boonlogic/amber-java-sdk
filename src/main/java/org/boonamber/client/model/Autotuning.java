@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -46,66 +44,62 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * FeatureBlame
+ * Autotuning
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class FeatureBlame {
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+public class Autotuning {
+  public static final String SERIALIZED_NAME_RANGE = "range";
+  @SerializedName(SERIALIZED_NAME_RANGE)
+  private Boolean range = true;
 
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private Float value;
+  public static final String SERIALIZED_NAME_PERCENT_VARIATION = "percentVariation";
+  @SerializedName(SERIALIZED_NAME_PERCENT_VARIATION)
+  private Boolean percentVariation = true;
 
-  public FeatureBlame() {
+  public Autotuning() {
   }
 
-  public FeatureBlame name(String name) {
+  public Autotuning range(Boolean range) {
     
-    this.name = name;
+    this.range = range;
     return this;
   }
 
    /**
-   * Name of this feature.
-   * @return name
+   * Get range
+   * @return range
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Name of this feature.")
 
-  public String getName() {
-    return name;
+  public Boolean getRange() {
+    return range;
   }
 
 
-  public void setName(String name) {
-    this.name = name;
+  public void setRange(Boolean range) {
+    this.range = range;
   }
 
 
-  public FeatureBlame value(Float value) {
+  public Autotuning percentVariation(Boolean percentVariation) {
     
-    this.value = value;
+    this.percentVariation = percentVariation;
     return this;
   }
 
    /**
-   * Blame of this feature relative to others, as a number between 0.0 and 1.0. 0.0 indicates no contribution to the anomaly index, while a value close to 1.0 means the present anomaly implicates this feature strongly.
-   * minimum: 0
-   * maximum: 1
-   * @return value
+   * Get percentVariation
+   * @return percentVariation
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Blame of this feature relative to others, as a number between 0.0 and 1.0. 0.0 indicates no contribution to the anomaly index, while a value close to 1.0 means the present anomaly implicates this feature strongly.")
 
-  public Float getValue() {
-    return value;
+  public Boolean getPercentVariation() {
+    return percentVariation;
   }
 
 
-  public void setValue(Float value) {
-    this.value = value;
+  public void setPercentVariation(Boolean percentVariation) {
+    this.percentVariation = percentVariation;
   }
 
 
@@ -118,22 +112,22 @@ public class FeatureBlame {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FeatureBlame featureBlame = (FeatureBlame) o;
-    return Objects.equals(this.name, featureBlame.name) &&
-        Objects.equals(this.value, featureBlame.value);
+    Autotuning autotuning = (Autotuning) o;
+    return Objects.equals(this.range, autotuning.range) &&
+        Objects.equals(this.percentVariation, autotuning.percentVariation);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, value);
+    return Objects.hash(range, percentVariation);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FeatureBlame {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class Autotuning {\n");
+    sb.append("    range: ").append(toIndentedString(range)).append("\n");
+    sb.append("    percentVariation: ").append(toIndentedString(percentVariation)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -156,8 +150,8 @@ public class FeatureBlame {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("name");
-    openapiFields.add("value");
+    openapiFields.add("range");
+    openapiFields.add("percentVariation");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -167,24 +161,21 @@ public class FeatureBlame {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to FeatureBlame
+  * @throws IOException if the JSON Object is invalid with respect to Autotuning
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!FeatureBlame.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in FeatureBlame is not found in the empty JSON string", FeatureBlame.openapiRequiredFields.toString()));
+        if (!Autotuning.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in Autotuning is not found in the empty JSON string", Autotuning.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!FeatureBlame.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `FeatureBlame` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!Autotuning.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Autotuning` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
   }
 
@@ -192,22 +183,22 @@ public class FeatureBlame {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!FeatureBlame.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'FeatureBlame' and its subtypes
+       if (!Autotuning.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'Autotuning' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<FeatureBlame> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(FeatureBlame.class));
+       final TypeAdapter<Autotuning> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(Autotuning.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<FeatureBlame>() {
+       return (TypeAdapter<T>) new TypeAdapter<Autotuning>() {
            @Override
-           public void write(JsonWriter out, FeatureBlame value) throws IOException {
+           public void write(JsonWriter out, Autotuning value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public FeatureBlame read(JsonReader in) throws IOException {
+           public Autotuning read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -218,18 +209,18 @@ public class FeatureBlame {
   }
 
  /**
-  * Create an instance of FeatureBlame given an JSON string
+  * Create an instance of Autotuning given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of FeatureBlame
-  * @throws IOException if the JSON string is invalid with respect to FeatureBlame
+  * @return An instance of Autotuning
+  * @throws IOException if the JSON string is invalid with respect to Autotuning
   */
-  public static FeatureBlame fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, FeatureBlame.class);
+  public static Autotuning fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, Autotuning.class);
   }
 
  /**
-  * Convert an instance of FeatureBlame to an JSON string
+  * Convert an instance of Autotuning to an JSON string
   *
   * @return JSON string
   */

@@ -17,12 +17,14 @@ import java.io.FileReader;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.boonamber.client.model.Config;
-import org.boonamber.client.model.ConfigResponse;
-import org.boonamber.client.model.FeatureRootCause;
-import org.boonamber.client.model.GetUsageResponse;
-import org.boonamber.client.model.Model;
-import org.boonamber.client.model.ModelStatus;
+import org.boonamber.client.model.PostConfigRequest;
+import org.boonamber.client.model.PostConfigResponse;
+import org.boonamber.client.model.GetRootCauseResponse;
+import org.boonamber.client.model.PostModelResponse;
+import org.boonamber.client.model.GetModelsResponse;
+import org.boonamber.client.model.GetStatusResponse;
+import org.boonamber.client.model.GetNanoStatusResponse;
+import org.boonamber.client.model.GetVersionResponse;
 import org.boonamber.client.model.PostDataRequest;
 import org.boonamber.client.model.PostDataResponse;
 import org.boonamber.client.model.PostModelRequest;
@@ -32,13 +34,12 @@ import org.boonamber.client.model.PostOauth2RefreshRequest;
 import org.boonamber.client.model.PostOauth2RefreshResponse;
 import org.boonamber.client.model.PostPretrainRequest;
 import org.boonamber.client.model.PostPretrainResponse;
-import org.boonamber.client.model.PretrainStatus;
+import org.boonamber.client.model.GetPretrainResponse;
 import org.boonamber.client.model.PostLearningRequest;
 import org.boonamber.client.model.PostLearningResponse;
 import org.boonamber.client.model.PutDataRequest;
 import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
-import org.boonamber.client.model.Version;
 
 import java.time.Instant;
 import java.util.List;
@@ -252,42 +253,42 @@ public class AmberClient {
      * @param modelId  (required)
      * @param clusters Clusters to analyze (list of comma-separated integers). (optional)
      * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features. (optional)
-     * @return List&lt;FeatureRootCause&gt;
+     * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<FeatureRootCause> getRootCause(String modelId, String clusters, String vectors) throws ApiException {
+    public GetRootCauseResponse getRootCause(String modelId, String clusters, String vectors) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.getRootCause(modelId, clusters, vectors);
+        return this.api.getModelRootCause(modelId, clusters, vectors);
     }
 
     /**
      * get model configuration
      * Get the configuration of the specified model.
      * @param modelId  (required)
-     * @return ConfigResponse
+     * @return PostConfigResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ConfigResponse getConfig(String modelId) throws ApiException {
+    public PostConfigResponse getConfig(String modelId) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.getConfig(modelId);
+        return this.api.getModelConfig(modelId);
     }
 
     /**
      * get model metadata
      * Return metadata for the specified model.
      * @param modelId  (required)
-     * @return Model
+     * @return PostModelResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Model getModel(String modelId) throws ApiException {
+    public PostModelResponse getModel(String modelId) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -300,10 +301,10 @@ public class AmberClient {
      * list all models
      * Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
      * @param verbose If &#x60;true&#x60;, include full model metadata. (optional)
-     * @return List&lt;Model&gt;
+     * @return GetModelsResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<Model> getModels(String verbose) throws ApiException {
+    public GetModelsResponse getModels(String verbose) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -316,57 +317,58 @@ public class AmberClient {
      * get pretraining progress
      * Get the pretraining status of the specified model.
      * @param modelId  (required)
-     * @return PretrainStatus
+     * @return GetPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PretrainStatus getPretrain(String modelId) throws ApiException {
+    public GetPretrainResponse getPretrain(String modelId) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.getPretrain(modelId);
+        return this.api.getModelPretrain(modelId);
     }
 
+    
+    /**
+     * get current nano status of the model
+     * Get the current nano state of the specified model.
+     * @param modelId  (required)
+     * @return GetNanoStatusResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GetNanoStatusResponse getNanoStatus(String modelId) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+        return this.api.getModelNanoStatus(modelId);
+    }
+    
     /**
      * get current status of the model
      * Get the current state and learning progress of the specified model.
      * @param modelId  (required)
-     * @return ModelStatus
+     * @return GetStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelStatus getStatus(String modelId) throws ApiException {
+    public GetStatusResponse getStatus(String modelId) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.getStatus(modelId);
-    }
-
-    /**
-     * get model usage metrics
-     * Return usage metrics for the specified model.
-     * @param modelId  (required)
-     * @return GetUsageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public GetUsageResponse getUsage(String modelId) throws ApiException {
-    	try {
-    		authenticate();
-    	} catch (ApiException e) {
-    		throw new ApiException(e);
-    	}
-        return this.api.getUsage(modelId);
+        return this.api.getModelStatus(modelId);
     }
 
     /**
      * get version information
      * Return version information for the API.
-     * @return Version
+     * @return GetVersionResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Version getVersion() throws ApiException {
+    public GetVersionResponse getVersion() throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -374,22 +376,37 @@ public class AmberClient {
     	}
         return this.api.getVersion();
     }
+    
+    /**
+     * get diagnostic information
+     * Return diagnostic files from the API.
+     * @return File diagnostic files
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public File getDiagnostics(String modelId) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+        return this.api.getModelDiagnostic(modelId);
+    }
 
     /**
      * configure a model
      * Configure the specified model. Wipes all progress and puts the model in the &#x60;Buffering&#x60; state.
      * @param modelId  (required)
      * @param postConfigRequest configuration to apply (optional)
-     * @return ConfigResponse
+     * @return PostConfigResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ConfigResponse postConfig(String modelId, Config postConfigRequest) throws ApiException {
+    public PostConfigResponse postConfig(String modelId, PostConfigRequest postConfigRequest) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.postConfig(modelId, postConfigRequest);
+        return this.api.postModelConfig(modelId, postConfigRequest);
     }
 
     /**
@@ -406,17 +423,17 @@ public class AmberClient {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.postData(modelId, postDataRequest);
+        return this.api.postModelData(modelId, postDataRequest);
     }
 
     /**
      * create a model
      * Create a new model and return its unique identifier.
      * @param postModelRequest initial metadata for new model (required)
-     * @return Model
+     * @return PostModelResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Model postModel(PostModelRequest postModelRequest) throws ApiException {
+    public PostModelResponse postModel(PostModelRequest postModelRequest) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -437,7 +454,22 @@ public class AmberClient {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        this.api.postOutage(modelId);
+        this.api.postModelOutage(modelId);
+    }
+    
+    /**
+     * call this to migrate a v1 sensor to a v2 model
+     * @param modelIdV1  (required)
+     * @return PostModelResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PostModelResponse migrateModel(String modelIdV1) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+        return this.api.postModelMigrate(modelIdV1);
     }
 
     /**
@@ -456,7 +488,7 @@ public class AmberClient {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.postPretrain(modelId, postPretrainRequest, chunkspec, token);
+        return this.api.postModelPretrain(modelId, postPretrainRequest, chunkspec, token);
     }
 
     /**
@@ -464,16 +496,16 @@ public class AmberClient {
      * Update configuration for the specified model.
      * @param modelId  (required)
      * @param putConfigRequest updates to apply (required)
-     * @return ConfigResponse
+     * @return PostLearningResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostLearningResponse postEnableLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
+    public PostLearningResponse enableLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.postLearning(modelId, postLearningRequest);
+        return this.api.postModelLearning(modelId, postLearningRequest);
     }
 
     /**
@@ -490,7 +522,7 @@ public class AmberClient {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.putData(modelId, putDataRequest);
+        return this.api.putModelData(modelId, putDataRequest);
     }
 
     /**
@@ -498,10 +530,10 @@ public class AmberClient {
      * Update metadata for the specified model.
      * @param modelId  (required)
      * @param putModelRequest updates to apply (required)
-     * @return Model
+     * @return PostModelResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Model putModel(String modelId, PutModelRequest putModelRequest) throws ApiException {
+    public PostModelResponse putModel(String modelId, PutModelRequest putModelRequest) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {

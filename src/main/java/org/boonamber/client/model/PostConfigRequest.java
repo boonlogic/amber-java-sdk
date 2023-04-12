@@ -20,13 +20,13 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.boonamber.client.model.Autotuning;
 import org.boonamber.client.model.FeatureConfig;
 import org.boonamber.client.model.TrainingConfig;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,10 +50,10 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * Config
+ * PostConfigRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class Config {
+public class PostConfigRequest {
   public static final String SERIALIZED_NAME_STREAMING_WINDOW = "streamingWindow";
   @SerializedName(SERIALIZED_NAME_STREAMING_WINDOW)
   private Integer streamingWindow;
@@ -70,10 +70,14 @@ public class Config {
   @SerializedName(SERIALIZED_NAME_TRAINING)
   private TrainingConfig training;
 
-  public Config() {
+  public static final String SERIALIZED_NAME_AUTOTUNING = "autotuning";
+  @SerializedName(SERIALIZED_NAME_AUTOTUNING)
+  private Autotuning autotuning;
+
+  public PostConfigRequest() {
   }
 
-  public Config streamingWindow(Integer streamingWindow) {
+  public PostConfigRequest streamingWindow(Integer streamingWindow) {
     
     this.streamingWindow = streamingWindow;
     return this;
@@ -85,7 +89,6 @@ public class Config {
    * @return streamingWindow
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Number of recent input _vectors_ concatenated together to make up a full input _pattern_ presented to the model for inference.  Let `featureCount` be the configured number of features. The model consumes data sequentially in steps of size `featureCount`. Each time it receives `featureCount` data values, `featureCount` input values are consumed and concatenated together to form an input _vector_. This input vector is then concatenated with zero or more past input vectors to form an input _pattern_. The input _pattern_ is the true data vector inferenced by the model at each step. Configuring the `streamingWindow` greater than 1 allows a model to identify patterns in vectors that change over time.  If monitoring a single timeseries signal, the model should be configured with just one feature. In that case the input vector has length 1, and `streamingWindow` determines the length of a moving window over past samples which is the input pattern to the model for each new sample. For example, a model configured with one feature and a `streamingWindow` of 25 will concatenate together and inference the 25 most recent data values for each new value consumed.  If monitoring instantaneous readings from several sensors jointly, each sensor should be associated with one feature in the configuration. In this case `streamingWindow` is usually set to 1 so that the input pattern is just the current vector of readings. For example, a model configured with 5 features and a `streamingWindow` of 1 will consume 5 values at a time and inference those 5 values as a pattern of length 5. If the `streamingWindow` were 2, the model would still consume 5 values at a time, but its input pattern would contain the last 10 samples.")
 
   public Integer getStreamingWindow() {
     return streamingWindow;
@@ -97,7 +100,7 @@ public class Config {
   }
 
 
-  public Config percentVariation(Float percentVariation) {
+  public PostConfigRequest percentVariation(Float percentVariation) {
     
     this.percentVariation = percentVariation;
     return this;
@@ -105,12 +108,9 @@ public class Config {
 
    /**
    * Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small &#x60;percentVariation&#x60; will segment a dataset into many clusters while a larger &#x60;percentVariation&#x60; will segment the dataset into fewer clusters.  &#x60;percentVariation&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal &#x60;percentVariation&#x60; during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
-   * minimum: 0.01
-   * maximum: 0.2
    * @return percentVariation
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.  `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.")
 
   public Float getPercentVariation() {
     return percentVariation;
@@ -122,13 +122,13 @@ public class Config {
   }
 
 
-  public Config features(List<FeatureConfig> features) {
+  public PostConfigRequest features(List<FeatureConfig> features) {
     
     this.features = features;
     return this;
   }
 
-  public Config addFeaturesItem(FeatureConfig featuresItem) {
+  public PostConfigRequest addFeaturesItem(FeatureConfig featuresItem) {
     this.features.add(featuresItem);
     return this;
   }
@@ -138,7 +138,6 @@ public class Config {
    * @return features
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
 
   public List<FeatureConfig> getFeatures() {
     return features;
@@ -150,7 +149,7 @@ public class Config {
   }
 
 
-  public Config training(TrainingConfig training) {
+  public PostConfigRequest training(TrainingConfig training) {
     
     this.training = training;
     return this;
@@ -161,7 +160,6 @@ public class Config {
    * @return training
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
 
   public TrainingConfig getTraining() {
     return training;
@@ -170,6 +168,28 @@ public class Config {
 
   public void setTraining(TrainingConfig training) {
     this.training = training;
+  }
+
+
+  public PostConfigRequest autotuning(Autotuning autotuning) {
+    
+    this.autotuning = autotuning;
+    return this;
+  }
+
+   /**
+   * Get autotuning
+   * @return autotuning
+  **/
+  @javax.annotation.Nullable
+
+  public Autotuning getAutotuning() {
+    return autotuning;
+  }
+
+
+  public void setAutotuning(Autotuning autotuning) {
+    this.autotuning = autotuning;
   }
 
 
@@ -182,26 +202,39 @@ public class Config {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Config config = (Config) o;
-    return Objects.equals(this.streamingWindow, config.streamingWindow) &&
-        Objects.equals(this.percentVariation, config.percentVariation) &&
-        Objects.equals(this.features, config.features) &&
-        Objects.equals(this.training, config.training);
+    PostConfigRequest postConfigRequest = (PostConfigRequest) o;
+    return Objects.equals(this.streamingWindow, postConfigRequest.streamingWindow) &&
+        Objects.equals(this.percentVariation, postConfigRequest.percentVariation) &&
+        Objects.equals(this.features, postConfigRequest.features) &&
+        Objects.equals(this.training, postConfigRequest.training) &&
+        Objects.equals(this.autotuning, postConfigRequest.autotuning);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(streamingWindow, percentVariation, features, training);
+    return Objects.hash(streamingWindow, percentVariation, features, training, autotuning);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Config {\n");
+    sb.append("class PostConfigRequest {\n");
     sb.append("    streamingWindow: ").append(toIndentedString(streamingWindow)).append("\n");
     sb.append("    percentVariation: ").append(toIndentedString(percentVariation)).append("\n");
     sb.append("    features: ").append(toIndentedString(features)).append("\n");
     sb.append("    training: ").append(toIndentedString(training)).append("\n");
+    sb.append("    autotuning: ").append(toIndentedString(autotuning)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -228,6 +261,7 @@ public class Config {
     openapiFields.add("percentVariation");
     openapiFields.add("features");
     openapiFields.add("training");
+    openapiFields.add("autotuning");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -239,25 +273,25 @@ public class Config {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Config
+  * @throws IOException if the JSON Object is invalid with respect to PostConfigRequest
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!Config.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Config is not found in the empty JSON string", Config.openapiRequiredFields.toString()));
+        if (!PostConfigRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in PostConfigRequest is not found in the empty JSON string", PostConfigRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!Config.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Config` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!PostConfigRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PostConfigRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : Config.openapiRequiredFields) {
+      for (String requiredField : PostConfigRequest.openapiRequiredFields) {
         if (jsonObj.get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
@@ -276,28 +310,32 @@ public class Config {
       if (jsonObj.get("training") != null && !jsonObj.get("training").isJsonNull()) {
         TrainingConfig.validateJsonObject(jsonObj.getAsJsonObject("training"));
       }
+      // validate the optional field `autotuning`
+      if (jsonObj.get("autotuning") != null && !jsonObj.get("autotuning").isJsonNull()) {
+        Autotuning.validateJsonObject(jsonObj.getAsJsonObject("autotuning"));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Config.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Config' and its subtypes
+       if (!PostConfigRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'PostConfigRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Config> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Config.class));
+       final TypeAdapter<PostConfigRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(PostConfigRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Config>() {
+       return (TypeAdapter<T>) new TypeAdapter<PostConfigRequest>() {
            @Override
-           public void write(JsonWriter out, Config value) throws IOException {
+           public void write(JsonWriter out, PostConfigRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Config read(JsonReader in) throws IOException {
+           public PostConfigRequest read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -308,18 +346,18 @@ public class Config {
   }
 
  /**
-  * Create an instance of Config given an JSON string
+  * Create an instance of PostConfigRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Config
-  * @throws IOException if the JSON string is invalid with respect to Config
+  * @return An instance of PostConfigRequest
+  * @throws IOException if the JSON string is invalid with respect to PostConfigRequest
   */
-  public static Config fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Config.class);
+  public static PostConfigRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, PostConfigRequest.class);
   }
 
  /**
-  * Convert an instance of Config to an JSON string
+  * Convert an instance of PostConfigRequest to an JSON string
   *
   * @return JSON string
   */

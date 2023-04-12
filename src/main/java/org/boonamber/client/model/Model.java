@@ -20,8 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -80,7 +78,6 @@ public class Model {
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Unique identifier for model.")
 
   public String getId() {
     return id;
@@ -103,7 +100,6 @@ public class Model {
    * @return label
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Free-form label for this model.")
 
   public String getLabel() {
     return label;
@@ -126,7 +122,6 @@ public class Model {
    * @return created
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Model creation time in ISO format.")
 
   public String getCreated() {
     return created;
@@ -149,7 +144,6 @@ public class Model {
    * @return modified
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Last time model was updated, in ISO format.")
 
   public String getModified() {
     return modified;
