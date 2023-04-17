@@ -10,7 +10,6 @@
 package org.boonamber.client.api;
 
 import org.boonamber.client.ApiException;
-import org.boonamber.client.ApiResponse;
 
 import java.io.File;
 import java.io.FileReader;
@@ -42,121 +41,111 @@ import org.boonamber.client.model.PutDataResponse;
 import org.boonamber.client.model.PutModelRequest;
 
 import java.time.Instant;
-import java.util.List;
+//import java.util.List;
 
-public class AmberClient {
-    private long reauthTime;
-    private String refreshToken;
+public class AmberV2Client {
+    public long reauthTime;
+    public String refreshToken;
+    private String accessToken;
     private DefaultApi api;
     private String license_id;
     private String license_file;
+    public String server;
+    public String oauthServer;
+    private String license;
+    private String secret;
 
-    public AmberClient() {
+    public AmberV2Client() throws ApiException {
     	this("default", "~/.Amber.license", false, 300000);
     }
     
-    public AmberClient(String license_id, String license_file) {
+    public AmberV2Client(String license_id, String license_file) throws ApiException {
     	this(license_id, license_file, false, 300000);
     }
     
-    public AmberClient(String license_id, String license_file, Boolean verify, int timeout) {
+    public AmberV2Client(String license_id, String license_file, Boolean verify, int timeout) throws ApiException {
     	this.reauthTime = 0;
+    	this.accessToken = "";
     	this.refreshToken = "";
+    	this.server = "";
+    	this.oauthServer = "";
     	this.api = new DefaultApi();
     	
     	this.api.getApiClient().setConnectTimeout(timeout);
     	this.api.getApiClient().setVerifyingSsl(verify);
     	
-    	String license_identifier = System.getenv("AMBER_LICENSE_ID");
+    	String license_identifier = System.getenv("AMBER_V2_LICENSE_ID");
     	this.license_id = (license_identifier == null) ? license_id : license_identifier;
     	
-    	String license_path = System.getenv("AMBER_LICENSE_FILE");
+    	String license_path = System.getenv("AMBER_V2_LICENSE_FILE");
     	this.license_file = (license_path == null) ? license_file : license_path;
     	// java doesn't know what tilda means
     	this.license_file = this.license_file.replaceFirst("^~", System.getProperty("user.home"));
     	
-    	String server = "";
-    	try {
-    		if (this.license_file != null) {
-    			File f = new File(this.license_file);
-    			if (f.exists()) {
-    				JSONParser parser = new JSONParser();
-    			      try {
-    			         Object obj = parser.parse(new FileReader(this.license_file));
-    			         JSONObject jsonObject = (JSONObject)obj;
-    			         JSONObject profile = (JSONObject) jsonObject.get(this.license_id);
-    			         
-    			         server = (String) profile.get("server");
-    			      } catch (Exception e) {
-    			    	  // something went wrong but continue
-    			      }
-    			} else {
-    				throw new Exception("Amber license file not found");
-    			}
-    		}
-    	} catch (Exception e) {
-    		
+		JSONParser parser = new JSONParser();
+    	JSONObject profile = new JSONObject();
+		if (this.license_file != null) {
+			File f = new File(this.license_file);
+			if (f.exists()) {
+			      try {
+			         Object obj = parser.parse(new FileReader(this.license_file));
+			         JSONObject jsonObject = (JSONObject)obj;
+			         profile = (JSONObject) jsonObject.get(this.license_id);
+			      } catch (Exception e) {
+			    	  throw new ApiException(400, "Amber license json file not formatted correctly");
+			      }
+			      
+			      try {
+ 			         this.server = (String) profile.get("server");
+ 			      } catch (Exception e) {
+ 			    	  // no server in file but continue
+ 			      }
+			} else {
+				throw new ApiException(400, "Amber license file not found");
+			}
+		}
+    	
+    	String envServer = System.getenv("AMBER_V2_SERVER");
+    	this.server = (envServer != null) ? envServer : this.server;
+    	if (this.server != "") {
+    		this.api.getApiClient().setBasePath(server);
+    	} else {
+    		throw new ApiException(400, "server not set: add 'server' key to license file or set AMBER_V2_SERVER environment variable");
     	}
     	
-    	String envServer = System.getenv("AMBER_SERVER");
-    	server = (envServer != null) ? envServer : server;
+    	// oauth server
+    	try {
+    		this.oauthServer = (String) profile.get("oauth-server");
+    	} catch (Exception e) {
+    		// do nothing because if not set, will just use given server
+    	}
+    	String envOauth = System.getenv("AMBER_V2_OAUTH_SERVER");
+    	this.oauthServer = (envOauth != null) ? envOauth : this.oauthServer;
+    	if (this.oauthServer == "") {
+    		this.oauthServer = server;
+    	}
     	
-    	if (server != "") {
-    		this.api.getApiClient().setBasePath(server);
-    	} // else just use defaultBasePath
+	    // get license from file
+	    try {
+	       this.license = (String) profile.get("license");
+	    } catch (Exception e) {
+	    	throw new ApiException(400, "profile is missing 'license' key");
+	    }
+	    
+	    // get license_id from file
+	    try {
+	       this.secret = (String) profile.get("secret");
+	    } catch (Exception e) {
+	    	throw new ApiException(400, "profile is missing 'secret' key");
+	    }
     	
-    	
-    	
-    	// check verify env TODO
+    	// check verify env
 //    	String envVerify = System.getenv("AMBER_SSL_VERIFY");
 //    	String tmp_verify = (envVerify != null) ? envVerify : verify;
 //    	localVarApiClient.setVerifyingSsl(verify);
     	
     }
-    
-    private String[] loadAuthValues() throws Exception {
-    	String[] auth = new String[2];
-    	auth[0] = auth[1] = "";
-    	try {
-    		if (this.license_file != null) {
-    			File f = new File(this.license_file);
-    			if (f.exists()) {
-    				JSONParser parser = new JSONParser();
-    			      try {
-    			         Object obj = parser.parse(new FileReader(this.license_file));
-    			         JSONObject jsonObject = (JSONObject)obj;
-    			         JSONObject profile = (JSONObject) jsonObject.get(this.license_id);
-    			         
-    			         auth[0] = (String) profile.get("license");
-    			         auth[1] = (String) profile.get("secret");
-    			      } catch (Exception e) {
-    			    	  // something went wrong but continue
-    			      }
-    			} else {
-    				throw new Exception("Amber license file not found");
-    			}
-    		}
-    	} catch (Exception e) {
-    		
-    	}
-    	
-    	// override env variables
-    	String envLicense = System.getenv("AMBER_LICENSE");
-    	auth[0] = (envLicense != null) ? envLicense : auth[0];
-    	
-    	String envSecret = System.getenv("AMBER_SECRET");
-    	auth[1] = (envSecret != null) ? envSecret : auth[1];
-    	
-    	if (auth[0] == "") {
-    		throw new Exception("license not specified");
-    	}
-    	if (auth[1] == "") {
-    		throw new Exception("secret not specified");
-    	}
-    	
-    	return auth;
-    }
-    
+   
     private long timeNow() {
     	long unixTimestamp = Instant.now().getEpochSecond();
     	return unixTimestamp;
@@ -170,66 +159,47 @@ public class AmberClient {
     	}
     }
     
-    private void authenticate(Boolean force) throws ApiException, Exception {
+    @SuppressWarnings("removal")
+	private void authenticate(Boolean force) throws ApiException {
     	if (!force && this.timeNow() <= this.reauthTime) {
     		return; //not yet
     	}
     	
-    	String token = null;
-    	String expiresIn = null;
-    	
-    	// try to refresh the api token using the refresh token
-    	PostOauth2RefreshRequest refreshBody = new PostOauth2RefreshRequest();
-    	refreshBody.setRefreshToken(this.refreshToken);
+    	this.api.getApiClient().setBasePath(this.oauthServer);
     	try {
-    		PostOauth2RefreshResponse refreshResponse;
-    		refreshResponse = this.api.postOauth2Refresh(refreshBody);   
-    		token = refreshResponse.getIdToken();
-        	expiresIn = refreshResponse.getExpiresIn();
-    	} catch (ApiException a) { // status code != 200
-        	// refresh token has expired so need to access oauth again
-        	String[] auth = new String[2];
-    		// load license and secret from file
-    		try {
-    			auth = loadAuthValues();
-    		} catch (Exception e) {
-    			throw new Exception(e);
+    		if (this.accessToken == "") {
+    			// access new oauth for new api and refresh token
+        		PostOauth2AccessRequest accessBody = new PostOauth2AccessRequest();
+        		accessBody.setLicenseId(this.license);
+        		accessBody.setSecretKey(this.secret);
+            	
+            	PostOauth2AccessResponse accessResponse = this.api.postOauth2Access(accessBody);
+            	this.accessToken = accessResponse.getIdToken();
+            	this.refreshToken = accessResponse.getRefreshToken();
+            	this.reauthTime = new Long(accessResponse.getExpiresIn());
+            	this.secret = "";
+    		} else {
+    			// authenticated once so now can just refresh
+        		PostOauth2RefreshRequest accessBody = new PostOauth2RefreshRequest();
+        		accessBody.setRefreshToken(this.refreshToken);
+            	PostOauth2RefreshResponse accessResponse = this.api.postOauth2Refresh(accessBody);
+            	this.accessToken = accessResponse.getIdToken();
+            	this.refreshToken = accessResponse.getRefreshToken();
+            	this.reauthTime = new Long(accessResponse.getExpiresIn());
     		}
     		
-    		// access new oauth for new api and refresh token
-    		PostOauth2AccessRequest accessBody = new PostOauth2AccessRequest();
-    		accessBody.setLicenseId(auth[0]);
-    		accessBody.setSecretKey(auth[1]);
-        	PostOauth2AccessResponse accessResponse;
-        	try {
-        		accessResponse = this.api.postOauth2Access(accessBody);    	
-        	} catch (Exception e) {
-        		throw new ApiException(e);
-        	}
-        	
-        	// save the api and refresh token
-        	this.refreshToken = accessResponse.getRefreshToken();
-        	token = accessResponse.getIdToken();
-        	expiresIn = accessResponse.getExpiresIn();
     	} catch (Exception e) {
-    		throw new Exception(e);
-    	}
-
-    	// validate that the token and expiration are not null
-    	if (token == null) {
+    		this.api.getApiClient().setBasePath(this.server);
     		throw new ApiException(401, "Authentication failed: invalid credentials");
     	}
-    	if (expiresIn == null) {
-    		throw new ApiException(401, "Authentication failed: invalid expiration time");
-    	}
+    	this.api.getApiClient().setBasePath(this.server);
     	
     	// set new reauth time
-		long expiresInNum = new Long(expiresIn);
-		this.reauthTime = timeNow() + expiresInNum - 60;
+		this.reauthTime = timeNow() + this.reauthTime - 60;
 		
 		// update auth token
 		this.api.getApiClient().setApiKeyPrefix("Bearer");
-		this.api.getApiClient().setApiKey(token);
+		this.api.getApiClient().setApiKey(this.accessToken);
     }
 
     /**
@@ -300,17 +270,16 @@ public class AmberClient {
     /**
      * list all models
      * Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
-     * @param verbose If &#x60;true&#x60;, include full model metadata. (optional)
      * @return GetModelsResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public GetModelsResponse getModels(String verbose) throws ApiException {
+    public GetModelsResponse getModels() throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.getModels(verbose);
+        return this.api.getModels("false");
     }
 
     /**
