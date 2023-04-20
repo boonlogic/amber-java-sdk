@@ -67,8 +67,6 @@ public class AmberV2Client {
     	this.reauthTime = 0;
     	this.accessToken = "";
     	this.refreshToken = "";
-    	this.server = "";
-    	this.oauthServer = "";
     	this.api = new DefaultApi();
     	
     	this.api.getApiClient().setConnectTimeout(timeout);
@@ -107,7 +105,7 @@ public class AmberV2Client {
     	
     	String envServer = System.getenv("AMBER_V2_SERVER");
     	this.server = (envServer != null) ? envServer : this.server;
-    	if (this.server != "") {
+    	if (this.server != null) {
     		this.api.getApiClient().setBasePath(server);
     	} else {
     		throw new ApiException(400, "server not set: add 'server' key to license file or set AMBER_V2_SERVER environment variable");
@@ -121,7 +119,7 @@ public class AmberV2Client {
     	}
     	String envOauth = System.getenv("AMBER_V2_OAUTH_SERVER");
     	this.oauthServer = (envOauth != null) ? envOauth : this.oauthServer;
-    	if (this.oauthServer == "") {
+    	if (this.oauthServer == null) {
     		this.oauthServer = server;
     	}
     	

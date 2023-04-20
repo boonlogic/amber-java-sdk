@@ -79,6 +79,8 @@ public class TestModels {
     	request.setLabel(this.label);
     	PostModelResponse response = this.api.postModel(request);
     	Assertions.assertEquals(response.getLabel(), this.label);
+    	
+    	api.deleteModel(response.getId());
     }
 
     /**
