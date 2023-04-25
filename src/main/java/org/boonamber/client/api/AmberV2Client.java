@@ -9,38 +9,26 @@
 
 package org.boonamber.client.api;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.boonamber.client.ApiException;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.nio.ByteBuffer;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.boonamber.client.model.PostConfigRequest;
-import org.boonamber.client.model.PostConfigResponse;
-import org.boonamber.client.model.GetRootCauseResponse;
-import org.boonamber.client.model.PostModelResponse;
-import org.boonamber.client.model.GetModelsResponse;
-import org.boonamber.client.model.GetStatusResponse;
-import org.boonamber.client.model.GetNanoStatusResponse;
-import org.boonamber.client.model.GetVersionResponse;
-import org.boonamber.client.model.PostDataRequest;
-import org.boonamber.client.model.PostDataResponse;
-import org.boonamber.client.model.PostModelRequest;
-import org.boonamber.client.model.PostOauth2AccessRequest;
-import org.boonamber.client.model.PostOauth2AccessResponse;
-import org.boonamber.client.model.PostOauth2RefreshRequest;
-import org.boonamber.client.model.PostOauth2RefreshResponse;
-import org.boonamber.client.model.PostPretrainRequest;
-import org.boonamber.client.model.PostPretrainResponse;
-import org.boonamber.client.model.GetPretrainResponse;
-import org.boonamber.client.model.PostLearningRequest;
-import org.boonamber.client.model.PostLearningResponse;
-import org.boonamber.client.model.PutDataRequest;
-import org.boonamber.client.model.PutDataResponse;
-import org.boonamber.client.model.PutModelRequest;
+import org.boonamber.client.model.*;
+import org.boonamber.client.model.PostPretrainRequest.FormatEnum;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 //import java.util.List;
 
 public class AmberV2Client {
@@ -89,6 +77,9 @@ public class AmberV2Client {
 			         Object obj = parser.parse(new FileReader(this.license_file));
 			         JSONObject jsonObject = (JSONObject)obj;
 			         profile = (JSONObject) jsonObject.get(this.license_id);
+			         if (profile == null) {
+			        	 throw new ApiException(400, "not json formatted");
+			         }
 			      } catch (Exception e) {
 			    	  throw new ApiException(400, "Amber license json file not formatted correctly");
 			      }
@@ -99,7 +90,7 @@ public class AmberV2Client {
  			    	  // no server in file but continue
  			      }
 			} else {
-				throw new ApiException(400, "Amber license file not found");
+				throw new ApiException(400, "Amber license file not found. Add the full path");
 			}
 		}
     	
@@ -443,19 +434,137 @@ public class AmberV2Client {
      * pretrain model with an existing dataset
      * 
      * @param modelId  (required)
-     * @param postPretrainRequest Data to use for pretraining. (required)
-     * @param chunkspec Chunk specifier for chunked uploads. In a chunked upload, each request is sent with a &#x60;chunkspec&#x60; of the form &#x60;1:3&#x60;, &#x60;2:10&#x60;, &#x60;7:7&#x60;, etc. where the first number is the index for the chunk being uploaded (1-based) and the second number is the total number of chunks in the transaction. The chunks may be uploaded in any order. Pretraining starts once all chunks have been received. (optional)
-     * @param token Transaction token for chunked uploads. The response body for the first request in a chunked upload will contain a &#x60;token&#x60; which uniquely identifies the chunking transaction across multiple requests. That &#x60;token&#x60; must be included in the header of all remaining chunks uploaded in the transaction. (optional)
+     * @param String data to use for pretraining. (required)
+     * @param int chunkSize number of bytes to send at a time
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostPretrainResponse postPretrain(String modelId, PostPretrainRequest postPretrainRequest, String chunkspec, String token) throws ApiException {
+    public PostPretrainResponse postPretrain(String modelId, String data, int chunkSize, Boolean block) throws ApiException {
+    	String[] dataStrings = data.split(",");
+    	Float[] dataFloats = new Float[dataStrings.length];
+    	for (int i = 0; i < dataStrings.length; i++) {
+    		dataFloats[i] = Float.valueOf(dataStrings[i]);
+    	}
+    	List<Float> dataList = Arrays.asList(dataFloats);
+    	return postPretrain(modelId, dataList, chunkSize, block);
+    }
+    
+    /**
+     * pretrain model with an existing dataset
+     * 
+     * @param modelId  (required)
+     * @param String data to use for pretraining. (required)
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PostPretrainResponse postPretrain(String modelId, String data, Boolean block) throws ApiException {
+    	String[] dataStrings = data.split(",");
+    	Float[] dataFloats = new Float[dataStrings.length];
+    	for (int i = 0; i < dataStrings.length; i++) {
+    		dataFloats[i] = Float.valueOf(dataStrings[i]);
+    	}
+    	List<Float> dataList = Arrays.asList(dataFloats);
+    	return postPretrain(modelId, dataList, 4000000, block);
+    }
+    
+    /**
+     * pretrain model with an existing dataset
+     * 
+     * @param modelId  (required)
+     * @param List data to use for pretraining. (required)
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PostPretrainResponse postPretrain(String modelId, List data, Boolean block) throws ApiException {
+    	return postPretrain(modelId, data, 4000000, block);
+    }
+    
+    /**
+     * pretrain model with an existing dataset
+     * @param <T>
+     * 
+     * @param modelId  (required)
+     * @param List data to use for pretraining. (required)
+     * @param int chunkSize number of bytes to send at a time
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PostPretrainResponse postPretrain(String modelId, List<Float> data, int chunkSize, Boolean block) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        return this.api.postModelPretrain(modelId, postPretrainRequest, chunkspec, token);
+    	
+    	ByteBuffer buff = ByteBuffer.allocate(4 * data.size());
+        for (int i = 0; i < data.size(); i++) {
+          float amplitude = data.get(i); 
+          buff.putFloat(amplitude);
+        }
+        byte[] dataBytes = buff.array();
+        
+        PostPretrainRequest body = new PostPretrainRequest();
+        PostPretrainRequest.FormatEnum format = PostPretrainRequest.FormatEnum.PACKED_FLOAT;
+        body.setFormat(format);
+        
+        int numChunks = (int)(dataBytes.length / chunkSize);
+        if (dataBytes.length % chunkSize != 0) {
+        	numChunks++;
+        }
+        
+        String txnID = "";
+        PostPretrainResponse response = null;
+        String chunkSpec = "";
+        for (int chunk = 0; chunk < numChunks; chunk++) {
+        	// create chunk specifier, .ie 1:3, 2:3, 3:3
+        	chunkSpec = String.valueOf(chunk + 1) + ":" + String.valueOf(numChunks);
+        	
+        	// construct next chunk
+        	int start = chunk * chunkSize;
+        	int end = start + chunkSize;
+        	if (end > dataBytes.length) {
+        		end = dataBytes.length;
+        	} 
+        	byte[] subDataArray = Arrays.copyOfRange(dataBytes, start, end);
+        	String dataString = Base64.getEncoder().encodeToString(subDataArray);
+        	body.setData(dataString);
+        	
+        	try {
+    	        response = this.api.postModelPretrain(modelId, body, chunkSpec, txnID);
+    	        
+    	        txnID = response.getTxnId();
+            } catch (Exception e) {
+            	throw new ApiException(e.getMessage());
+            }
+        }
+        
+    	// TODO: check for blocking
+        
+        // if not blocking, return pretrain response
+        // or if it is not in pretraining (aka done or error) return response
+        if (!block || response.getStatus().getValue().compareTo("Pretraining") != 0) {
+        	return response;
+        }
+        
+        GetPretrainResponse getResponse = null;
+        while (response.getStatus().getValue().equals("Pretraining")) {
+        	// sleep
+        	try {
+				TimeUnit.SECONDS.sleep(3);
+			} catch (InterruptedException e) {
+				throw new ApiException(e.getMessage());
+			}
+        	getResponse = this.getPretrain(modelId);
+        }
+        String status = getResponse.getStatus().getValue();
+        response.setStatus(PostPretrainResponse.StatusEnum.fromValue(status));
+        response.setMessage(getResponse.getMessage());
+        
+        return response;
     }
 
     /**

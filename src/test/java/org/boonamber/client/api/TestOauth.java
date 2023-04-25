@@ -75,7 +75,7 @@ public class TestOauth {
     	
     	// check bad formatted license file
     	Assertions.assertThrows(ApiException.class, () -> {
-    		new AmberV2Client("default", "bad.Amber.license");
+    		new AmberV2Client("default", System.getProperty("user.dir") + "/src/test/java/bad.Amber.license");
         	}, "Invalid read of corrupt license file. Check and clear env");
     	
     	// check non existent license file
@@ -97,7 +97,7 @@ public class TestOauth {
     public void licenseProfileTest() throws ApiException {
     	// check non existent ID
     	Assertions.assertThrows(ApiException.class, () -> {
-    		new AmberV2Client("bogus", "test.Amber.license");
+    		new AmberV2Client("bogus", System.getProperty("user.dir") + "/src/test/java/test.Amber.license");
         	}, "Invalid license ID accepted. Check and clear env");
     	
     	// TODO: need to set AMBER_V2_SERVER env var
@@ -107,7 +107,7 @@ public class TestOauth {
     	
 //    	this.environmentVariables.set("AMBER_V2_SERVER", this.api.server);
 //    	Assertions.assertEquals(System.getenv("AMBER_V2_SERVER"), "none");
-//    	this.api = new AmberV2Client("invalid-credentials", "src/test/java/org/boonamber/client/api/test.Amber.license");
+//    	this.api = new AmberV2Client("invalid-credentials", "test.Amber.license");
 //    	Assertions.assertThrows(ApiException.class, () -> {
 //    		this.api.getVersion();
 //        	}, "Didn't throw error for invalid credentials. Check and clear env");
