@@ -349,6 +349,23 @@ public class AmberV2Client {
     	}
         return this.api.getModelDiagnostic(modelId);
     }
+    
+    /**
+     * get diagnostic information
+     * Return diagnostic files from the API.
+     * @param filepath to save the diagnostic images
+     * @return File diagnostic files
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public void getDiagnostics(String modelId, String filepath) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+        File daignosticFile = this.api.getModelDiagnostic(modelId);
+        // TODO: save file
+    }
 
     /**
      * configure a model
@@ -581,6 +598,23 @@ public class AmberV2Client {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
+        return this.api.postModelLearning(modelId, postLearningRequest);
+    }
+    
+    /**
+     * update model configuration
+     * Update configuration for the specified model.
+     * @param modelId  (required)
+     * @return PostLearningResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PostLearningResponse enableLearning(String modelId) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	PostLearningRequest postLearningRequest = null;
         return this.api.postModelLearning(modelId, postLearningRequest);
     }
 
