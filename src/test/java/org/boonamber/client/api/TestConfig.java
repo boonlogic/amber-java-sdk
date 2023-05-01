@@ -14,11 +14,7 @@
 package org.boonamber.client.api;
 
 import org.boonamber.client.ApiException;
-import org.boonamber.client.model.FeatureConfig;
-import org.boonamber.client.model.PostConfigRequest;
-import org.boonamber.client.model.PostConfigResponse;
-import org.boonamber.client.model.PostModelRequest;
-import org.boonamber.client.model.PostModelResponse;
+import org.boonamber.client.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

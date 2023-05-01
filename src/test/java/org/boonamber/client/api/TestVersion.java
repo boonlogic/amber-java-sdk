@@ -14,7 +14,7 @@
 package org.boonamber.client.api;
 
 import org.boonamber.client.ApiException;
-import org.boonamber.client.model.GetVersionResponse;
+import org.boonamber.client.model.*;
 
 import org.junit.jupiter.api.Test;
 

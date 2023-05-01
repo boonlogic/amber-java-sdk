@@ -14,19 +14,10 @@
 package org.boonamber.client.api;
 
 import org.boonamber.client.ApiException;
-import org.boonamber.client.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import com.opencsv.CSVReader;
-import java.io.FileReader;
 
 /**
  * API tests for DefaultApi
@@ -35,7 +26,6 @@ public class TestResultsNegative {
 
     private AmberV2Client api;
     
-    private String label = "java:v2:tests";
     private String modelId = "non-existant-id";
     
     @BeforeEach
