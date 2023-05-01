@@ -43,6 +43,7 @@ import org.boonamber.client.model.PostDataRequest;
 import org.boonamber.client.model.PostDataResponse;
 import org.boonamber.client.model.PostLearningRequest;
 import org.boonamber.client.model.PostLearningResponse;
+import org.boonamber.client.model.PostModelCopyRequest;
 import org.boonamber.client.model.PostModelRequest;
 import org.boonamber.client.model.PostModelResponse;
 import org.boonamber.client.model.PostOauth2AccessRequest;
@@ -1340,7 +1341,6 @@ public class DefaultApi {
     }
     /**
      * Build call for getModels
-     * @param verbose If &#x60;true&#x60;, include full model metadata. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1352,7 +1352,7 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getModelsCall(String verbose, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getModelsCall(final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1377,10 +1377,6 @@ public class DefaultApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (verbose != null) {
-            localVarHeaderParams.put("verbose", localVarApiClient.parameterToString(verbose));
-        }
-
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -1401,15 +1397,14 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getModelsValidateBeforeCall(String verbose, final ApiCallback _callback) throws ApiException {
-        return getModelsCall(verbose, _callback);
+    private okhttp3.Call getModelsValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+        return getModelsCall(_callback);
 
     }
 
     /**
      * list all models
      * Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
-     * @param verbose If &#x60;true&#x60;, include full model metadata. (optional)
      * @return GetModelsResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1420,15 +1415,14 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public GetModelsResponse getModels(String verbose) throws ApiException {
-        ApiResponse<GetModelsResponse> localVarResp = getModelsWithHttpInfo(verbose);
+    public GetModelsResponse getModels() throws ApiException {
+        ApiResponse<GetModelsResponse> localVarResp = getModelsWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * list all models
      * Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
-     * @param verbose If &#x60;true&#x60;, include full model metadata. (optional)
      * @return ApiResponse&lt;GetModelsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1439,8 +1433,8 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GetModelsResponse> getModelsWithHttpInfo(String verbose) throws ApiException {
-        okhttp3.Call localVarCall = getModelsValidateBeforeCall(verbose, null);
+    public ApiResponse<GetModelsResponse> getModelsWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = getModelsValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<GetModelsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1448,7 +1442,6 @@ public class DefaultApi {
     /**
      * list all models (asynchronously)
      * Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
-     * @param verbose If &#x60;true&#x60;, include full model metadata. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1460,9 +1453,9 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getModelsAsync(String verbose, final ApiCallback<GetModelsResponse> _callback) throws ApiException {
+    public okhttp3.Call getModelsAsync(final ApiCallback<GetModelsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getModelsValidateBeforeCall(verbose, _callback);
+        okhttp3.Call localVarCall = getModelsValidateBeforeCall(_callback);
         Type localVarReturnType = new TypeToken<GetModelsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1864,6 +1857,150 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = postModelConfigValidateBeforeCall(modelId, postConfigRequest, _callback);
         Type localVarReturnType = new TypeToken<PostConfigResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for postModelCopy
+     * @param modelId  (required)
+     * @param postModelCopyRequest copy request params (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call postModelCopyCall(String modelId, PostModelCopyRequest postModelCopyRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = postModelCopyRequest;
+
+        // create path and map variables
+        String localVarPath = "/models/{modelId}/copy"
+            .replace("{" + "modelId" + "}", localVarApiClient.escapeString(modelId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "Bearer" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call postModelCopyValidateBeforeCall(String modelId, PostModelCopyRequest postModelCopyRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'modelId' is set
+        if (modelId == null) {
+            throw new ApiException("Missing the required parameter 'modelId' when calling postModelCopy(Async)");
+        }
+
+        return postModelCopyCall(modelId, postModelCopyRequest, _callback);
+
+    }
+
+    /**
+     * make a copy of a model
+     * 
+     * @param modelId  (required)
+     * @param postModelCopyRequest copy request params (optional)
+     * @return PostModelResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public PostModelResponse postModelCopy(String modelId, PostModelCopyRequest postModelCopyRequest) throws ApiException {
+        ApiResponse<PostModelResponse> localVarResp = postModelCopyWithHttpInfo(modelId, postModelCopyRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * make a copy of a model
+     * 
+     * @param modelId  (required)
+     * @param postModelCopyRequest copy request params (optional)
+     * @return ApiResponse&lt;PostModelResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<PostModelResponse> postModelCopyWithHttpInfo(String modelId, PostModelCopyRequest postModelCopyRequest) throws ApiException {
+        okhttp3.Call localVarCall = postModelCopyValidateBeforeCall(modelId, postModelCopyRequest, null);
+        Type localVarReturnType = new TypeToken<PostModelResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * make a copy of a model (asynchronously)
+     * 
+     * @param modelId  (required)
+     * @param postModelCopyRequest copy request params (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call postModelCopyAsync(String modelId, PostModelCopyRequest postModelCopyRequest, final ApiCallback<PostModelResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = postModelCopyValidateBeforeCall(modelId, postModelCopyRequest, _callback);
+        Type localVarReturnType = new TypeToken<PostModelResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

@@ -17,6 +17,7 @@ All URIs are relative to *http://amber.boonlogic.com/v2*
 | [**getVersion**](DefaultApi.md#getVersion) | **GET** /version | get version information |
 | [**postModel**](DefaultApi.md#postModel) | **POST** /models | create a model |
 | [**postModelConfig**](DefaultApi.md#postModelConfig) | **POST** /models/{modelId}/config | configure a model |
+| [**postModelCopy**](DefaultApi.md#postModelCopy) | **POST** /models/{modelId}/copy | make a copy of a model |
 | [**postModelData**](DefaultApi.md#postModelData) | **POST** /models/{modelId}/data | send data to model and get back results |
 | [**postModelLearning**](DefaultApi.md#postModelLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning |
 | [**postModelMigrate**](DefaultApi.md#postModelMigrate) | **POST** /models/{v1ModelId}/migrate | migrate a v1 sensor to a v2 model |
@@ -684,7 +685,7 @@ public class Example {
 
 <a name="getModels"></a>
 # **getModels**
-> GetModelsResponse getModels(verbose)
+> GetModelsResponse getModels()
 
 list all models
 
@@ -712,9 +713,8 @@ public class Example {
     //Bearer.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String verbose = "verbose_example"; // String | If `true`, include full model metadata.
     try {
-      GetModelsResponse result = apiInstance.getModels(verbose);
+      GetModelsResponse result = apiInstance.getModels();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getModels");
@@ -728,10 +728,7 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **verbose** | **String**| If &#x60;true&#x60;, include full model metadata. | [optional] |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -948,6 +945,79 @@ public class Example {
 ### Return type
 
 [**PostConfigResponse**](PostConfigResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="postModelCopy"></a>
+# **postModelCopy**
+> PostModelResponse postModelCopy(modelId, postModelCopyRequest)
+
+make a copy of a model
+
+### Example
+```java
+// Import classes:
+import org.boonamber.client.ApiClient;
+import org.boonamber.client.ApiException;
+import org.boonamber.client.Configuration;
+import org.boonamber.client.auth.*;
+import org.boonamber.client.models.*;
+import org.boonamber.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    
+    // Configure API key authorization: Bearer
+    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+    Bearer.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //Bearer.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String modelId = "modelId_example"; // String | 
+    PostModelCopyRequest postModelCopyRequest = new PostModelCopyRequest(); // PostModelCopyRequest | copy request params
+    try {
+      PostModelResponse result = apiInstance.postModelCopy(modelId, postModelCopyRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#postModelCopy");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **modelId** | **String**|  | |
+| **postModelCopyRequest** | [**PostModelCopyRequest**](PostModelCopyRequest.md)| copy request params | [optional] |
+
+### Return type
+
+[**PostModelResponse**](PostModelResponse.md)
 
 ### Authorization
 

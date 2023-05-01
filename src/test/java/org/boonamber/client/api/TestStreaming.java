@@ -82,7 +82,7 @@ public class TestStreaming {
         } catch (Exception e) {
         	Assertions.assertTrue(false, e.getMessage());
         }
-        Assertions.assertEquals(config.getPercentVariation().getValue(), (float)0.05);
+        Assertions.assertEquals(config.getPercentVariation(), (float)0.05);
     }
     
     @AfterEach

@@ -120,12 +120,6 @@ paths:
     get:
       description: Return `id` and `label` for all models belonging to the user.
       operationId: getModels
-      parameters:
-      - description: "If `true`, include full model metadata."
-        in: header
-        name: verbose
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -353,6 +347,57 @@ paths:
                 $ref: '#/components/schemas/error'
           description: Internal server error
       summary: migrate a v1 sensor to a v2 model
+      x-accepts: application/json
+  /models/{modelId}/copy:
+    post:
+      operationId: postModelCopy
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/postModelCopyRequest'
+        description: copy request params
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/postModelResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Internal server error
+      summary: make a copy of a model
+      x-codegen-request-body-name: postModelCopyRequest
+      x-content-type: application/json
       x-accepts: application/json
   /models/{modelId}/config:
     get:
@@ -1117,6 +1162,15 @@ components:
       required:
       - label
       type: object
+    postModelCopyRequest:
+      properties:
+        label:
+          default: appends " .Copy of <source modelID>"
+          description: "Label for the new model. Allowed characters: `+.:_-` and any\
+            \ alphanumeric."
+          nullable: true
+          type: string
+      type: object
     postConfigRequest:
       properties:
         streamingWindow:
@@ -1368,7 +1422,14 @@ components:
           minimum: 1
           type: integer
         percentVariation:
-          $ref: '#/components/schemas/percentVariationResponse'
+          description: |-
+            Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.
+
+            `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.
+          format: float
+          nullable: true
+          type: number
+          x-nullable: true
         features:
           items:
             $ref: '#/components/schemas/featureConfigResponse'
@@ -1401,18 +1462,6 @@ components:
           $ref: '#/components/schemas/trainingConfig'
         status:
           $ref: '#/components/schemas/modelStatus'
-      type: object
-    percentVariationResponse:
-      properties:
-        value:
-          description: |-
-            Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small `percentVariation` will segment a dataset into many clusters while a larger `percentVariation` will segment the dataset into fewer clusters.
-
-            `percentVariation` can be left unset if it is not known at configuration time. In that case, data collected during the `Buffering` stage will be used to infer an optimal `percentVariation` during the `Autotuning` stage and it will be set to the autotuned value at the start of `Learning`.
-          format: float
-          nullable: true
-          type: number
-          x-nullable: true
       type: object
     featureConfigResponse:
       allOf:

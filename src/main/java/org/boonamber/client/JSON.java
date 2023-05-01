@@ -130,13 +130,13 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.Model.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.ModelStatus.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.NanoStatus.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PercentVariationResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostConfigRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostConfigResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostDataRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostDataResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostLearningRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostLearningResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostModelCopyRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostModelRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostModelResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.boonamber.client.model.PostOauth2AccessRequest.CustomTypeAdapterFactory());

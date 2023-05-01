@@ -133,6 +133,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**getVersion**](docs/DefaultApi.md#getVersion) | **GET** /version | get version information
 *DefaultApi* | [**postModel**](docs/DefaultApi.md#postModel) | **POST** /models | create a model
 *DefaultApi* | [**postModelConfig**](docs/DefaultApi.md#postModelConfig) | **POST** /models/{modelId}/config | configure a model
+*DefaultApi* | [**postModelCopy**](docs/DefaultApi.md#postModelCopy) | **POST** /models/{modelId}/copy | make a copy of a model
 *DefaultApi* | [**postModelData**](docs/DefaultApi.md#postModelData) | **POST** /models/{modelId}/data | send data to model and get back results
 *DefaultApi* | [**postModelLearning**](docs/DefaultApi.md#postModelLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning
 *DefaultApi* | [**postModelMigrate**](docs/DefaultApi.md#postModelMigrate) | **POST** /models/{v1ModelId}/migrate | migrate a v1 sensor to a v2 model
@@ -184,13 +185,13 @@ Class | Method | HTTP request | Description
  - [Model](docs/Model.md)
  - [ModelStatus](docs/ModelStatus.md)
  - [NanoStatus](docs/NanoStatus.md)
- - [PercentVariationResponse](docs/PercentVariationResponse.md)
  - [PostConfigRequest](docs/PostConfigRequest.md)
  - [PostConfigResponse](docs/PostConfigResponse.md)
  - [PostDataRequest](docs/PostDataRequest.md)
  - [PostDataResponse](docs/PostDataResponse.md)
  - [PostLearningRequest](docs/PostLearningRequest.md)
  - [PostLearningResponse](docs/PostLearningResponse.md)
+ - [PostModelCopyRequest](docs/PostModelCopyRequest.md)
  - [PostModelRequest](docs/PostModelRequest.md)
  - [PostModelResponse](docs/PostModelResponse.md)
  - [PostOauth2AccessRequest](docs/PostOauth2AccessRequest.md)

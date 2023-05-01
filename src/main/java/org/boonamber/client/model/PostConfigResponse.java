@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.boonamber.client.model.Autotuning;
 import org.boonamber.client.model.FeatureConfigResponse;
-import org.boonamber.client.model.PercentVariationResponse;
 import org.boonamber.client.model.TrainingConfig;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,7 +60,7 @@ public class PostConfigResponse {
 
   public static final String SERIALIZED_NAME_PERCENT_VARIATION = "percentVariation";
   @SerializedName(SERIALIZED_NAME_PERCENT_VARIATION)
-  private PercentVariationResponse percentVariation;
+  private Float percentVariation;
 
   public static final String SERIALIZED_NAME_FEATURES = "features";
   @SerializedName(SERIALIZED_NAME_FEATURES)
@@ -100,24 +100,24 @@ public class PostConfigResponse {
   }
 
 
-  public PostConfigResponse percentVariation(PercentVariationResponse percentVariation) {
+  public PostConfigResponse percentVariation(Float percentVariation) {
     
     this.percentVariation = percentVariation;
     return this;
   }
 
    /**
-   * Get percentVariation
+   * Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small &#x60;percentVariation&#x60; will segment a dataset into many clusters while a larger &#x60;percentVariation&#x60; will segment the dataset into fewer clusters.  &#x60;percentVariation&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal &#x60;percentVariation&#x60; during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
    * @return percentVariation
   **/
   @javax.annotation.Nullable
 
-  public PercentVariationResponse getPercentVariation() {
+  public Float getPercentVariation() {
     return percentVariation;
   }
 
 
-  public void setPercentVariation(PercentVariationResponse percentVariation) {
+  public void setPercentVariation(Float percentVariation) {
     this.percentVariation = percentVariation;
   }
 
@@ -213,9 +213,20 @@ public class PostConfigResponse {
         Objects.equals(this.autotuning, postConfigResponse.autotuning);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(streamingWindow, percentVariation, features, training, autotuning);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -278,10 +289,6 @@ public class PostConfigResponse {
         if (!PostConfigResponse.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PostConfigResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
-      }
-      // validate the optional field `percentVariation`
-      if (jsonObj.get("percentVariation") != null && !jsonObj.get("percentVariation").isJsonNull()) {
-        PercentVariationResponse.validateJsonObject(jsonObj.getAsJsonObject("percentVariation"));
       }
       if (jsonObj.get("features") != null && !jsonObj.get("features").isJsonNull()) {
         JsonArray jsonArrayfeatures = jsonObj.getAsJsonArray("features");

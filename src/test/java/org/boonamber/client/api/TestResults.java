@@ -82,7 +82,7 @@ public class TestResults {
         } catch (Exception e) {
         	Assertions.assertTrue(false, e.getMessage());
         }
-        Assertions.assertEquals(config.getPercentVariation().getValue(), (float)0.05);
+        Assertions.assertEquals(config.getPercentVariation(), (float)0.05);
         
         // populate some of the model
         List<List<String>> records = new ArrayList<List<String>>();
@@ -198,34 +198,62 @@ public class TestResults {
     public void getRCATest() throws ApiException {
         // test
     	GetRootCauseResponse response = null;
-//        response = api.getRootCause(this.modelId, 1, null);
-//        Assertions.assertEquals(response.getRootCauseList().size(), 1);
-        
-//        response = api.getRootCause(this.modelId, [1,2], null);
+    	
+    	// cluster IDs
+    	int[] idList1 = new int[] {1};
+        response = api.getClusterRootCause(this.modelId, idList1);
+        Assertions.assertEquals(response.getRootCauseList().size(), 1);
+//        
+//        int[] idList2 = new int[] {1,2};
+//        response = api.getClusterRootCause(this.modelId, idList2);
 //        Assertions.assertEquals(response.getRootCauseList().size(), 2);
         
-        response = api.getRootCause(this.modelId, "[1]", null);
+    	response = api.getClusterRootCause(this.modelId, 1);
+        Assertions.assertEquals(response.getRootCauseList().size(), 1);
+    	
+    	ArrayList<Integer> id = new ArrayList<Integer>();
+    	id.add(1);
+        id.add(2);
+        response = api.getClusterRootCause(this.modelId, id);
+        Assertions.assertEquals(response.getRootCauseList().size(), 2);
+        
+        response = api.getClusterRootCause(this.modelId, "[1]");
         Assertions.assertEquals(response.getRootCauseList().size(), 1);
         
-        response = api.getRootCause(this.modelId, "[1,2,3]", null);
-        Assertions.assertEquals(response.getRootCauseList().size(), 3);
+        response = api.getClusterRootCause(this.modelId, "[1,2]");
+        Assertions.assertEquals(response.getRootCauseList().size(), 2);
         
         Assertions.assertThrowsExactly(ApiException.class, () -> {
-    		api.getRootCause(this.modelId, "1", null);
+    		api.getClusterRootCause(this.modelId, "1");
         	}, "must specify cluster IDs correctly failed");
         
-        int[] vector = new int[25];
+        
+        // vectors
+        Integer[] data = new Integer[25];
+        Arrays.fill(data, 0);
+        List<Integer> vector = Arrays.asList(data);
         String vectorString = "[[";
-        for (int i = 0; i < vector.length; i++) {
-        	vectorString = vectorString + String.valueOf(vector[i]) + ",";
+        for (int i = 0; i < vector.size(); i++) {
+        	vectorString = vectorString + String.valueOf(vector.get(i)) + ",";
         }
         vectorString = vectorString.substring(0, vectorString.length() - 1);
         vectorString = vectorString + "]]";
-        response = api.getRootCause(this.modelId, null, vectorString);
+        response = api.getVectorRootCause(this.modelId, vectorString);
         Assertions.assertEquals(response.getRootCauseList().size(), 1);
         
+        ArrayList<List<Integer>> vectors = new ArrayList<List<Integer>>();
+        vectors.add(vector);
+        response = api.getVectorRootCause(this.modelId, vectors);
+        Assertions.assertEquals(response.getRootCauseList().size(), 1);
+        
+        Arrays.fill(data, 1);
+        vector = Arrays.asList(data);
+        vectors.add(vector);
+        response = api.getVectorRootCause(this.modelId, vectors);
+        Assertions.assertEquals(response.getRootCauseList().size(), 2);
+        
         Assertions.assertThrowsExactly(ApiException.class, () -> {
-    		api.getRootCause(this.modelId, null, "1");
+    		api.getVectorRootCause(this.modelId, "1");
         	}, "must specify vectors correctly failed");
     }
     

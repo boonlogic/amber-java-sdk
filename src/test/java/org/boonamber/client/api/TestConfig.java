@@ -88,7 +88,7 @@ public class TestConfig {
         
         // test
         PostConfigResponse config = api.getConfig(this.modelId);
-        Assertions.assertEquals(config.getPercentVariation().getValue(), response.getPercentVariation().getValue());
+        Assertions.assertEquals(config.getPercentVariation(), response.getPercentVariation());
 
     }
 
@@ -110,7 +110,7 @@ public class TestConfig {
         request.setFeatures(features);
         PostConfigResponse response = api.postConfig(this.modelId, request);
         
-        Assertions.assertEquals(response.getPercentVariation().getValue(), (float)0.05);
+        Assertions.assertEquals(response.getPercentVariation(), (float)0.05);
         Assertions.assertEquals(response.getFeatures().size(), request.getFeatures().size());
     }
 }

@@ -45,36 +45,36 @@ import java.util.Set;
 import org.boonamber.client.JSON;
 
 /**
- * PercentVariationResponse
+ * PostModelCopyRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class PercentVariationResponse {
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private Float value;
+public class PostModelCopyRequest {
+  public static final String SERIALIZED_NAME_LABEL = "label";
+  @SerializedName(SERIALIZED_NAME_LABEL)
+  private String label = "appends \" .Copy of <source modelID>\"";
 
-  public PercentVariationResponse() {
+  public PostModelCopyRequest() {
   }
 
-  public PercentVariationResponse value(Float value) {
+  public PostModelCopyRequest label(String label) {
     
-    this.value = value;
+    this.label = label;
     return this;
   }
 
    /**
-   * Granularity of the underlying cluster model used for anomaly detection. This is a number between 0.01 and 0.20 which is the distance threshold used to determine whether a pattern should be assigned to an existing cluster or create a new cluster of its own. All things held equal, a small &#x60;percentVariation&#x60; will segment a dataset into many clusters while a larger &#x60;percentVariation&#x60; will segment the dataset into fewer clusters.  &#x60;percentVariation&#x60; can be left unset if it is not known at configuration time. In that case, data collected during the &#x60;Buffering&#x60; stage will be used to infer an optimal &#x60;percentVariation&#x60; during the &#x60;Autotuning&#x60; stage and it will be set to the autotuned value at the start of &#x60;Learning&#x60;.
-   * @return value
+   * Label for the new model. Allowed characters: &#x60;+.:_-&#x60; and any alphanumeric.
+   * @return label
   **/
   @javax.annotation.Nullable
 
-  public Float getValue() {
-    return value;
+  public String getLabel() {
+    return label;
   }
 
 
-  public void setValue(Float value) {
-    this.value = value;
+  public void setLabel(String label) {
+    this.label = label;
   }
 
 
@@ -87,8 +87,8 @@ public class PercentVariationResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PercentVariationResponse percentVariationResponse = (PercentVariationResponse) o;
-    return Objects.equals(this.value, percentVariationResponse.value);
+    PostModelCopyRequest postModelCopyRequest = (PostModelCopyRequest) o;
+    return Objects.equals(this.label, postModelCopyRequest.label);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -97,7 +97,7 @@ public class PercentVariationResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(label);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -110,8 +110,8 @@ public class PercentVariationResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PercentVariationResponse {\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class PostModelCopyRequest {\n");
+    sb.append("    label: ").append(toIndentedString(label)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -134,7 +134,7 @@ public class PercentVariationResponse {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("value");
+    openapiFields.add("label");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -144,21 +144,24 @@ public class PercentVariationResponse {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to PercentVariationResponse
+  * @throws IOException if the JSON Object is invalid with respect to PostModelCopyRequest
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!PercentVariationResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PercentVariationResponse is not found in the empty JSON string", PercentVariationResponse.openapiRequiredFields.toString()));
+        if (!PostModelCopyRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in PostModelCopyRequest is not found in the empty JSON string", PostModelCopyRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!PercentVariationResponse.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PercentVariationResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!PostModelCopyRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PostModelCopyRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
+      }
+      if ((jsonObj.get("label") != null && !jsonObj.get("label").isJsonNull()) && !jsonObj.get("label").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `label` to be a primitive type in the JSON string but got `%s`", jsonObj.get("label").toString()));
       }
   }
 
@@ -166,22 +169,22 @@ public class PercentVariationResponse {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PercentVariationResponse.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PercentVariationResponse' and its subtypes
+       if (!PostModelCopyRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'PostModelCopyRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PercentVariationResponse> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PercentVariationResponse.class));
+       final TypeAdapter<PostModelCopyRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(PostModelCopyRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<PercentVariationResponse>() {
+       return (TypeAdapter<T>) new TypeAdapter<PostModelCopyRequest>() {
            @Override
-           public void write(JsonWriter out, PercentVariationResponse value) throws IOException {
+           public void write(JsonWriter out, PostModelCopyRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public PercentVariationResponse read(JsonReader in) throws IOException {
+           public PostModelCopyRequest read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -192,18 +195,18 @@ public class PercentVariationResponse {
   }
 
  /**
-  * Create an instance of PercentVariationResponse given an JSON string
+  * Create an instance of PostModelCopyRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of PercentVariationResponse
-  * @throws IOException if the JSON string is invalid with respect to PercentVariationResponse
+  * @return An instance of PostModelCopyRequest
+  * @throws IOException if the JSON string is invalid with respect to PostModelCopyRequest
   */
-  public static PercentVariationResponse fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PercentVariationResponse.class);
+  public static PostModelCopyRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, PostModelCopyRequest.class);
   }
 
  /**
-  * Convert an instance of PercentVariationResponse to an JSON string
+  * Convert an instance of PostModelCopyRequest to an JSON string
   *
   * @return JSON string
   */
