@@ -19,20 +19,19 @@ format-check:
 # test-v1, test-v1next, test-dev, test-qa
 # run stock profiles from secrets manager
 test-%: test-compile
+	AMBER_TEST_LICENSE_ID=$* \
 	java -jar junit-platform-console-standalone-1.9.2.jar \
 	--class-path target \
-	--select-package org.openapitools.client.api
-
-test: test-default
+	--select-package org.boonamber.client
 
 test-compile: init
 	javac -d target -cp target:junit-platform-console-standalone-1.9.2.jar \
-	src/test/java/org/openapitools/client/api/*.java
+	src/test/java/org/boonamber/client/api/*.java
 
 
 test-env-check:
-	@if [[ "${AMBER_TEST_LICENSE_FILE}" == "" || "${AMBER_TEST_LICENSE_ID}" == "" ]]; then \
-		echo "AMBER_TEST_LICENSE_FILE and AMBER_TEST_LICENSE_ID are required in environment"; \
+	@if [[ "${AMBER_TEST_LICENSE_FILE}" == "" ]]; then \
+		echo "AMBER_TEST_LICENSE_FILE is required in environment"; \
 		exit 1; \
 	fi
 
