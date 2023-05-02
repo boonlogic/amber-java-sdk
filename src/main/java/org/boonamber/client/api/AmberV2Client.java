@@ -9,7 +9,6 @@
 
 package org.boonamber.client.api;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.boonamber.client.ApiException;
 
 import java.io.File;
@@ -19,7 +18,6 @@ import java.nio.ByteBuffer;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.boonamber.client.model.*;
-import org.boonamber.client.model.PostPretrainRequest.FormatEnum;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -489,7 +487,7 @@ public class AmberV2Client {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        File daignosticFile = this.api.getModelDiagnostic(modelId);
+        File diagnosticFile = this.api.getModelDiagnostic(modelId);
         // TODO: save file
     }
 

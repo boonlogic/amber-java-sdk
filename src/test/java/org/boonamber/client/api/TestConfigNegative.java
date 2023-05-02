@@ -29,7 +29,6 @@ public class TestConfigNegative {
 
     private AmberV2Client api;
     
-    private String label = "java:v2:tests";
     private String modelId = "non-existant-id";
     
     @BeforeEach
