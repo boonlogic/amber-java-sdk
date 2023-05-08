@@ -186,6 +186,7 @@ public class TestResults {
 	    	filepath = new File(filepath, "testFile.tar").getPath();
 	        File response = api.getDiagnostics(this.modelId, filepath);
 	        Assertions.assertTrue(response.exists());
+	        response.delete();
     	} catch (Exception E) {
     		Assertions.assertTrue(false);
     	}

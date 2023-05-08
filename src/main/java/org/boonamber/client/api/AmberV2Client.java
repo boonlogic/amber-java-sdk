@@ -612,10 +612,14 @@ public class AmberV2Client {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-        File diagnosticFile = this.api.getModelDiagnostic(modelId);
+        File responseFile = this.api.getModelDiagnostic(modelId);
+        File diagnosticFile = new File(filepath);
+        
+        if (!responseFile.renameTo(diagnosticFile)) {
+        	throw new ApiException("diagnostic file not saved correctly");
+        }
         
         return diagnosticFile;
-        // TODO: save file
     }
 
     /**
