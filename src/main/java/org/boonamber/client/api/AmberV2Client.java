@@ -285,20 +285,84 @@ public class AmberV2Client {
     		throw new ApiException(e);
     	}
     	String type = clusters.getClass().getName();
-    	type = clusters.get(0).getClass().getName();
-    	String clusterString = clusters.stream()
-    		      .map(n -> String.valueOf(n))
-    		      .collect(Collectors.joining(",", "[", "]"));
-    	String temp = "[";
-    	for (int i = 0; i < clusters.size(); i ++) {
-    		temp = temp + String.valueOf(clusters.get(i)) + ",";
-    	}
-//    	// remove extra comma
-//    	clusterString = clusterString.substring(0, clusterString.length() - 1);
-//    	clusterString = clusterString + "]";
+    	type = clusters.get(0).getClass().getSimpleName();
+    	String clusterString = clusters.toString();
         return this.getClusterRootCause(modelId, clusterString);
     }
     
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> GetRootCauseResponse getClusterRootCause(String modelId, int[] clusters) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	return this.getClusterRootCause(modelId, Arrays.stream(clusters).boxed().collect(Collectors.toList()));
+    	
+    }
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> GetRootCauseResponse getClusterRootCause(String modelId, long[] clusters) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	return this.getClusterRootCause(modelId, Arrays.stream(clusters).boxed().collect(Collectors.toList()));
+    	
+    }
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> GetRootCauseResponse getClusterRootCause(String modelId, double[] clusters) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	return this.getClusterRootCause(modelId, Arrays.stream(clusters).boxed().collect(Collectors.toList()));
+    	
+    }
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param clusters Clusters to analyze
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> GetRootCauseResponse getClusterRootCause(String modelId, float[] clusters) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	List<Float> floatList = new ArrayList<>();
+        for (int i = 0; i < clusters.length; i++) {
+            floatList.add(clusters[i]);
+
+        }
+    	return this.getClusterRootCause(modelId, floatList);
+    	
+    }
     /**
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
@@ -313,11 +377,11 @@ public class AmberV2Client {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-    	if (clusters.getClass().isArray()) {
-    		return this.getClusterRootCause(modelId, Arrays.asList(clusters));
-    	} else {
+    	if (!clusters.getClass().isArray()) {
     		String clusterString = "[" + String.valueOf(clusters) + "]";
             return this.getClusterRootCause(modelId, clusterString);
+    	} else {
+    		throw new ApiException("invalid type");
     	}
     	
     }

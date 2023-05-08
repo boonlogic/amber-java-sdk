@@ -202,10 +202,10 @@ public class TestResults {
     	int[] idList1 = new int[] {1};
         response = api.getClusterRootCause(this.modelId, idList1);
         Assertions.assertEquals(response.getRootCauseList().size(), 1);
-//        
-//        int[] idList2 = new int[] {1,2};
-//        response = api.getClusterRootCause(this.modelId, idList2);
-//        Assertions.assertEquals(response.getRootCauseList().size(), 2);
+        
+        int[] idList2 = new int[] {1,2};
+        response = api.getClusterRootCause(this.modelId, idList2);
+        Assertions.assertEquals(response.getRootCauseList().size(), 2);
         
     	response = api.getClusterRootCause(this.modelId, 1);
         Assertions.assertEquals(response.getRootCauseList().size(), 1);
