@@ -257,15 +257,79 @@ public class AmberV2Client {
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public <T> GetRootCauseResponse getVectorRootCause(String modelId, T[][] vectors) throws ApiException {
+    public GetRootCauseResponse getVectorRootCause(String modelId, int[][] vectors) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-    	List<List<T>> arrayList = new ArrayList<>();
+    	List<List<Integer>> arrayList = new ArrayList<>();
     	for (int i = 0; i < vectors.length; i++) {
-    		arrayList.add(Arrays.asList(vectors[i]));
+    		arrayList.add(Arrays.stream(vectors[i]).boxed().collect(Collectors.toList()));
+    	}
+        return this.getVectorRootCause(modelId, arrayList);
+    }
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GetRootCauseResponse getVectorRootCause(String modelId, long[][] vectors) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	List<List<Long>> arrayList = new ArrayList<>();
+    	for (int i = 0; i < vectors.length; i++) {
+    		arrayList.add(Arrays.stream(vectors[i]).boxed().collect(Collectors.toList()));
+    	}
+        return this.getVectorRootCause(modelId, arrayList);
+    }
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GetRootCauseResponse getVectorRootCause(String modelId, double[][] vectors) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	List<List<Double>> arrayList = new ArrayList<>();
+    	for (int i = 0; i < vectors.length; i++) {
+    		arrayList.add(Arrays.stream(vectors[i]).boxed().collect(Collectors.toList()));
+    	}
+        return this.getVectorRootCause(modelId, arrayList);
+    }
+    /**
+     * perform root cause analysis
+     * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
+     * @param modelId  (required)
+     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @return GetRootCauseResponse;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GetRootCauseResponse getVectorRootCause(String modelId, float[][] vectors) throws ApiException {
+    	try {
+    		authenticate();
+    	} catch (ApiException e) {
+    		throw new ApiException(e);
+    	}
+    	List<List<Float>> arrayList = new ArrayList<>();
+    	for (int i = 0; i < vectors.length; i++) {
+    		List<Float> floatList = new ArrayList<>();
+    		for (int j = 0; i < vectors[i].length; i++) {
+                floatList.add(vectors[i][j]);
+            }
+    		arrayList.add(floatList);
     	}
         return this.getVectorRootCause(modelId, arrayList);
     }
@@ -284,8 +348,6 @@ public class AmberV2Client {
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
-    	String type = clusters.getClass().getName();
-    	type = clusters.get(0).getClass().getSimpleName();
     	String clusterString = clusters.toString();
         return this.getClusterRootCause(modelId, clusterString);
     }
@@ -358,7 +420,6 @@ public class AmberV2Client {
     	List<Float> floatList = new ArrayList<>();
         for (int i = 0; i < clusters.length; i++) {
             floatList.add(clusters[i]);
-
         }
     	return this.getClusterRootCause(modelId, floatList);
     	
@@ -683,7 +744,60 @@ public class AmberV2Client {
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostPretrainResponse postPretrain(String modelId, List data, Boolean block) throws ApiException {
+    public <T> PostPretrainResponse postPretrain(String modelId, int[] data, Boolean block) throws ApiException {
+    	return postPretrain(modelId, Arrays.stream(data).boxed().collect(Collectors.toList()), 4000000, block);
+    }
+    /**
+     * pretrain model with an existing dataset
+     * 
+     * @param modelId  (required)
+     * @param List data to use for pretraining. (required)
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> PostPretrainResponse postPretrain(String modelId, double[] data, Boolean block) throws ApiException {
+    	return postPretrain(modelId, Arrays.stream(data).boxed().collect(Collectors.toList()), 4000000, block);
+    }
+    /**
+     * pretrain model with an existing dataset
+     * 
+     * @param modelId  (required)
+     * @param List data to use for pretraining. (required)
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> PostPretrainResponse postPretrain(String modelId, long[] data, Boolean block) throws ApiException {
+    	return postPretrain(modelId, Arrays.stream(data).boxed().collect(Collectors.toList()), 4000000, block);
+    }
+    /**
+     * pretrain model with an existing dataset
+     * 
+     * @param modelId  (required)
+     * @param List data to use for pretraining. (required)
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> PostPretrainResponse postPretrain(String modelId, float[] data, Boolean block) throws ApiException {
+    	List<Float> floatList = new ArrayList<>();
+        for (int i = 0; i < data.length; i++) {
+            floatList.add(data[i]);
+        }
+    	return postPretrain(modelId, floatList, 4000000, block);
+    }
+    
+    /**
+     * pretrain model with an existing dataset
+     * 
+     * @param modelId  (required)
+     * @param List data to use for pretraining. (required)
+     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @return PostPretrainResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public <T> PostPretrainResponse postPretrain(String modelId, List<T> data, Boolean block) throws ApiException {
     	return postPretrain(modelId, data, 4000000, block);
     }
     
@@ -698,7 +812,7 @@ public class AmberV2Client {
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostPretrainResponse postPretrain(String modelId, List<Float> data, int chunkSize, Boolean block) throws ApiException {
+    public <T> PostPretrainResponse postPretrain(String modelId, List<T> data, int chunkSize, Boolean block) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -707,7 +821,7 @@ public class AmberV2Client {
     	
     	ByteBuffer buff = ByteBuffer.allocate(4 * data.size());
         for (int i = 0; i < data.size(); i++) {
-          float amplitude = data.get(i); 
+          float amplitude = (float)data.get(i); 
           buff.putFloat(amplitude);
         }
         byte[] dataBytes = buff.array();
@@ -746,9 +860,7 @@ public class AmberV2Client {
             	throw new ApiException(e.getMessage());
             }
         }
-        
-    	// TODO: check for blocking
-        
+                
         // if not blocking, return pretrain response
         // or if it is not in pretraining (aka done or error) return response
         if (!block || response.getStatus().getValue().compareTo("Pretraining") != 0) {
