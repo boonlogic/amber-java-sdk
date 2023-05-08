@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 import java.io.FileReader;
+import java.io.File;
 
 /**
  * API tests for DefaultApi
@@ -170,21 +171,25 @@ public class TestResults {
         Assertions.assertEquals(response.getSampleCount(), 476);
     }
     
-//    /**
-//     * TODO: get diagnostic
-//     *
-//     * Get Amber status
-//     *
-//     * @throws ApiException if the Api call fails
-//     */
-//    @Test
-//    public void getDiagnosticTest() throws ApiException {
-//        // test
-//        GetStatusResponse response = api.getStatus(this.modelId);
-//        Assertions.assertEquals(response.getState().getValue(), "Monitoring");
-//        Assertions.assertEquals(response.getClusterCount(), 59);
-//        Assertions.assertEquals(response.getSampleCount(), 476);
-//    }
+    /**
+     * TODO: get diagnostic
+     *
+     * Get Amber status
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getDiagnosticTest() throws ApiException {
+        // test
+    	try {
+    		String filepath = new java.io.File(".").getCanonicalPath();
+	    	filepath = new File(filepath, "testFile.tar").getPath();
+	        File response = api.getDiagnostics(this.modelId, filepath);
+	        Assertions.assertTrue(response.exists());
+    	} catch (Exception E) {
+    		Assertions.assertTrue(false);
+    	}
+    }
     
     /**
      * get root cause

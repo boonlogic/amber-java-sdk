@@ -606,13 +606,15 @@ public class AmberV2Client {
      * @return File diagnostic files
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void getDiagnostics(String modelId, String filepath) throws ApiException {
+    public File getDiagnostics(String modelId, String filepath) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
         File diagnosticFile = this.api.getModelDiagnostic(modelId);
+        
+        return diagnosticFile;
         // TODO: save file
     }
 
