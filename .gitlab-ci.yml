@@ -1,0 +1,108 @@
+image: 715859896688.dkr.ecr.us-east-1.amazonaws.com/pipeline-x86-go-cpp
+
+include:
+  - template: 'Workflows/Boon-Pipelines.gitlab-ci.yml'
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan gitlab.boonlogic.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - export PATH=~/.local/bin:$PATH
+
+variables:
+  GIT_STRATEGY: none
+  GIT_SSL_NO_VERIFY: "true"
+  CLANG_FORMAT: clang-format
+  REF_NAME: master
+  SHELL: /bin/bash
+  
+stages:
+  - build
+  - self-test
+  - test
+  
+build:
+  stage: build
+  tags:
+    - expert-docker
+  script:
+    - chmod -Rf 755 ci-root && rm -rf ci-root || true
+    - git clone git@gitlab.boonlogic.com:development/builder.git ci-root
+    - cd ci-root
+    - git checkout ${CI_COMMIT_REF_NAME} || true
+    - BRANCH=${CI_COMMIT_REF_NAME} make java-python-sdk-env
+    - make amber-java-sdk-build
+    - pipelines/expert-api/create-amber-pipeline-vars > amber.env
+  artifacts:
+    paths:
+    - ci-root
+    reports:
+      dotenv:
+        - ci-root/amber.env
+
+code-check:
+  stage: self-test
+  tags:
+    - expert-docker
+  script:
+    - cd ci-root
+    - make amber-python-sdk-code-check
+
+test-v1:
+  stage: test
+  needs: [build]
+  tags:
+    - expert-docker
+  services:
+    - name: 715859896688.dkr.ecr.us-east-1.amazonaws.com/expert-server:${AMBER_TAG}
+      alias: amber-test-fixture
+  variables:
+    BOON_PRODUCT_ID: amber-cloud
+    BOON_AMBER_PORT: 5007
+    BOON_MAX_INSTANCES: 1
+    MONGO_URI: $V1_MONGO_URI
+  script:
+    - ci-root/pipelines/expert-api/create-amberv1-test-config > ${CI_PROJECT_DIR}/ci-root/.Amber.license
+    - export AMBER_TEST_LICENSE_FILE=${CI_PROJECT_DIR}/ci-root/.Amber.license
+    - cd ${CI_PROJECT_DIR}/ci-root/packages/amber-python-sdk/amber-python-sdk
+    - make test-v1sdk
+  artifacts:
+    paths:
+    - ci-root/packages/amber-python-sdk/amber-python-sdk
+
+test-v2:
+  stage: test
+  tags:
+    - expert-docker
+  needs: [build]
+  services:
+    - name: 715859896688.dkr.ecr.us-east-1.amazonaws.com/expert-server:${AMBER_TAG}
+      alias: amber-test-fixture-v2
+      variables:
+        BOON_PRODUCT_ID: amber-cloud-v2
+        BOON_MAX_INSTANCES: 1
+        MONGO_URI: $V2_MONGO_URI
+    - name: 715859896688.dkr.ecr.us-east-1.amazonaws.com/expert-server:${AMBER_TAG}
+      alias: amber-test-fixture-v1
+      variables:
+        BOON_PRODUCT_ID: amber-cloud
+        BOON_MAX_INSTANCES: 1
+        MONGO_URI: $V1_MONGO_URI
+  variables:
+    V1_MONGO_URI: $V1_MONGO_URI
+    V2_MONGO_URI: $V2_MONGO_URI
+  script:
+    - ci-root/pipelines/expert-api/create-amberv1-test-config | sed 's/amber-test-fixture/amber-test-fixture-v1/' > ${CI_PROJECT_DIR}/ci-root/.v1.license
+    - ci-root/pipelines/expert-api/create-amberv2-test-config | sed 's/amber-test-fixture/amber-test-fixture-v2/'> ${CI_PROJECT_DIR}/ci-root/.v2.license
+    - jq -s '.[0] * .[1]' ${CI_PROJECT_DIR}/ci-root/.v1.license ${CI_PROJECT_DIR}/ci-root/.v2.license > ${CI_PROJECT_DIR}/ci-root/.Amber.license
+    - export AMBER_TEST_LICENSE_FILE=${CI_PROJECT_DIR}/ci-root/.Amber.license
+    - export AMBER_V1_LICENSE_ID=v1sdk
+    - cd ${CI_PROJECT_DIR}/ci-root/packages/amber-python-sdk/amber-python-sdk
+    - make testv2-v2sdk
+  artifacts:
+    paths:
+    - ci-root/packages/amber-python-sdk/amber-python-sdk

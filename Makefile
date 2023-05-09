@@ -6,15 +6,9 @@ generate:
 	--http-user-agent "BoonLogic / Amber Java SDK / requests" \
 	--global-property=modelTests=false \
 	--global-property=apiTests=false \
-
-init:
-	[ -f ./target/junit-platform-console-standalone-1.9.2.jar ] && true || \
-	(cd target && \
-	wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.2/junit-platform-console-standalone-1.9.2.jar)
-
-format-check:
-	@. local-env/bin/activate && \
-	pycodestyle --first boonamber/__init__.py
+	
+build:
+	mvn compile
 
 # test-v1, test-v1next, test-dev, test-qa
 # run stock profiles from secrets manager
