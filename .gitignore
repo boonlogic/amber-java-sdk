@@ -30,4 +30,5 @@ src/test/java/org/boonamber/client/model/*
 amber-api.json
 amber-api.yml
 .openapi-generator/*
+.setting*
 
