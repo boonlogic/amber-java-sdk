@@ -18,16 +18,8 @@ format-check:
 
 # test-v1, test-v1next, test-dev, test-qa
 # run stock profiles from secrets manager
-test-%: test-compile
-	AMBER_TEST_LICENSE_ID=$* \
-	java -jar junit-platform-console-standalone-1.9.2.jar \
-	--class-path target \
-	--select-package org.boonamber.client
-
-test-compile: init
-	javac -d target -cp target:junit-platform-console-standalone-1.9.2.jar \
-	src/test/java/org/boonamber/client/api/*.java
-
+test-%: test-env-check
+	AMBER_TEST_LICENSE_ID=$* mvn test -Dtest="org.boonamber.client.**"
 
 test-env-check:
 	@if [[ "${AMBER_TEST_LICENSE_FILE}" == "" ]]; then \
