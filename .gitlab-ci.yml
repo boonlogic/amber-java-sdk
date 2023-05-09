@@ -33,7 +33,7 @@ build:
     - git clone git@gitlab.boonlogic.com:development/builder.git ci-root
     - cd ci-root
     - git checkout ${CI_COMMIT_REF_NAME} || true
-    - BRANCH=${CI_COMMIT_REF_NAME} make java-python-sdk-env
+    - BRANCH=${CI_COMMIT_REF_NAME} make amber-java-sdk-env
     - make amber-java-sdk-build
     - pipelines/expert-api/create-amber-pipeline-vars > amber.env
   artifacts:
