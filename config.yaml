@@ -9,6 +9,7 @@ groupId: "io.github.boonlogic"
 artifactId: "boonamber"
 artifactVersion: "2.0.0"
 artifactDescription: "Amber Java SDK"
+artifactUrl: "https://github.com/boonlogic/amber-java-sdk"
 
 developerEmail: "amber-support@boonlogic.com"
 developerName: "Boon Logic"
