@@ -37,7 +37,7 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>io.github.boonlogic</groupId>
+  <groupId>com.boonlogic</groupId>
   <artifactId>boonamber</artifactId>
   <version>2.0.0</version>
   <scope>compile</scope>
@@ -55,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "io.github.boonlogic:boonamber:2.0.0"
+     implementation "com.boonlogic:boonamber:2.0.0"
   }
 ```
 

@@ -4,7 +4,7 @@ invokerPackage: "org.boonamber.client"
 apiPackage: "org.boonamber.client.api"
 modelPackage: "org.boonamber.client.model"
 
-groupId: "io.github.boonlogic"
+groupId: "com.boonlogic"
 
 artifactId: "boonamber"
 artifactVersion: "2.0.0"

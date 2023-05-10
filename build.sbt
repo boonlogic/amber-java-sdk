@@ -1,6 +1,6 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "io.github.boonlogic",
+    organization := "com.boonlogic",
     name := "boonamber",
     version := "2.0.0",
     scalaVersion := "2.11.4",
