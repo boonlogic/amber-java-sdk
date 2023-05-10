@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.boonamber</groupId>
-    <artifactId>openapi-java-client</artifactId>
+    <artifactId>boonamber</artifactId>
     <packaging>jar</packaging>
-    <name>openapi-java-client</name>
+    <name>boonamber</name>
     <version>2.0.0</version>
     <url>https://github.com/openapitools/openapi-generator</url>
-    <description>OpenAPI Java</description>
+    <description>Amber Java SDK</description>
     <scm>
         <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
         <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
@@ -300,6 +300,11 @@
             <artifactId>jackson-databind-nullable</artifactId>
             <version>${jackson-databind-nullable-version}</version>
         </dependency>
+		<dependency>
+        	<groupId>org.apache.clerezza.ext</groupId>
+        	<artifactId>org.json.simple</artifactId>
+        	<version>0.4</version>
+        </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
@@ -309,11 +314,6 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>${javax.ws.rs-api-version}</version>
-        </dependency>
-        <dependency>
-        	<groupId>org.apache.clerezza.ext</groupId>
-        	<artifactId>org.json.simple</artifactId>
-        	<version>0.4</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
