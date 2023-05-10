@@ -188,7 +188,7 @@ public class TestResults {
 	        Assertions.assertTrue(response.exists());
 	        response.delete();
     	} catch (Exception E) {
-    		Assertions.assertTrue(false);
+    		Assertions.assertTrue(false, E.getMessage());
     	}
     }
     
