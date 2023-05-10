@@ -13,6 +13,8 @@ import org.boonamber.client.ApiException;
 
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.*;
 import java.nio.ByteBuffer;
 
 import org.json.simple.JSONObject;
@@ -615,8 +617,10 @@ public class AmberV2Client {
         File responseFile = this.api.getModelDiagnostic(modelId);
         File diagnosticFile = new File(filepath);
         
-        if (!responseFile.renameTo(diagnosticFile)) {
-        	throw new ApiException("diagnostic file not saved correctly");
+        try {
+            Files.move(responseFile.toPath(), diagnosticFile.toPath());
+        } catch (Exception E) {
+        	throw new ApiException("diagnostic file not saved correctly: " + E.getMessage());
         }
         
         return diagnosticFile;
