@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.openapitools</groupId>
+    <groupId>io.github.boonlogic</groupId>
     <artifactId>boonamber</artifactId>
     <packaging>jar</packaging>
     <name>boonamber</name>
@@ -9,25 +9,25 @@
     <url>https://github.com/openapitools/openapi-generator</url>
     <description>Amber Java SDK</description>
     <scm>
-        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
-        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
-        <url>https://github.com/openapitools/openapi-generator</url>
+        <connection>scm:git:git@github.com:boonlogic/amber-java-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:boonlogic/amber-java-sdk.git</developerConnection>
+        <url>https://github.com/boonlogic/amber-java-sdk</url>
     </scm>
 
     <licenses>
         <license>
-            <name>Unlicense</name>
-            <url>http://unlicense.org</url>
+            <name>MIT</name>
+            <url>https://opensource.org/license/mit/</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>OpenAPI-Generator Contributors</name>
-            <email>team@openapitools.org</email>
-            <organization>OpenAPITools.org</organization>
-            <organizationUrl>http://openapitools.org</organizationUrl>
+            <name>Boon Logic</name>
+            <email>amber-support@boonlogic.com</email>
+            <organization>Boon Logic, Inc</organization>
+            <organizationUrl>boonlogic.com</organizationUrl>
         </developer>
     </developers>
 
@@ -312,20 +312,10 @@
             <version>${javax.ws.rs-api-version}</version>
         </dependency>
         <dependency>
-        	<groupId>org.apache.clerezza.ext</groupId>
-        	<artifactId>org.json.simple</artifactId>
-        	<version>0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
-            <version>${jsr311-api-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>${javax.ws.rs-api-version}</version>
-        </dependency>
+         	<groupId>org.apache.clerezza.ext</groupId>
+         	<artifactId>org.json.simple</artifactId>
+         	<version>0.4</version>
+         </dependency>
         <!-- test dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

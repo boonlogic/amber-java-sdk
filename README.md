@@ -1,4 +1,4 @@
-# openapi-java-client
+# boonamber
 
 Amber API Server
 - API version: 2.0.0
@@ -37,8 +37,8 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>org.boonamber</groupId>
-  <artifactId>openapi-java-client</artifactId>
+  <groupId>io.github.boonlogic</groupId>
+  <artifactId>boonamber</artifactId>
   <version>2.0.0</version>
   <scope>compile</scope>
 </dependency>
@@ -50,12 +50,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'openapi-java-client' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'openapi-java-client' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'boonamber' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'boonamber' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "org.boonamber:openapi-java-client:2.0.0"
+     implementation "io.github.boonlogic:boonamber:2.0.0"
   }
 ```
 
@@ -69,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-2.0.0.jar`
+* `target/boonamber-2.0.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

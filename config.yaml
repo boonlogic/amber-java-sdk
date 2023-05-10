@@ -1,7 +1,23 @@
-apiPackage: "org.boonamber.client.api"
 hideGenerationTimestamp: true
+
 invokerPackage: "org.boonamber.client"
+apiPackage: "org.boonamber.client.api"
 modelPackage: "org.boonamber.client.model"
+
+groupId: "io.github.boonlogic"
+
 artifactId: "boonamber"
 artifactVersion: "2.0.0"
 artifactDescription: "Amber Java SDK"
+
+developerEmail: "amber-support@boonlogic.com"
+developerName: "Boon Logic"
+developerOrganization: "Boon Logic, Inc"
+developerOrganizationUrl: "boonlogic.com"
+
+licenseUrl: "https://opensource.org/license/mit/"
+licenseName: "MIT"
+
+scmUrl: "https://github.com/boonlogic/amber-java-sdk"
+scmConnection: "scm:git:git@github.com:boonlogic/amber-java-sdk.git"
+scmDeveloperConnection: "scm:git:git@github.com:boonlogic/amber-java-sdk.git"
