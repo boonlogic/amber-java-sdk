@@ -1,4 +1,4 @@
-image: 715859896688.dkr.ecr.us-east-1.amazonaws.com/pipeline-x86-go-cpp
+image: 715859896688.dkr.ecr.us-east-1.amazonaws.com/pipeline-x86-java
 
 include:
   - template: 'Workflows/Boon-Pipelines.gitlab-ci.yml'
