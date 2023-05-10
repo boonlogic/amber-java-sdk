@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.boonamber</groupId>
+    <groupId>org.openapitools</groupId>
     <artifactId>boonamber</artifactId>
     <packaging>jar</packaging>
     <name>boonamber</name>
@@ -300,7 +300,18 @@
             <artifactId>jackson-databind-nullable</artifactId>
             <version>${jackson-databind-nullable-version}</version>
         </dependency>
-		<dependency>
+
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>${jsr311-api-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${javax.ws.rs-api-version}</version>
+        </dependency>
+        <dependency>
         	<groupId>org.apache.clerezza.ext</groupId>
         	<artifactId>org.json.simple</artifactId>
         	<version>0.4</version>
