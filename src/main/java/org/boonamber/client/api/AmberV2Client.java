@@ -42,17 +42,39 @@ public class AmberV2Client {
     private String secret;
 
     public AmberV2Client() throws ApiException {
+    	/**
+         * initializes login credentials and server information
+         * uses default values for license_id, license_file, verify, and timeout variables:
+         * 'default', '~/.Amber.license', false, 30 seconds (respectively)
+         */
     	this("default", "~/.Amber.license", false, 300000);
     }
     
     public AmberV2Client(String license_id, String license_file) throws ApiException {
+    	/**
+         * initializes login credentials and server information
+         * @param license_id the json key in .Amber.license file to use for credentials
+         * @param license_file path to the .Amber.license credentials file
+         * uses default values for verify, and timeout variables:
+         * false, 30 seconds (respectively)
+         */
     	this(license_id, license_file, false, 300000);
     }
     
     public AmberV2Client(String license_id, String license_file, Boolean verify, int timeout) throws ApiException {
+    	/**
+         * initializes login credentials and server information
+         * @param license_id the json key in .Amber.license file to use for credentials
+         * @param license_file path to the .Amber.license credentials file
+         * @param verify boolean about the verifying the ssl cert
+         * @param timeout number of milliseconds before timeout
+         */
     	this.reauthTime = 0;
     	this.accessToken = "";
     	this.refreshToken = "";
+    	this.server = "";
+    	this.license = "";
+    	this.secret = "";
     	this.api = new DefaultApi();
     	
     	this.api.getApiClient().setConnectTimeout(timeout);
@@ -86,6 +108,7 @@ public class AmberV2Client {
  			         this.server = (String) profile.get("server");
  			      } catch (Exception e) {
  			    	  // no server in file but continue
+ 			    	  this.server = "";
  			      }
 			} else {
 				throw new ApiException(400, "Amber license file not found. Add the full path");
@@ -114,14 +137,16 @@ public class AmberV2Client {
     	
 	    // get license from file
 	    try {
-	       this.license = (String) profile.get("license");
+	    	String envlicense = System.getenv("AMBER_V2_LICENSE_KEY");
+	       this.license = (envlicense != null) ? envlicense : (String) profile.get("license");
 	    } catch (Exception e) {
 	    	throw new ApiException(400, "profile is missing 'license' key");
 	    }
 	    
 	    // get license_id from file
 	    try {
-	       this.secret = (String) profile.get("secret");
+	       String envsecret = System.getenv("AMBER_V2_SECRET_KEY");
+	       this.secret = (envsecret != null) ? envsecret : (String) profile.get("secret");
 	    } catch (Exception e) {
 	    	throw new ApiException(400, "profile is missing 'secret' key");
 	    }
