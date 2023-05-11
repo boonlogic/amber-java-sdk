@@ -41,34 +41,34 @@ public class AmberV2Client {
     private String license;
     private String secret;
 
+    /**
+     * initializes login credentials and server information
+     * uses default values for license_id, license_file, verify, and timeout variables:
+     * 'default', '~/.Amber.license', false, 30 seconds (respectively)
+     */
     public AmberV2Client() throws ApiException {
-    	/**
-         * initializes login credentials and server information
-         * uses default values for license_id, license_file, verify, and timeout variables:
-         * 'default', '~/.Amber.license', false, 30 seconds (respectively)
-         */
     	this("default", "~/.Amber.license", false, 300000);
     }
     
+    /**
+     * initializes login credentials and server information
+     * @param license_id the json key in .Amber.license file to use for credentials
+     * @param license_file path to the .Amber.license credentials file
+     * uses default values for verify, and timeout variables:
+     * false, 30 seconds (respectively)
+     */
     public AmberV2Client(String license_id, String license_file) throws ApiException {
-    	/**
-         * initializes login credentials and server information
-         * @param license_id the json key in .Amber.license file to use for credentials
-         * @param license_file path to the .Amber.license credentials file
-         * uses default values for verify, and timeout variables:
-         * false, 30 seconds (respectively)
-         */
     	this(license_id, license_file, false, 300000);
     }
     
+    /**
+     * initializes login credentials and server information
+     * @param license_id the json key in .Amber.license file to use for credentials
+     * @param license_file path to the .Amber.license credentials file
+     * @param verify boolean about the verifying the ssl cert
+     * @param timeout number of milliseconds before timeout
+     */
     public AmberV2Client(String license_id, String license_file, Boolean verify, int timeout) throws ApiException {
-    	/**
-         * initializes login credentials and server information
-         * @param license_id the json key in .Amber.license file to use for credentials
-         * @param license_file path to the .Amber.license credentials file
-         * @param verify boolean about the verifying the ssl cert
-         * @param timeout number of milliseconds before timeout
-         */
     	this.reauthTime = 0;
     	this.accessToken = "";
     	this.refreshToken = "";
@@ -233,7 +233,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @param vectors Vectors to analyze, as a list of lists. Number of sublist values must be equal to the number of features times the streaming widnow size.
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -279,7 +279,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @param vectors Vectors to analyze, as a list of lists. Number of sublist values must be equal to the number of features times the streaming widnow size.
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -295,11 +295,12 @@ public class AmberV2Client {
     	}
         return this.getVectorRootCause(modelId, arrayList);
     }
+    
     /**
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @param vectors Vectors to analyze, as a list of lists. Number of sublist values must be equal to the number of features times the streaming widnow size.
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -315,11 +316,12 @@ public class AmberV2Client {
     	}
         return this.getVectorRootCause(modelId, arrayList);
     }
+   
     /**
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @param vectors Vectors to analyze, as a list of lists. Number of sublist values must be equal to the number of features times the streaming widnow size.
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -335,11 +337,12 @@ public class AmberV2Client {
     	}
         return this.getVectorRootCause(modelId, arrayList);
     }
+   
     /**
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param vectors Vectors to analyze, as a flat list of comma-separated floats. Number of values must be a multiple of the configured number of features.
+     * @param vectors Vectors to analyze, as a list of lists. Number of sublist values must be equal to the number of features times the streaming widnow size.
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -364,7 +367,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param clusters Clusters to analyze
+     * @param clusters List of cluster ids to analyze
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -382,7 +385,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param clusters Clusters to analyze
+     * @param clusters List of cluster ids to analyze
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -399,7 +402,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param clusters Clusters to analyze
+     * @param clusters List of cluster ids to analyze
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -416,7 +419,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param clusters Clusters to analyze
+     * @param clusters List of cluster ids to analyze
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -433,7 +436,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param clusters Clusters to analyze
+     * @param clusters List of cluster ids to analyze
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -477,7 +480,7 @@ public class AmberV2Client {
      * perform root cause analysis
      * Return a measure of the significance of each feature in the creation of a cluster. The values range from 0 to 1 where a relatively high value represents a feature that was influential in creating the new cluster. No conclusions can be drawn from values close to zero. This measure can be computed for existing clusters or for individual vectors directly.
      * @param modelId  (required)
-     * @param clusters Clusters to analyze
+     * @param clusters Clusters to analyze separated by commas and bracketed by square brackets
      * @return GetRootCauseResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -533,7 +536,7 @@ public class AmberV2Client {
 
     /**
      * list all models
-     * Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user.
+     * Return metadata for all models belonging to the user.
      * @return GetModelsResponse;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -564,8 +567,7 @@ public class AmberV2Client {
 
     
     /**
-     * get current nano status of the model
-     * Get the current nano state of the specified model.
+     * Get current nano status of the model
      * @param modelId  (required)
      * @return GetNanoStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -580,7 +582,6 @@ public class AmberV2Client {
     }
     
     /**
-     * get current status of the model
      * Get the current state and learning progress of the specified model.
      * @param modelId  (required)
      * @return GetStatusResponse
@@ -596,7 +597,6 @@ public class AmberV2Client {
     }
 
     /**
-     * get version information
      * Return version information for the API.
      * @return GetVersionResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -611,9 +611,9 @@ public class AmberV2Client {
     }
     
     /**
-     * get diagnostic information
      * Return diagnostic files from the API.
-     * @return File diagnostic files
+     * @param modelId (required)
+     * @return File diagnostic tar file
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public File getDiagnostics(String modelId) throws ApiException {
@@ -626,10 +626,10 @@ public class AmberV2Client {
     }
     
     /**
-     * get diagnostic information
      * Return diagnostic files from the API.
-     * @param filepath to save the diagnostic images
-     * @return File diagnostic files
+     * @param modelId (required)
+     * @param filepath path to save the diagnostic images
+     * @return File diagnostic tar file
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public File getDiagnostics(String modelId, String filepath) throws ApiException {
@@ -651,7 +651,6 @@ public class AmberV2Client {
     }
 
     /**
-     * configure a model
      * Configure the specified model. Wipes all progress and puts the model in the &#x60;Buffering&#x60; state.
      * @param modelId  (required)
      * @param postConfigRequest configuration to apply (optional)
@@ -668,7 +667,6 @@ public class AmberV2Client {
     }
 
     /**
-     * send data to model and get back results
      * Send data to the specified model, and get back the resulting analytics and model status.
      * @param modelId  (required)
      * @param postDataRequest data vector or vectors as a flattened list of comma-separated values (required)
@@ -685,7 +683,6 @@ public class AmberV2Client {
     }
 
     /**
-     * create a model
      * Create a new model and return its unique identifier.
      * @param postModelRequest initial metadata for new model (required)
      * @return PostModelResponse
@@ -701,7 +698,6 @@ public class AmberV2Client {
     }
 
     /**
-     * call this after a data outage before resuming streaming
      * Resets the streaming window generated by &#x60;streamingWindow&#x60;. This endpoint should be called after a data outage before resuming streaming.
      * @param modelId  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -716,7 +712,7 @@ public class AmberV2Client {
     }
     
     /**
-     * call this to migrate a v1 sensor to a v2 model
+     * Call this to migrate a v1 sensor to a v2 model
      * @param modelIdV1  (required)
      * @return PostModelResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -731,12 +727,11 @@ public class AmberV2Client {
     }
 
     /**
-     * pretrain model with an existing dataset
-     * 
+     * Pretrain model with an existing dataset
      * @param modelId  (required)
-     * @param String data to use for pretraining. (required)
-     * @param int chunkSize number of bytes to send at a time
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param comma separated data to use for pretraining. (required)
+     * @param chunkSize number of bytes to send at a time
+     * @param block whether or not to wait until pretraining is finished (cloud only)
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -752,10 +747,10 @@ public class AmberV2Client {
     
     /**
      * pretrain model with an existing dataset
-     * 
      * @param modelId  (required)
-     * @param String data to use for pretraining. (required)
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data to use for pretraining. (required)
+     * @param block whether or not to wait until pretraining is finished (cloud only)
+     * uses default chunksize: 4000000 samples
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -771,10 +766,10 @@ public class AmberV2Client {
     
     /**
      * pretrain model with an existing dataset
-     * 
      * @param modelId  (required)
-     * @param List data to use for pretraining. (required)
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data to use for pretraining. (required)
+     * @param block whether or not to wait until pretraining is finished (cloud only)
+     * uses default chunksize: 4000000 samples
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -785,8 +780,9 @@ public class AmberV2Client {
      * pretrain model with an existing dataset
      * 
      * @param modelId  (required)
-     * @param List data to use for pretraining. (required)
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data list of data to use for pretraining. (required)
+     * @param block whether or not to wait until pretraining is finished (cloud only)
+     * uses default chunksize: 4000000 samples
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -797,8 +793,9 @@ public class AmberV2Client {
      * pretrain model with an existing dataset
      * 
      * @param modelId  (required)
-     * @param List data to use for pretraining. (required)
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data to use for pretraining. (required)
+     * @param block whether or not to wait until pretraining is finished (cloud only)
+     * uses default chunksize: 4000000 samples
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -809,8 +806,9 @@ public class AmberV2Client {
      * pretrain model with an existing dataset
      * 
      * @param modelId  (required)
-     * @param List data to use for pretraining. (required)
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data to use for pretraining. (required)
+     * @param block whether or not to wait until pretraining is finished (cloud only)
+     * uses default chunksize: 4000000 samples
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -826,8 +824,9 @@ public class AmberV2Client {
      * pretrain model with an existing dataset
      * 
      * @param modelId  (required)
-     * @param List data to use for pretraining. (required)
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data to use for pretraining. (required)
+     * @param block whether or not to wait until pretraining is finished (cloud only)
+     * uses default chunksize: 4000000 samples
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -837,12 +836,10 @@ public class AmberV2Client {
     
     /**
      * pretrain model with an existing dataset
-     * @param <T>
-     * 
      * @param modelId  (required)
-     * @param List data to use for pretraining. (required)
-     * @param int chunkSize number of bytes to send at a time
-     * @param Boolean block whether or not to wait until pretraining is finished (cloud only)
+     * @param data to use for pretraining. (required)
+     * @param chunkSize number of bytes to send at a time
+     * @param block whether or not to wait until pretraining is finished (cloud only)
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -919,10 +916,9 @@ public class AmberV2Client {
     }
 
     /**
-     * update model configuration
-     * Update configuration for the specified model.
+     * Update learning configuration for the specified model and turn on model learning.
      * @param modelId  (required)
-     * @param putConfigRequest updates to apply (required)
+     * @param postLearningRequest updates to apply (required)
      * @return PostLearningResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -936,8 +932,7 @@ public class AmberV2Client {
     }
     
     /**
-     * update model configuration
-     * Update configuration for the specified model.
+     * Turn on model learning
      * @param modelId  (required)
      * @return PostLearningResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -953,8 +948,7 @@ public class AmberV2Client {
     }
 
     /**
-     * update fusion vector and get back results
-     * 
+     * Update fusion vector and get back results
      * @param modelId  (required)
      * @param putDataRequest updates to the fusion vector (required)
      * @return PutDataResponse
@@ -970,7 +964,6 @@ public class AmberV2Client {
     }
 
     /**
-     * update model metadata
      * Update metadata for the specified model.
      * @param modelId  (required)
      * @param putModelRequest updates to apply (required)
