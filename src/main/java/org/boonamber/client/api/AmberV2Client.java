@@ -830,7 +830,7 @@ public class AmberV2Client {
      * @return PostPretrainResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public <T> PostPretrainResponse postPretrain(String modelId, List<T> data, Boolean block) throws ApiException {
+    public <T extends Number> PostPretrainResponse postPretrain(String modelId, List<T> data, Boolean block) throws ApiException {
     	return postPretrain(modelId, data, 4000000, block);
     }
     
