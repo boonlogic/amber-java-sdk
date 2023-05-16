@@ -40,12 +40,12 @@ Permanently delete the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -112,12 +112,12 @@ Return metadata for the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -184,12 +184,12 @@ Get the configuration of the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -256,12 +256,12 @@ Get the current diagnostic of the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -328,12 +328,12 @@ Get the current nano state of the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -400,12 +400,12 @@ Get the pretraining status of the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -473,12 +473,12 @@ Return a measure of the significance of each feature in the creation of a cluste
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -550,12 +550,12 @@ Get the current state and learning progress of the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -622,12 +622,12 @@ Get the current summation of the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -694,12 +694,12 @@ Return &#x60;id&#x60; and &#x60;label&#x60; for all models belonging to the user
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -761,12 +761,12 @@ Return version information for the API.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -828,12 +828,12 @@ Create a new model and return its unique identifier.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -900,12 +900,12 @@ Configure the specified model. Wipes all progress and puts the model in the &#x6
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -973,12 +973,12 @@ make a copy of a model
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1048,12 +1048,12 @@ Send data to the specified model, and get back the resulting analytics and model
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1123,12 +1123,12 @@ Update model configuration and re-enable learning
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1198,12 +1198,12 @@ migrate a v1 sensor to a v2 model
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1271,12 +1271,12 @@ Resets the streaming window generated by &#x60;streamingWindow&#x60;. This endpo
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1341,12 +1341,12 @@ pretrain model with an existing dataset
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1421,11 +1421,11 @@ Request an Oauth2 Bearer token.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1486,11 +1486,11 @@ Request an Oauth2 Bearer token.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1551,12 +1551,12 @@ Update metadata for the specified model.
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -1624,12 +1624,12 @@ update fusion vector and get back results
 ### Example
 ```java
 // Import classes:
-import org.boonamber.client.ApiClient;
-import org.boonamber.client.ApiException;
-import org.boonamber.client.Configuration;
-import org.boonamber.client.auth.*;
-import org.boonamber.client.models.*;
-import org.boonamber.client.api.DefaultApi;
+import com.boonamber.client.ApiClient;
+import com.boonamber.client.ApiException;
+import com.boonamber.client.Configuration;
+import com.boonamber.client.auth.*;
+import com.boonamber.client.models.*;
+import com.boonamber.client.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
