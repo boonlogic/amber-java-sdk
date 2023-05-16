@@ -1,8 +1,8 @@
 hideGenerationTimestamp: true
 
-invokerPackage: "com.boonamber.client"
-apiPackage: "com.boonamber.client.api"
-modelPackage: "com.boonamber.client.model"
+invokerPackage: "com.boonamber"
+apiPackage: "com.boonamber.api"
+modelPackage: "com.boonamber.model"
 
 groupId: "com.boonlogic"
 

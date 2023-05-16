@@ -13,7 +13,7 @@ build:
 # test-v1, test-v1next, test-dev, test-qa
 # run stock profiles from secrets manager
 test-%: test-env-check
-	AMBER_TEST_LICENSE_ID=$* mvn test -Dtest="com.boonamber.client.**"
+	AMBER_TEST_LICENSE_ID=$* mvn test -Dtest="com.boonamber.**"
 
 test-env-check:
 	@if [[ "${AMBER_TEST_LICENSE_FILE}" == "" ]]; then \

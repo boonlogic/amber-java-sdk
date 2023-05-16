@@ -79,12 +79,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import com.boonamber.client.ApiClient;
-import com.boonamber.client.ApiException;
-import com.boonamber.client.Configuration;
-import com.boonamber.client.auth.*;
-import com.boonamber.client.models.*;
-import com.boonamber.client.api.DefaultApi;
+import com.boonamber.ApiClient;
+import com.boonamber.ApiException;
+import com.boonamber.Configuration;
+import com.boonamber.auth.*;
+import com.boonamber.models.*;
+import com.boonamber.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
