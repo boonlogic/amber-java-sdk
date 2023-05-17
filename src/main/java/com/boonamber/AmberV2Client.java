@@ -10,7 +10,7 @@
 package com.boonamber;
 
 import com.boonamber.api.*;
-import com.boonamber.model.*;
+import com.boonamber.models.*;
 
 
 import java.io.File;

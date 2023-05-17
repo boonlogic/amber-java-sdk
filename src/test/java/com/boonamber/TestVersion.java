@@ -13,7 +13,7 @@
 
 package com.boonamber;
 
-import com.boonamber.model.*;
+import com.boonamber.models.*;
 
 import org.junit.jupiter.api.Test;
 
