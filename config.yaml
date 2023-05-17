@@ -2,7 +2,7 @@ hideGenerationTimestamp: true
 
 invokerPackage: "com.boonamber"
 apiPackage: "com.boonamber.api"
-modelPackage: "com.boonamber.model"
+modelPackage: "com.boonamber.models"
 
 groupId: "com.boonlogic"
 
