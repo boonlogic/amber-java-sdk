@@ -35,7 +35,6 @@ import com.boonamber.models.GetNanoStatusResponse;
 import com.boonamber.models.GetPretrainResponse;
 import com.boonamber.models.GetRootCauseResponse;
 import com.boonamber.models.GetStatusResponse;
-import com.boonamber.models.GetSummaryResponse;
 import com.boonamber.models.GetVersionResponse;
 import com.boonamber.models.PostConfigRequest;
 import com.boonamber.models.PostConfigResponse;
@@ -1279,7 +1278,7 @@ public class DefaultApi {
      * get the summation of a model
      * Get the current summation of the specified model.
      * @param modelId  (required)
-     * @return GetSummaryResponse
+     * @return String
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1290,8 +1289,8 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public GetSummaryResponse getModelSummary(String modelId) throws ApiException {
-        ApiResponse<GetSummaryResponse> localVarResp = getModelSummaryWithHttpInfo(modelId);
+    public String getModelSummary(String modelId) throws ApiException {
+        ApiResponse<String> localVarResp = getModelSummaryWithHttpInfo(modelId);
         return localVarResp.getData();
     }
 
@@ -1299,7 +1298,7 @@ public class DefaultApi {
      * get the summation of a model
      * Get the current summation of the specified model.
      * @param modelId  (required)
-     * @return ApiResponse&lt;GetSummaryResponse&gt;
+     * @return ApiResponse&lt;String&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1310,9 +1309,9 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GetSummaryResponse> getModelSummaryWithHttpInfo(String modelId) throws ApiException {
+    public ApiResponse<String> getModelSummaryWithHttpInfo(String modelId) throws ApiException {
         okhttp3.Call localVarCall = getModelSummaryValidateBeforeCall(modelId, null);
-        Type localVarReturnType = new TypeToken<GetSummaryResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1332,10 +1331,10 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getModelSummaryAsync(String modelId, final ApiCallback<GetSummaryResponse> _callback) throws ApiException {
+    public okhttp3.Call getModelSummaryAsync(String modelId, final ApiCallback<String> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getModelSummaryValidateBeforeCall(modelId, _callback);
-        Type localVarReturnType = new TypeToken<GetSummaryResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

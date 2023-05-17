@@ -613,7 +613,7 @@ public class Example {
 
 <a name="getModelSummary"></a>
 # **getModelSummary**
-> GetSummaryResponse getModelSummary(modelId)
+> String getModelSummary(modelId)
 
 get the summation of a model
 
@@ -643,7 +643,7 @@ public class Example {
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String modelId = "modelId_example"; // String | 
     try {
-      GetSummaryResponse result = apiInstance.getModelSummary(modelId);
+      String result = apiInstance.getModelSummary(modelId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#getModelSummary");
@@ -664,7 +664,7 @@ public class Example {
 
 ### Return type
 
-[**GetSummaryResponse**](GetSummaryResponse.md)
+**String**
 
 ### Authorization
 
