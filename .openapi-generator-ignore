@@ -24,4 +24,5 @@
 
 *git_push.sh
 .gitignore
+README.md
 pom.xml

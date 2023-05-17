@@ -79,31 +79,21 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import com.boonamber.ApiClient;
 import com.boonamber.ApiException;
-import com.boonamber.Configuration;
-import com.boonamber.auth.*;
+import com.boonamber.AmberV2Client;
 import com.boonamber.models.*;
-import com.boonamber.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://amber.boonlogic.com/v2");
+    AmberV2Client amber = new AmberV2Client("default", "~/.Amber.license");
     
-    // Configure API key authorization: Bearer
-    ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-    Bearer.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //Bearer.setApiKeyPrefix("Token");
-
-    DefaultApi apiInstance = new DefaultApi(defaultClient);
-    String modelId = "modelId_example"; // String | 
+    // getVersion
+    String modelId = "modelId_example"; 
     try {
-      DeleteModelResponse result = apiInstance.deleteModel(modelId);
+      GetVersionResponse result = amber.getVersion();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#deleteModel");
+      System.err.println("Exception when calling getVersion");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -118,31 +108,27 @@ public class Example {
 
 All URIs are relative to *http://amber.boonlogic.com/v2*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*DefaultApi* | [**deleteModel**](docs/DefaultApi.md#deleteModel) | **DELETE** /models/{modelId} | delete a model
-*DefaultApi* | [**getModel**](docs/DefaultApi.md#getModel) | **GET** /models/{modelId} | get model metadata
-*DefaultApi* | [**getModelConfig**](docs/DefaultApi.md#getModelConfig) | **GET** /models/{modelId}/config | get model configuration
-*DefaultApi* | [**getModelDiagnostic**](docs/DefaultApi.md#getModelDiagnostic) | **GET** /models/{modelId}/diagnostic | get the diagnostic of a model
-*DefaultApi* | [**getModelNanoStatus**](docs/DefaultApi.md#getModelNanoStatus) | **GET** /models/{modelId}/status/nano | get current nano status of the model
-*DefaultApi* | [**getModelPretrain**](docs/DefaultApi.md#getModelPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress
-*DefaultApi* | [**getModelRootCause**](docs/DefaultApi.md#getModelRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis
-*DefaultApi* | [**getModelStatus**](docs/DefaultApi.md#getModelStatus) | **GET** /models/{modelId}/status | get current status of the model
-*DefaultApi* | [**getModelSummary**](docs/DefaultApi.md#getModelSummary) | **GET** /models/{modelId}/summary | get the summation of a model
-*DefaultApi* | [**getModels**](docs/DefaultApi.md#getModels) | **GET** /models | list all models
-*DefaultApi* | [**getVersion**](docs/DefaultApi.md#getVersion) | **GET** /version | get version information
-*DefaultApi* | [**postModel**](docs/DefaultApi.md#postModel) | **POST** /models | create a model
-*DefaultApi* | [**postModelConfig**](docs/DefaultApi.md#postModelConfig) | **POST** /models/{modelId}/config | configure a model
-*DefaultApi* | [**postModelCopy**](docs/DefaultApi.md#postModelCopy) | **POST** /models/{modelId}/copy | make a copy of a model
-*DefaultApi* | [**postModelData**](docs/DefaultApi.md#postModelData) | **POST** /models/{modelId}/data | send data to model and get back results
-*DefaultApi* | [**postModelLearning**](docs/DefaultApi.md#postModelLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning
-*DefaultApi* | [**postModelMigrate**](docs/DefaultApi.md#postModelMigrate) | **POST** /models/{v1ModelId}/migrate | migrate a v1 sensor to a v2 model
-*DefaultApi* | [**postModelOutage**](docs/DefaultApi.md#postModelOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming
-*DefaultApi* | [**postModelPretrain**](docs/DefaultApi.md#postModelPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset
-*DefaultApi* | [**postOauth2Access**](docs/DefaultApi.md#postOauth2Access) | **POST** /oauth2/access | request an API token given license and secret key
-*DefaultApi* | [**postOauth2Refresh**](docs/DefaultApi.md#postOauth2Refresh) | **POST** /oauth2/refresh | request an API token given a refresh token
-*DefaultApi* | [**putModel**](docs/DefaultApi.md#putModel) | **PUT** /models/{modelId} | update model metadata
-*DefaultApi* | [**putModelData**](docs/DefaultApi.md#putModelData) | **PUT** /models/{modelId}/data | update fusion vector and get back results
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**deleteModel**](docs/DefaultApi.md#deleteModel) | **DELETE** /models/{modelId} | delete a model
+[**getModel**](docs/DefaultApi.md#getModel) | **GET** /models/{modelId} | get model metadata
+[**getConfig**](docs/DefaultApi.md#getModelConfig) | **GET** /models/{modelId}/config | get model configuration
+[**getDiagnostic**](docs/DefaultApi.md#getModelDiagnostic) | **GET** /models/{modelId}/diagnostic | get the diagnostic of a model
+[**getNanoStatus**](docs/DefaultApi.md#getModelNanoStatus) | **GET** /models/{modelId}/status/nano | get current nano status of the model
+[**getPretrain**](docs/DefaultApi.md#getModelPretrain) | **GET** /models/{modelId}/pretrain | get pretraining progress
+[**getRootCause**](docs/DefaultApi.md#getModelRootCause) | **GET** /models/{modelId}/rootCause | perform root cause analysis
+[**getStatus**](docs/DefaultApi.md#getModelStatus) | **GET** /models/{modelId}/status | get current status of the model
+[**getModels**](docs/DefaultApi.md#getModels) | **GET** /models | list all models
+[**getVersion**](docs/DefaultApi.md#getVersion) | **GET** /version | get version information
+[**postModel**](docs/DefaultApi.md#postModel) | **POST** /models | create a model
+[**postConfig**](docs/DefaultApi.md#postModelConfig) | **POST** /models/{modelId}/config | configure a model
+[**postData**](docs/DefaultApi.md#postModelData) | **POST** /models/{modelId}/data | send data to model and get back results
+[**enableLearning**](docs/DefaultApi.md#postModelLearning) | **POST** /models/{modelId}/learning | update model configuration and re-enable learning
+[**migrateModel**](docs/DefaultApi.md#postModelMigrate) | **POST** /models/{v1ModelId}/migrate | migrate a v1 sensor to a v2 model
+[**postOutage**](docs/DefaultApi.md#postModelOutage) | **POST** /models/{modelId}/outage | call this after a data outage before resuming streaming
+[**postPretrain**](docs/DefaultApi.md#postModelPretrain) | **POST** /models/{modelId}/pretrain | pretrain model with an existing dataset
+[**putModel**](docs/DefaultApi.md#putModel) | **PUT** /models/{modelId} | update model metadata
+[**putData**](docs/DefaultApi.md#putModelData) | **PUT** /models/{modelId}/data | update fusion vector and get back results
 
 
 ## Documentation for Models
@@ -207,22 +193,6 @@ Class | Method | HTTP request | Description
  - [PutModelRequest](docs/PutModelRequest.md)
  - [TrainingConfig](docs/TrainingConfig.md)
 
-
-## Documentation for Authorization
-
-Authentication schemes defined for the API:
-### Bearer
-
-- **Type**: API key
-- **API key parameter name**: Authorization
-- **Location**: HTTP header
-
-
-## Recommendation
-
-It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
-
-## Author
 
 
 
