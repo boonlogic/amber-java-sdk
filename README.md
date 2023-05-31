@@ -17,10 +17,10 @@ Building the API client library requires:
 
 ## Installation
 
-To install the API client library to your local Maven repository, set environment variables ```AMBER_TEST_LICENSE_FILE``` and ```AMBER_TEST_LICENSE_ID``` and execute:
+To install the API client library to your local Maven repository, execute:
 
 ```shell
-mvn clean install
+mvn clean install -Dmaven.test.skip=true
 ```
 
 To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
