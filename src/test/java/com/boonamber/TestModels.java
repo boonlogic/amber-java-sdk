@@ -122,9 +122,7 @@ public class TestModels {
      */
     @Test
     public void puttModelTest() throws ApiException {
-    	PutModelRequest request = new PutModelRequest();
-    	request.setLabel(this.label + "-update");
-    	PostModelResponse response = this.api.putModel(this.modelId, request);
+    	PostModelResponse response = this.api.updateLabel(this.modelId, this.label + "-update");
     	Assertions.assertEquals(response.getId(), this.modelId);
     	Assertions.assertEquals(response.getLabel(), this.label + "-update");
     }

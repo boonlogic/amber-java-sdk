@@ -133,7 +133,7 @@ public class TestResults {
     @Test
     public void postLearningTest() throws ApiException {
         // test
-    	PostLearningRequest request = new PostLearningRequest();
+    	TrainingConfig request = new TrainingConfig();
         PostLearningResponse config = api.enableLearning(this.modelId, request);
         Assertions.assertEquals(config.getStatus().getState().getValue(), "Learning");
     }
@@ -183,7 +183,7 @@ public class TestResults {
     	try {
     		String filepath = new java.io.File(".").getCanonicalPath();
 	    	filepath = new File(filepath, "testFile.tar").getPath();
-	        File response = api.getDiagnostics(this.modelId, filepath);
+	        File response = api.getDiagnostic(this.modelId, filepath);
 	        Assertions.assertTrue(response.exists());
 	        response.delete();
     	} catch (Exception E) {

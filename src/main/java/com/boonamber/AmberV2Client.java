@@ -617,7 +617,7 @@ public class AmberV2Client {
      * @return File diagnostic tar file
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public File getDiagnostics(String modelId) throws ApiException {
+    public File getDiagnostic(String modelId) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -633,7 +633,7 @@ public class AmberV2Client {
      * @return File diagnostic tar file
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public File getDiagnostics(String modelId, String filepath) throws ApiException {
+    public File getDiagnostic(String modelId, String filepath) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
@@ -919,16 +919,18 @@ public class AmberV2Client {
     /**
      * Update learning configuration for the specified model and turn on model learning.
      * @param modelId  (required)
-     * @param postLearningRequest updates to apply (required)
+     * @param training updates to apply (required)
      * @return PostLearningResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostLearningResponse enableLearning(String modelId, PostLearningRequest postLearningRequest) throws ApiException {
+    public PostLearningResponse enableLearning(String modelId, TrainingConfig training) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
+    	PostLearningRequest postLearningRequest = new PostLearningRequest();
+    	postLearningRequest.setTraining(training);
         return this.api.postModelLearning(modelId, postLearningRequest);
     }
     
@@ -971,12 +973,14 @@ public class AmberV2Client {
      * @return PostModelResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PostModelResponse putModel(String modelId, PutModelRequest putModelRequest) throws ApiException {
+    public PostModelResponse updateLabel(String modelId, String label) throws ApiException {
     	try {
     		authenticate();
     	} catch (ApiException e) {
     		throw new ApiException(e);
     	}
+    	PutModelRequest putModelRequest = new PutModelRequest();
+    	putModelRequest.setLabel(label);
         return this.api.putModel(modelId, putModelRequest);
     }
 }

@@ -63,10 +63,8 @@ public class TestModelsNegative {
      */
     @Test
     public void puttModelNegative() throws ApiException {
-    	PutModelRequest request = new PutModelRequest();
-    	request.setLabel(this.label + "-update");
     	Assertions.assertThrowsExactly(ApiException.class, () -> {
-        	api.putModel(this.modelId, request);
+        	api.updateLabel(this.modelId, this.label + "-update");
         	});
     }
     
