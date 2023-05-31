@@ -21,4 +21,10 @@ test-env-check:
 		exit 1; \
 	fi
 
+release:
+	. ./bin/increment_release.sh && \
+	git add pom.xml && git commit -m "increment version to $$VERSION" && git push && \
+	git tag -a "v$$VERSION" && \
+	git push origin --tags
+
 .PHONY: format-check test test-env-check
