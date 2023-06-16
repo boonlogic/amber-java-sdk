@@ -44,10 +44,10 @@ import java.util.Set;
 import com.boonamber.JSON;
 
 /**
- * Autotuning
+ * AutotuneConfig
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class Autotuning {
+public class AutotuneConfig {
   public static final String SERIALIZED_NAME_RANGE = "range";
   @SerializedName(SERIALIZED_NAME_RANGE)
   private Boolean range = true;
@@ -56,10 +56,10 @@ public class Autotuning {
   @SerializedName(SERIALIZED_NAME_PERCENT_VARIATION)
   private Boolean percentVariation = true;
 
-  public Autotuning() {
+  public AutotuneConfig() {
   }
 
-  public Autotuning range(Boolean range) {
+  public AutotuneConfig range(Boolean range) {
     
     this.range = range;
     return this;
@@ -81,7 +81,7 @@ public class Autotuning {
   }
 
 
-  public Autotuning percentVariation(Boolean percentVariation) {
+  public AutotuneConfig percentVariation(Boolean percentVariation) {
     
     this.percentVariation = percentVariation;
     return this;
@@ -112,9 +112,9 @@ public class Autotuning {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Autotuning autotuning = (Autotuning) o;
-    return Objects.equals(this.range, autotuning.range) &&
-        Objects.equals(this.percentVariation, autotuning.percentVariation);
+    AutotuneConfig autotuneConfig = (AutotuneConfig) o;
+    return Objects.equals(this.range, autotuneConfig.range) &&
+        Objects.equals(this.percentVariation, autotuneConfig.percentVariation);
   }
 
   @Override
@@ -125,7 +125,7 @@ public class Autotuning {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Autotuning {\n");
+    sb.append("class AutotuneConfig {\n");
     sb.append("    range: ").append(toIndentedString(range)).append("\n");
     sb.append("    percentVariation: ").append(toIndentedString(percentVariation)).append("\n");
     sb.append("}");
@@ -161,20 +161,20 @@ public class Autotuning {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Autotuning
+  * @throws IOException if the JSON Object is invalid with respect to AutotuneConfig
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!Autotuning.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Autotuning is not found in the empty JSON string", Autotuning.openapiRequiredFields.toString()));
+        if (!AutotuneConfig.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in AutotuneConfig is not found in the empty JSON string", AutotuneConfig.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!Autotuning.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Autotuning` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!AutotuneConfig.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `AutotuneConfig` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
   }
@@ -183,22 +183,22 @@ public class Autotuning {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Autotuning.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Autotuning' and its subtypes
+       if (!AutotuneConfig.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'AutotuneConfig' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Autotuning> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Autotuning.class));
+       final TypeAdapter<AutotuneConfig> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(AutotuneConfig.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Autotuning>() {
+       return (TypeAdapter<T>) new TypeAdapter<AutotuneConfig>() {
            @Override
-           public void write(JsonWriter out, Autotuning value) throws IOException {
+           public void write(JsonWriter out, AutotuneConfig value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Autotuning read(JsonReader in) throws IOException {
+           public AutotuneConfig read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -209,18 +209,18 @@ public class Autotuning {
   }
 
  /**
-  * Create an instance of Autotuning given an JSON string
+  * Create an instance of AutotuneConfig given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Autotuning
-  * @throws IOException if the JSON string is invalid with respect to Autotuning
+  * @return An instance of AutotuneConfig
+  * @throws IOException if the JSON string is invalid with respect to AutotuneConfig
   */
-  public static Autotuning fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Autotuning.class);
+  public static AutotuneConfig fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, AutotuneConfig.class);
   }
 
  /**
-  * Convert an instance of Autotuning to an JSON string
+  * Convert an instance of AutotuneConfig to an JSON string
   *
   * @return JSON string
   */

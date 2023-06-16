@@ -1201,7 +1201,7 @@ components:
         training:
           $ref: '#/components/schemas/trainingConfig'
         autotuning:
-          $ref: '#/components/schemas/autotuning'
+          $ref: '#/components/schemas/autotuneConfig'
       required:
       - features
       - streamingWindow
@@ -1437,7 +1437,7 @@ components:
         training:
           $ref: '#/components/schemas/trainingConfig'
         autotuning:
-          $ref: '#/components/schemas/autotuning'
+          $ref: '#/components/schemas/autotuneConfig'
       type: object
     postLearningResponse:
       example:
@@ -1500,7 +1500,7 @@ components:
           description: "Last time model was updated, in ISO format."
           type: string
       type: object
-    autotuning:
+    autotuneConfig:
       properties:
         range:
           default: true

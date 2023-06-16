@@ -94,7 +94,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
         gsonBuilder.registerTypeAdapterFactory(new com.boonamber.models.AnalyticResults.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.boonamber.models.Autotuning.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.boonamber.models.AutotuneConfig.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.boonamber.models.ConfigResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.boonamber.models.DeleteModelResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.boonamber.models.Error.CustomTypeAdapterFactory());

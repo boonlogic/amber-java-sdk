@@ -15,7 +15,7 @@ package com.boonamber.models;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.boonamber.models.Autotuning;
+import com.boonamber.models.AutotuneConfig;
 import com.boonamber.models.FeatureConfig;
 import com.boonamber.models.TrainingConfig;
 import com.google.gson.TypeAdapter;
@@ -72,7 +72,7 @@ public class PostConfigRequest {
 
   public static final String SERIALIZED_NAME_AUTOTUNING = "autotuning";
   @SerializedName(SERIALIZED_NAME_AUTOTUNING)
-  private Autotuning autotuning;
+  private AutotuneConfig autotuning;
 
   public PostConfigRequest() {
   }
@@ -171,7 +171,7 @@ public class PostConfigRequest {
   }
 
 
-  public PostConfigRequest autotuning(Autotuning autotuning) {
+  public PostConfigRequest autotuning(AutotuneConfig autotuning) {
     
     this.autotuning = autotuning;
     return this;
@@ -183,12 +183,12 @@ public class PostConfigRequest {
   **/
   @javax.annotation.Nullable
 
-  public Autotuning getAutotuning() {
+  public AutotuneConfig getAutotuning() {
     return autotuning;
   }
 
 
-  public void setAutotuning(Autotuning autotuning) {
+  public void setAutotuning(AutotuneConfig autotuning) {
     this.autotuning = autotuning;
   }
 
@@ -312,7 +312,7 @@ public class PostConfigRequest {
       }
       // validate the optional field `autotuning`
       if (jsonObj.get("autotuning") != null && !jsonObj.get("autotuning").isJsonNull()) {
-        Autotuning.validateJsonObject(jsonObj.getAsJsonObject("autotuning"));
+        AutotuneConfig.validateJsonObject(jsonObj.getAsJsonObject("autotuning"));
       }
   }
 

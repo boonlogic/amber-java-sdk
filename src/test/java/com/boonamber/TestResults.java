@@ -67,7 +67,7 @@ public class TestResults {
         features.add(f);
         request.setFeatures(features);
         // autotuning
-        Autotuning autotune = new Autotuning();
+        AutotuneConfig autotune = new AutotuneConfig();
         autotune.setPercentVariation(false);
         request.setAutotuning(autotune);
         // training
