@@ -73,6 +73,10 @@ public class GetStatusResponse {
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
+  public static final String SERIALIZED_NAME_GRADUATION = "graduation";
+  @SerializedName(SERIALIZED_NAME_GRADUATION)
+  private String graduation;
+
   public static final String SERIALIZED_NAME_LAST_MODIFIED = "lastModified";
   @SerializedName(SERIALIZED_NAME_LAST_MODIFIED)
   private Integer lastModified;
@@ -218,6 +222,28 @@ public class GetStatusResponse {
   }
 
 
+  public GetStatusResponse graduation(String graduation) {
+    
+    this.graduation = graduation;
+    return this;
+  }
+
+   /**
+   * Reason for learning being turned off.
+   * @return graduation
+  **/
+  @javax.annotation.Nullable
+
+  public String getGraduation() {
+    return graduation;
+  }
+
+
+  public void setGraduation(String graduation) {
+    this.graduation = graduation;
+  }
+
+
   public GetStatusResponse lastModified(Integer lastModified) {
     
     this.lastModified = lastModified;
@@ -278,13 +304,14 @@ public class GetStatusResponse {
         Objects.equals(this.clusterCount, getStatusResponse.clusterCount) &&
         Objects.equals(this.progress, getStatusResponse.progress) &&
         Objects.equals(this.message, getStatusResponse.message) &&
+        Objects.equals(this.graduation, getStatusResponse.graduation) &&
         Objects.equals(this.lastModified, getStatusResponse.lastModified) &&
         Objects.equals(this.lastModifiedDelta, getStatusResponse.lastModifiedDelta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(state, warningLevel, sampleCount, clusterCount, progress, message, lastModified, lastModifiedDelta);
+    return Objects.hash(state, warningLevel, sampleCount, clusterCount, progress, message, graduation, lastModified, lastModifiedDelta);
   }
 
   @Override
@@ -297,6 +324,7 @@ public class GetStatusResponse {
     sb.append("    clusterCount: ").append(toIndentedString(clusterCount)).append("\n");
     sb.append("    progress: ").append(toIndentedString(progress)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    graduation: ").append(toIndentedString(graduation)).append("\n");
     sb.append("    lastModified: ").append(toIndentedString(lastModified)).append("\n");
     sb.append("    lastModifiedDelta: ").append(toIndentedString(lastModifiedDelta)).append("\n");
     sb.append("}");
@@ -327,6 +355,7 @@ public class GetStatusResponse {
     openapiFields.add("clusterCount");
     openapiFields.add("progress");
     openapiFields.add("message");
+    openapiFields.add("graduation");
     openapiFields.add("lastModified");
     openapiFields.add("lastModifiedDelta");
 
@@ -356,6 +385,9 @@ public class GetStatusResponse {
       }
       if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if ((jsonObj.get("graduation") != null && !jsonObj.get("graduation").isJsonNull()) && !jsonObj.get("graduation").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `graduation` to be a primitive type in the JSON string but got `%s`", jsonObj.get("graduation").toString()));
       }
   }
 

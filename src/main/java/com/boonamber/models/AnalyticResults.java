@@ -90,6 +90,10 @@ public class AnalyticResults {
   @SerializedName(SERIALIZED_NAME_S_I)
   private List<Integer> SI = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_P_I = "PI";
+  @SerializedName(SERIALIZED_NAME_P_I)
+  private List<Integer> PI = new ArrayList<>();
+
   public AnalyticResults() {
   }
 
@@ -393,6 +397,36 @@ public class AnalyticResults {
   }
 
 
+  public AnalyticResults PI(List<Integer> PI) {
+    
+    this.PI = PI;
+    return this;
+  }
+
+  public AnalyticResults addPIItem(Integer PIItem) {
+    if (this.PI == null) {
+      this.PI = new ArrayList<>();
+    }
+    this.PI.add(PIItem);
+    return this;
+  }
+
+   /**
+   * An anomaly index that represents the probability within the model of getting that cluster. PI is scaled so that 0 is the most probable cluster (least anomalous) and values close to 1000 represent very improbable clusters, that is, that very rarely occurred during training.
+   * @return PI
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getPI() {
+    return PI;
+  }
+
+
+  public void setPI(List<Integer> PI) {
+    this.PI = PI;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -412,12 +446,13 @@ public class AnalyticResults {
         Objects.equals(this.NW, analyticResults.NW) &&
         Objects.equals(this.OM, analyticResults.OM) &&
         Objects.equals(this.RI, analyticResults.RI) &&
-        Objects.equals(this.SI, analyticResults.SI);
+        Objects.equals(this.SI, analyticResults.SI) &&
+        Objects.equals(this.PI, analyticResults.PI);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(AD, AH, AW, ID, NI, NS, NW, OM, RI, SI);
+    return Objects.hash(AD, AH, AW, ID, NI, NS, NW, OM, RI, SI, PI);
   }
 
   @Override
@@ -434,6 +469,7 @@ public class AnalyticResults {
     sb.append("    OM: ").append(toIndentedString(OM)).append("\n");
     sb.append("    RI: ").append(toIndentedString(RI)).append("\n");
     sb.append("    SI: ").append(toIndentedString(SI)).append("\n");
+    sb.append("    PI: ").append(toIndentedString(PI)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -466,6 +502,7 @@ public class AnalyticResults {
     openapiFields.add("OM");
     openapiFields.add("RI");
     openapiFields.add("SI");
+    openapiFields.add("PI");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -530,6 +567,10 @@ public class AnalyticResults {
       // ensure the optional json data is an array if present
       if (jsonObj.get("SI") != null && !jsonObj.get("SI").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `SI` to be an array in the JSON string but got `%s`", jsonObj.get("SI").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("PI") != null && !jsonObj.get("PI").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `PI` to be an array in the JSON string but got `%s`", jsonObj.get("PI").toString()));
       }
   }
 
