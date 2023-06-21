@@ -899,8 +899,8 @@ public class AmberV2Client {
         	return response;
         }
         
-        GetPretrainResponse getResponse = null;
-        while (response.getStatus().getValue().equals("Pretraining")) {
+        GetPretrainResponse getResponse = this.getPretrain(modelId);
+        while (getResponse.getStatus().getValue().equals("Pretraining")) {
         	// sleep
         	try {
 				TimeUnit.SECONDS.sleep(3);
