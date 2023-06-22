@@ -1252,6 +1252,9 @@ components:
           NW:
           - 9.301444
           - 9.301444
+          PI:
+          - 7
+          - 7
           ID:
           - 5
           - 5
@@ -1265,6 +1268,7 @@ components:
           sampleCount: 9
           clusterCount: 3
           lastModifiedDelta: 7
+          graduation: graduation
           progress: 20
           warningLevel: 7
           state: null
@@ -1320,6 +1324,9 @@ components:
           NW:
           - 9.301444
           - 9.301444
+          PI:
+          - 7
+          - 7
           ID:
           - 5
           - 5
@@ -1335,6 +1342,7 @@ components:
           sampleCount: 9
           clusterCount: 3
           lastModifiedDelta: 7
+          graduation: graduation
           progress: 20
           warningLevel: 7
           state: null
@@ -1452,6 +1460,7 @@ components:
           sampleCount: 9
           clusterCount: 3
           lastModifiedDelta: 7
+          graduation: graduation
           progress: 20
           warningLevel: 7
           state: null
@@ -1670,6 +1679,9 @@ components:
         NW:
         - 9.301444
         - 9.301444
+        PI:
+        - 7
+        - 7
         ID:
         - 5
         - 5
@@ -1756,12 +1768,22 @@ components:
             format: uint16
             type: integer
           type: array
+        PI:
+          description: "An anomaly index that represents the probability within the\
+            \ model of getting that cluster. PI is scaled so that 0 is the most probable\
+            \ cluster (least anomalous) and values close to 1000 represent very improbable\
+            \ clusters, that is, that very rarely occurred during training."
+          items:
+            format: uint16
+            type: integer
+          type: array
       type: object
     modelStatus:
       example:
         sampleCount: 9
         clusterCount: 3
         lastModifiedDelta: 7
+        graduation: graduation
         progress: 20
         warningLevel: 7
         state: null
@@ -1798,6 +1820,10 @@ components:
           x-omitempty: false
         message:
           description: Status description.
+          type: string
+          x-omitempty: false
+        graduation:
+          description: Reason for learning being turned off.
           type: string
           x-omitempty: false
         lastModified:
