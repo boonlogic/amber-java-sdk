@@ -57,6 +57,10 @@ public class ModelStatus {
   @SerializedName(SERIALIZED_NAME_WARNING_LEVEL)
   private Integer warningLevel;
 
+  public static final String SERIALIZED_NAME_COMPLIANCE_SCORE = "complianceScore";
+  @SerializedName(SERIALIZED_NAME_COMPLIANCE_SCORE)
+  private Integer complianceScore;
+
   public static final String SERIALIZED_NAME_SAMPLE_COUNT = "sampleCount";
   @SerializedName(SERIALIZED_NAME_SAMPLE_COUNT)
   private Integer sampleCount;
@@ -129,6 +133,30 @@ public class ModelStatus {
 
   public void setWarningLevel(Integer warningLevel) {
     this.warningLevel = warningLevel;
+  }
+
+
+  public ModelStatus complianceScore(Integer complianceScore) {
+    
+    this.complianceScore = complianceScore;
+    return this;
+  }
+
+   /**
+   * Current Amber compliance score: a ranged measure of the compliance of recent behavior compared to behavior observed in &#x60;Learning&#x60;. - &#x60;0&#x60;: asset critical - &#x60;100&#x60;: OK
+   * minimum: 0
+   * maximum: 100
+   * @return complianceScore
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getComplianceScore() {
+    return complianceScore;
+  }
+
+
+  public void setComplianceScore(Integer complianceScore) {
+    this.complianceScore = complianceScore;
   }
 
 
@@ -300,6 +328,7 @@ public class ModelStatus {
     ModelStatus modelStatus = (ModelStatus) o;
     return Objects.equals(this.state, modelStatus.state) &&
         Objects.equals(this.warningLevel, modelStatus.warningLevel) &&
+        Objects.equals(this.complianceScore, modelStatus.complianceScore) &&
         Objects.equals(this.sampleCount, modelStatus.sampleCount) &&
         Objects.equals(this.clusterCount, modelStatus.clusterCount) &&
         Objects.equals(this.progress, modelStatus.progress) &&
@@ -311,7 +340,7 @@ public class ModelStatus {
 
   @Override
   public int hashCode() {
-    return Objects.hash(state, warningLevel, sampleCount, clusterCount, progress, message, graduation, lastModified, lastModifiedDelta);
+    return Objects.hash(state, warningLevel, complianceScore, sampleCount, clusterCount, progress, message, graduation, lastModified, lastModifiedDelta);
   }
 
   @Override
@@ -320,6 +349,7 @@ public class ModelStatus {
     sb.append("class ModelStatus {\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    warningLevel: ").append(toIndentedString(warningLevel)).append("\n");
+    sb.append("    complianceScore: ").append(toIndentedString(complianceScore)).append("\n");
     sb.append("    sampleCount: ").append(toIndentedString(sampleCount)).append("\n");
     sb.append("    clusterCount: ").append(toIndentedString(clusterCount)).append("\n");
     sb.append("    progress: ").append(toIndentedString(progress)).append("\n");
@@ -351,6 +381,7 @@ public class ModelStatus {
     openapiFields = new HashSet<String>();
     openapiFields.add("state");
     openapiFields.add("warningLevel");
+    openapiFields.add("complianceScore");
     openapiFields.add("sampleCount");
     openapiFields.add("clusterCount");
     openapiFields.add("progress");
