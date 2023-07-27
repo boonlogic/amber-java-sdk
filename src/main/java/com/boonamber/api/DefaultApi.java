@@ -2228,7 +2228,7 @@ public class DefaultApi {
 
     /**
      * update model configuration and re-enable learning
-     * Update model configuration and re-enable learning
+     * Turns on learning and processes new data into the model
      * @param modelId  (required)
      * @param postLearningRequest updates to apply (optional)
      * @return PostLearningResponse
@@ -2250,7 +2250,7 @@ public class DefaultApi {
 
     /**
      * update model configuration and re-enable learning
-     * Update model configuration and re-enable learning
+     * Turns on learning and processes new data into the model
      * @param modelId  (required)
      * @param postLearningRequest updates to apply (optional)
      * @return ApiResponse&lt;PostLearningResponse&gt;
@@ -2273,7 +2273,7 @@ public class DefaultApi {
 
     /**
      * update model configuration and re-enable learning (asynchronously)
-     * Update model configuration and re-enable learning
+     * Turns on learning and processes new data into the model
      * @param modelId  (required)
      * @param postLearningRequest updates to apply (optional)
      * @param _callback The callback to be executed when the API call finishes

@@ -490,7 +490,7 @@ paths:
       x-accepts: application/json
   /models/{modelId}/learning:
     post:
-      description: Update model configuration and re-enable learning
+      description: Turns on learning and processes new data into the model
       operationId: postModelLearning
       parameters:
       - in: path
@@ -1206,14 +1206,40 @@ components:
       - features
       - streamingWindow
       type: object
+    postConfigResponse:
+      allOf:
+      - $ref: '#/components/schemas/configResponse'
     postLearningRequest:
       properties:
         training:
           $ref: '#/components/schemas/trainingConfig'
       type: object
-    postConfigResponse:
-      allOf:
-      - $ref: '#/components/schemas/configResponse'
+    postLearningResponse:
+      example:
+        training:
+          learningRateDenominator: 2
+          learningMaxClusters: 5
+          bufferingSamples: 6
+          historyWindow: 0
+          learningMaxSamples: 1
+          learningRateNumerator: 5
+        status:
+          sampleCount: 3
+          clusterCount: 2
+          lastModifiedDelta: 1
+          complianceScore: 93
+          graduation: graduation
+          progress: 41
+          warningLevel: 7
+          state: null
+          lastModified: 7
+          message: message
+      properties:
+        training:
+          $ref: '#/components/schemas/trainingConfig'
+        status:
+          $ref: '#/components/schemas/modelStatus'
+      type: object
     postDataRequest:
       properties:
         data:
@@ -1265,14 +1291,15 @@ components:
           - 3.6160767
           - 3.6160767
         status:
-          sampleCount: 9
-          clusterCount: 3
-          lastModifiedDelta: 7
+          sampleCount: 3
+          clusterCount: 2
+          lastModifiedDelta: 1
+          complianceScore: 93
           graduation: graduation
-          progress: 20
+          progress: 41
           warningLevel: 7
           state: null
-          lastModified: 4
+          lastModified: 7
           message: message
       properties:
         analytics:
@@ -1339,14 +1366,15 @@ components:
         vector:
           key: 0.8008282
         status:
-          sampleCount: 9
-          clusterCount: 3
-          lastModifiedDelta: 7
+          sampleCount: 3
+          clusterCount: 2
+          lastModifiedDelta: 1
+          complianceScore: 93
           graduation: graduation
-          progress: 20
+          progress: 41
           warningLevel: 7
           state: null
-          lastModified: 4
+          lastModified: 7
           message: message
       properties:
         vector:
@@ -1446,31 +1474,6 @@ components:
           $ref: '#/components/schemas/trainingConfig'
         autotuning:
           $ref: '#/components/schemas/autotuneConfig'
-      type: object
-    postLearningResponse:
-      example:
-        training:
-          learningRateDenominator: 2
-          learningMaxClusters: 5
-          bufferingSamples: 6
-          historyWindow: 0
-          learningMaxSamples: 1
-          learningRateNumerator: 5
-        status:
-          sampleCount: 9
-          clusterCount: 3
-          lastModifiedDelta: 7
-          graduation: graduation
-          progress: 20
-          warningLevel: 7
-          state: null
-          lastModified: 4
-          message: message
-      properties:
-        training:
-          $ref: '#/components/schemas/trainingConfig'
-        status:
-          $ref: '#/components/schemas/modelStatus'
       type: object
     featureConfigResponse:
       allOf:
@@ -1780,14 +1783,15 @@ components:
       type: object
     modelStatus:
       example:
-        sampleCount: 9
-        clusterCount: 3
-        lastModifiedDelta: 7
+        sampleCount: 3
+        clusterCount: 2
+        lastModifiedDelta: 1
+        complianceScore: 93
         graduation: graduation
-        progress: 20
+        progress: 41
         warningLevel: 7
         state: null
-        lastModified: 4
+        lastModified: 7
         message: message
       properties:
         state:
@@ -1796,6 +1800,17 @@ components:
           description: "Current Amber warning level, a measure of the compliance of\
             \ recent behavior compared to behavior observed `Learning`. \n- `0`: OK\n\
             - `1`: asset changing\n- `2`: asset critical"
+          format: uint16
+          type: integer
+          x-omitempty: false
+        complianceScore:
+          description: |-
+            Current Amber compliance score: a ranged measure of the compliance of recent behavior compared to behavior observed in `Learning`.
+            - `0`: asset critical
+            - `100`: OK
+          format: uint16
+          maximum: 100
+          minimum: 0
           type: integer
           x-omitempty: false
         sampleCount:

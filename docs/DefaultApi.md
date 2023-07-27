@@ -1118,7 +1118,7 @@ public class Example {
 
 update model configuration and re-enable learning
 
-Update model configuration and re-enable learning
+Turns on learning and processes new data into the model
 
 ### Example
 ```java
