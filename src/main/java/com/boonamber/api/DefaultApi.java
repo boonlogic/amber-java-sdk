@@ -1206,6 +1206,7 @@ public class DefaultApi {
     /**
      * Build call for getModelSummary
      * @param modelId  (required)
+     * @param trainingSamples Whether to return training samples (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1218,7 +1219,7 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getModelSummaryCall(String modelId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getModelSummaryCall(String modelId, Boolean trainingSamples, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1244,6 +1245,10 @@ public class DefaultApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (trainingSamples != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("trainingSamples", trainingSamples));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -1264,13 +1269,13 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getModelSummaryValidateBeforeCall(String modelId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getModelSummaryValidateBeforeCall(String modelId, Boolean trainingSamples, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'modelId' is set
         if (modelId == null) {
             throw new ApiException("Missing the required parameter 'modelId' when calling getModelSummary(Async)");
         }
 
-        return getModelSummaryCall(modelId, _callback);
+        return getModelSummaryCall(modelId, trainingSamples, _callback);
 
     }
 
@@ -1278,6 +1283,7 @@ public class DefaultApi {
      * get the summation of a model
      * Get the current summation of the specified model.
      * @param modelId  (required)
+     * @param trainingSamples Whether to return training samples (optional, default to false)
      * @return String
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1289,8 +1295,8 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public String getModelSummary(String modelId) throws ApiException {
-        ApiResponse<String> localVarResp = getModelSummaryWithHttpInfo(modelId);
+    public String getModelSummary(String modelId, Boolean trainingSamples) throws ApiException {
+        ApiResponse<String> localVarResp = getModelSummaryWithHttpInfo(modelId, trainingSamples);
         return localVarResp.getData();
     }
 
@@ -1298,6 +1304,7 @@ public class DefaultApi {
      * get the summation of a model
      * Get the current summation of the specified model.
      * @param modelId  (required)
+     * @param trainingSamples Whether to return training samples (optional, default to false)
      * @return ApiResponse&lt;String&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1309,8 +1316,8 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<String> getModelSummaryWithHttpInfo(String modelId) throws ApiException {
-        okhttp3.Call localVarCall = getModelSummaryValidateBeforeCall(modelId, null);
+    public ApiResponse<String> getModelSummaryWithHttpInfo(String modelId, Boolean trainingSamples) throws ApiException {
+        okhttp3.Call localVarCall = getModelSummaryValidateBeforeCall(modelId, trainingSamples, null);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1319,6 +1326,7 @@ public class DefaultApi {
      * get the summation of a model (asynchronously)
      * Get the current summation of the specified model.
      * @param modelId  (required)
+     * @param trainingSamples Whether to return training samples (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1331,9 +1339,9 @@ public class DefaultApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getModelSummaryAsync(String modelId, final ApiCallback<String> _callback) throws ApiException {
+    public okhttp3.Call getModelSummaryAsync(String modelId, Boolean trainingSamples, final ApiCallback<String> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getModelSummaryValidateBeforeCall(modelId, _callback);
+        okhttp3.Call localVarCall = getModelSummaryValidateBeforeCall(modelId, trainingSamples, _callback);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
