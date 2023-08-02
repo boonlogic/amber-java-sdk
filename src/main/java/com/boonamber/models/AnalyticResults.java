@@ -78,6 +78,10 @@ public class AnalyticResults {
   @SerializedName(SERIALIZED_NAME_N_W)
   private List<Float> NW = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_C_S = "CS";
+  @SerializedName(SERIALIZED_NAME_C_S)
+  private List<Integer> CS = new ArrayList<>();
+
   public static final String SERIALIZED_NAME_O_M = "OM";
   @SerializedName(SERIALIZED_NAME_O_M)
   private List<Float> OM = new ArrayList<>();
@@ -307,6 +311,36 @@ public class AnalyticResults {
   }
 
 
+  public AnalyticResults CS(List<Integer> CS) {
+    
+    this.CS = CS;
+    return this;
+  }
+
+  public AnalyticResults addCSItem(Integer CSItem) {
+    if (this.CS == null) {
+      this.CS = new ArrayList<>();
+    }
+    this.CS.add(CSItem);
+    return this;
+  }
+
+   /**
+   * See Boon Docs.
+   * @return CS
+  **/
+  @javax.annotation.Nullable
+
+  public List<Integer> getCS() {
+    return CS;
+  }
+
+
+  public void setCS(List<Integer> CS) {
+    this.CS = CS;
+  }
+
+
   public AnalyticResults OM(List<Float> OM) {
     
     this.OM = OM;
@@ -444,6 +478,7 @@ public class AnalyticResults {
         Objects.equals(this.NI, analyticResults.NI) &&
         Objects.equals(this.NS, analyticResults.NS) &&
         Objects.equals(this.NW, analyticResults.NW) &&
+        Objects.equals(this.CS, analyticResults.CS) &&
         Objects.equals(this.OM, analyticResults.OM) &&
         Objects.equals(this.RI, analyticResults.RI) &&
         Objects.equals(this.SI, analyticResults.SI) &&
@@ -452,7 +487,7 @@ public class AnalyticResults {
 
   @Override
   public int hashCode() {
-    return Objects.hash(AD, AH, AW, ID, NI, NS, NW, OM, RI, SI, PI);
+    return Objects.hash(AD, AH, AW, ID, NI, NS, NW, CS, OM, RI, SI, PI);
   }
 
   @Override
@@ -466,6 +501,7 @@ public class AnalyticResults {
     sb.append("    NI: ").append(toIndentedString(NI)).append("\n");
     sb.append("    NS: ").append(toIndentedString(NS)).append("\n");
     sb.append("    NW: ").append(toIndentedString(NW)).append("\n");
+    sb.append("    CS: ").append(toIndentedString(CS)).append("\n");
     sb.append("    OM: ").append(toIndentedString(OM)).append("\n");
     sb.append("    RI: ").append(toIndentedString(RI)).append("\n");
     sb.append("    SI: ").append(toIndentedString(SI)).append("\n");
@@ -499,6 +535,7 @@ public class AnalyticResults {
     openapiFields.add("NI");
     openapiFields.add("NS");
     openapiFields.add("NW");
+    openapiFields.add("CS");
     openapiFields.add("OM");
     openapiFields.add("RI");
     openapiFields.add("SI");
@@ -555,6 +592,10 @@ public class AnalyticResults {
       // ensure the optional json data is an array if present
       if (jsonObj.get("NW") != null && !jsonObj.get("NW").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `NW` to be an array in the JSON string but got `%s`", jsonObj.get("NW").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("CS") != null && !jsonObj.get("CS").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `CS` to be an array in the JSON string but got `%s`", jsonObj.get("CS").toString()));
       }
       // ensure the optional json data is an array if present
       if (jsonObj.get("OM") != null && !jsonObj.get("OM").isJsonArray()) {

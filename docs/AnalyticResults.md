@@ -14,6 +14,7 @@
 |**NI** | **List&lt;Integer&gt;** | See Boon Docs. |  [optional] |
 |**NS** | **List&lt;Integer&gt;** | See Boon Docs. |  [optional] |
 |**NW** | **List&lt;Float&gt;** | See Boon Docs. |  [optional] |
+|**CS** | **List&lt;Integer&gt;** | See Boon Docs. |  [optional] |
 |**OM** | **List&lt;Float&gt;** | See Boon Docs. |  [optional] |
 |**RI** | **List&lt;Integer&gt;** | An integer between 0 and 1000 giving a measure of how anomalous this pattern is compared to patterns seen in the past. Values closer to 0 represent patterns which are ordinary given the data seen so far on this model, while values closer to 1000 represent anomalous patterns. Patterns with a high &#x60;anomalyIndex&#x60; belong to clusters with relatively few patterns compared to the other clusters. |  [optional] |
 |**SI** | **List&lt;Integer&gt;** | Exponentially smoothed &#x60;anomalyIndex&#x60; over the last 15 samples. The range remains between 0 and 1000. |  [optional] |

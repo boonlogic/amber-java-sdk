@@ -772,6 +772,12 @@ paths:
         required: true
         schema:
           type: string
+      - description: Whether to return training samples
+        in: query
+        name: trainingSamples
+        schema:
+          default: false
+          type: boolean
       responses:
         "200":
           content:
@@ -1257,6 +1263,9 @@ components:
     postDataResponse:
       example:
         analytics:
+          CS:
+          - 3
+          - 3
           AD:
           - 6
           - 6
@@ -1267,20 +1276,20 @@ components:
           - 5
           - 5
           SI:
-          - 4
-          - 4
+          - 7
+          - 7
           AH:
           - 1
           - 1
           RI:
-          - 2
-          - 2
+          - 4
+          - 4
           NW:
           - 9.301444
           - 9.301444
           PI:
-          - 7
-          - 7
+          - 1
+          - 1
           ID:
           - 5
           - 5
@@ -1288,8 +1297,8 @@ components:
           - 2
           - 2
           OM:
-          - 3.6160767
-          - 3.6160767
+          - 2.027123
+          - 2.027123
         status:
           sampleCount: 3
           clusterCount: 2
@@ -1330,6 +1339,9 @@ components:
     putDataResponse:
       example:
         analytics:
+          CS:
+          - 3
+          - 3
           AD:
           - 6
           - 6
@@ -1340,20 +1352,20 @@ components:
           - 5
           - 5
           SI:
-          - 4
-          - 4
+          - 7
+          - 7
           AH:
           - 1
           - 1
           RI:
-          - 2
-          - 2
+          - 4
+          - 4
           NW:
           - 9.301444
           - 9.301444
           PI:
-          - 7
-          - 7
+          - 1
+          - 1
           ID:
           - 5
           - 5
@@ -1361,8 +1373,8 @@ components:
           - 2
           - 2
           OM:
-          - 3.6160767
-          - 3.6160767
+          - 2.027123
+          - 2.027123
         vector:
           key: 0.8008282
         status:
@@ -1661,6 +1673,9 @@ components:
       type: object
     analyticResults:
       example:
+        CS:
+        - 3
+        - 3
         AD:
         - 6
         - 6
@@ -1671,20 +1686,20 @@ components:
         - 5
         - 5
         SI:
-        - 4
-        - 4
+        - 7
+        - 7
         AH:
         - 1
         - 1
         RI:
-        - 2
-        - 2
+        - 4
+        - 4
         NW:
         - 9.301444
         - 9.301444
         PI:
-        - 7
-        - 7
+        - 1
+        - 1
         ID:
         - 5
         - 5
@@ -1692,8 +1707,8 @@ components:
         - 2
         - 2
         OM:
-        - 3.6160767
-        - 3.6160767
+        - 2.027123
+        - 2.027123
       properties:
         AD:
           description: A binary array where 1 means a pattern was anomalous and 0
@@ -1746,6 +1761,12 @@ components:
           items:
             format: float
             type: number
+          type: array
+        CS:
+          description: See Boon Docs.
+          items:
+            format: uint16
+            type: integer
           type: array
         OM:
           description: See Boon Docs.
